@@ -1,16 +1,5 @@
-### Private files
-/develop.properties
-/production.properties
-/config/
-/web/
-/config-persistent
-/mongo-persistent
-
-### OSX fork resources
-.DS_Store
-
 ### Maven template
-/target/
+target/
 #pom.xml.tag
 #pom.xml.releaseBackup
 #pom.xml.versionsBackup
@@ -20,14 +9,23 @@
 #buildNumber.properties
 #.mvn/timing.properties
 
+### VS Code
+.history
+.settings
+.vscode
+.classpath
+.project
+.factorypath
+
 ### IntelliJ IDEA
-/.idea
+.idea
 *.iml
+.DS_Store
 microservice-common/.DS_Store
 microservice-common/.vertx/
 microservice-common/src/main/java/.DS_Store
 microservice-common/src/main/java/it/.DS_Store
 microservice-common/src/main/java/it/beng/.DS_Store
 
-### vert.x
-/.vertx/
+### project settings
+node_modules
