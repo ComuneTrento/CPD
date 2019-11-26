@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>it.beng</groupId>
+    <artifactId>microservice-stack</artifactId>
+    <version>1.9-SNAPSHOT</version>
+  </parent>
+  <artifactId>microservice-common</artifactId>
+  <packaging>jar</packaging>
+  <name>beng micro-service common features</name>
+  <url>http://www.business-engineering.it</url>
+  <properties></properties>
+  <dependencyManagement>
+    <dependencies>
+      <!-- CommonJS for nashorn (for Ajv) -->
+      <dependency>
+        <groupId>com.coveo</groupId>
+        <artifactId>nashorn-commonjs-modules</artifactId>
+        <version>1.0.9</version>
+        <scope>compile</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <!-- vertx -->
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-mongo-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-codegen</artifactId>
+    </dependency>
+    <!-- Guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <!-- CommonJS for Nashorn -->
+    <dependency>
+      <groupId>com.coveo</groupId>
+      <artifactId>nashorn-commonjs-modules</artifactId>
+    </dependency>
+    <!-- Log4j2 logging -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jul</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+    </dependency>
+    <!-- disruptor is needed by log4j2 for low latency async loggers -->
+    <dependency>
+      <groupId>com.lmax</groupId>
+      <artifactId>disruptor</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <workingDirectory>${basedir}/src/main/resources/it/beng/microservice/schema</workingDirectory>
+              <executable>npm</executable>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>hostname</executable>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

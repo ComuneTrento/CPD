@@ -1,0 +1,68 @@
+{
+  "develop": false,
+  "version": "1.4-SNAPSHOT",
+  "ssl": {
+    "enabled": ${cpd.ssl.enabled},
+    "keyStoreFilename": "${cpd.ssl.keystore.filename}",
+    "keyStorePassword": "${cpd.ssl.keystore.password}"
+  },
+  "server": {
+    "adminId": "${cpd.server.adminId}",
+    "name": "Collaborative Procedure Designer Server",
+    "scheme": "${cpd.server.scheme}",
+    "hostname": "${cpd.server.host}",
+    "port": ${cpd.server.port},
+    "baseHref": "${cpd.server.baseHref}",
+    "allowedOriginPattern": "${cpd.server.allowedOriginPattern}",
+    "pub": {
+      "scheme": "${cpd.server.pub.scheme}",
+      "hostname": "${cpd.server.pub.host}",
+      "port": ${cpd.server.pub.port}
+    },
+    "cacheBuilder": {
+      "concurrencyLevel": 1,
+      "initialCapacity": 100,
+      "maximumSize": 1000,
+      "expireAfterAccess": "60s"
+    },
+    "schema": {
+      "path": "schema/"
+    },
+    "eventBus": {
+      "path": "eventbus/",
+      "diagramAddress": "cpd::design"
+    },
+    "auth": {
+      "path": "auth/"
+    },
+    "data": {
+      "path": "data/"
+    },
+    "api": {
+      "path": "api/"
+    },
+    "assets": {
+      "allowListing": false
+    }
+  },
+  "app": {
+    "useLocalAuth": false,
+    "locales": ["en","es","it","gl"],
+    "designerPath": "procedures/"
+  },
+  "mongodb": {
+    "host": "${cpd.mongodb.host}",
+    "port": ${cpd.mongodb.port},
+    "username": "${cpd.mongodb.username}",
+    "password": "${cpd.mongodb.password}",
+    "db_name": "${cpd.mongodb.name}",
+    "useObjectId": false,
+    "maxPoolSize": 100,
+    "maxIdleTimeMS": 60000,
+    "maxLifeTimeMS": 3600000
+  },
+  "oauth2": {
+    "origin": "${cpd.oauth2.origin}",
+    "providers": ${cpd.oauth2.providers}
+  }
+}

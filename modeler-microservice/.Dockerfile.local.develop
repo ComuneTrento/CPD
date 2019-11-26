@@ -1,0 +1,16 @@
+FROM frolvlad/alpine-oraclejdk8 as builder
+
+#Configure the develop environment
+RUN apk update
+RUN apk add maven
+RUN apk add mongodb mongodb-tools
+RUN apk add bash
+RUN apk add vim
+
+WORKDIR /develop
+
+ADD pom.xml /develop
+RUN mvn verify --fail-never -P docker-verify
+ADD . /develop
+RUN ./docker/docker.prepare-bundle.sh
+

@@ -1,0 +1,30 @@
+{
+  "aggregate": "model",
+  "pipeline": [
+    {
+      "$lookup": {
+        "from": "diagram",
+        "localField": "_id",
+        "foreignField": "modelId",
+        "as": "diagram"
+      }
+    },
+    {
+      "$match": {
+        "$or": [
+          {
+            "diagram._id": "{rootId}"
+          },
+          {
+            "diagram.rootId": "{rootId}"
+          }
+        ]
+      }
+    },
+    {
+      "$project": {
+        "diagram": 0
+      }
+    }
+  ]
+}

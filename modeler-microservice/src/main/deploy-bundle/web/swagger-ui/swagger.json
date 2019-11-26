@@ -1,0 +1,728 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the [![Simpatico](https://simpatico.business-engineering.it/cpd/assets/img/left_simpatico_small.png)](http://www.simpatico-project.eu/) Collaborative Procedure Designer Server **public** API documentation page.",
+    "version": "1.0.0",
+    "title": "CPD Server",
+    "contact": {
+      "email": "v.cartelli@business-engineering.it"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "${cpd.server.pub.host}:${cpd.server.pub.port}",
+  "basePath": "${cpd.server.baseHref}${cpd.server.api.path}",
+  "schemes": [
+    "${cpd.server.pub.scheme}"
+  ],
+  "paths": {
+    "/stats/procedure/{procedureId}/eServiceCount": {
+      "get": {
+        "tags": [
+          "stats"
+        ],
+        "summary": "Fetch the number of e-service in the procedure",
+        "description": "Fetches the number of all the e-services that are associated to the _Procedure_ identified by **{procedureId}**.",
+        "operationId": "getProcedureEServiceCount",
+        "parameters": [
+          {
+            "name": "procedureId",
+            "in": "path",
+            "description": "ID of the procedure",
+            "required": true,
+            "type": "string",
+            "default": "33f60d00-79d5-4d8f-89cc-166ab4577b97"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "title": "EServiceCount",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "ID of the Procedure",
+                  "example": "33f60d00-79d5-4d8f-89cc-166ab4577b97"
+                },
+                "count": {
+                  "type": "integer",
+                  "description": "Number of e-services associated to the Procedure",
+                  "example": 1
+                }
+              },
+              "required": [
+                "id",
+                "count"
+              ]
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/stats/procedure/{procedureId}/userFeedbackCount": {
+      "get": {
+        "tags": [
+          "stats"
+        ],
+        "summary": "Fetch the number of user feedbacks in the procedure",
+        "description": "Fetches the number of all the user feedbacks submitted in the _Procedure_ identified by **{procedureId}**.",
+        "operationId": "getProcedureUserFeedbackCount",
+        "parameters": [
+          {
+            "name": "procedureId",
+            "in": "path",
+            "description": "ID of the procedure",
+            "required": true,
+            "type": "string",
+            "default": "32585f79-cce0-4aca-86bf-f8df7a641091"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "title": "UserFeedbackCount",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "ID of the Procedure",
+                  "example": "32585f79-cce0-4aca-86bf-f8df7a641091"
+                },
+                "count": {
+                  "type": "integer",
+                  "description": "Number of user feedbacks submitted in the Procedure",
+                  "example": 1
+                }
+              },
+              "required": [
+                "id",
+                "count"
+              ]
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/procedure/summary/list": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "List all the procedures summaries",
+        "description": "Retrieves the list of **all** _ProcedureSummary_.",
+        "operationId": "getProcedureSummaryList",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Procedure.Summary"
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/procedure/{procedureId}/summary": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Fetch the procedure summary by procedure ID",
+        "description": "Retrieves the _ProcedureSummary_ for the given procedure **{procedureId}**.",
+        "operationId": "getProcedureSummary",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "procedureId",
+            "in": "path",
+            "description": "id of the procedure",
+            "required": true,
+            "type": "string",
+            "default": "c9561247-d5a7-4578-98b9-58021ee68ae0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Procedure.Summary"
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/procedure/eService/{eServiceId}/summary": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Fetch the procedure summary by e-service ID",
+        "description": "Retrieves the _ProcedureSummary_ for the given e-service **{eServiceId}**.",
+        "operationId": "getProcedureEServiceSummary",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "eServiceId",
+            "in": "path",
+            "description": "id of the e-service",
+            "required": true,
+            "type": "string",
+            "default": "08677aef-2b6d-4fff-bf10-91b2fe82bdc5"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Procedure.Summary"
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/eService/{eServiceId}/summary": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Fetch the e-service summary by e-service ID",
+        "description": "Retrieves the EService _InteractionTask_ for the given e-service **{eServiceId}**.",
+        "operationId": "getEServiceSummary",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "eServiceId",
+            "in": "path",
+            "description": "id of the e-service",
+            "required": true,
+            "type": "string",
+            "default": "08677aef-2b6d-4fff-bf10-91b2fe82bdc5"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Interaction.Task"
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/feedback/{fromDateTime}": {
+      "get": {
+        "tags": [
+          "feedback"
+        ],
+        "summary": "Fetch the list of user feedback",
+        "description": "Retrieves the user feedback from the given **{fromDateTime}**.",
+        "operationId": "getUserFeedbackFrom",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fromDateTime",
+            "in": "path",
+            "description": "ISO-8601 date-time from which to show the results",
+            "required": true,
+            "type": "string",
+            "default": "2017-02-15T12:32:00+01:00"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserFeedbacks"
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/feedback/{fromDateTime}/{toDateTime}": {
+      "get": {
+        "tags": [
+          "feedback"
+        ],
+        "summary": "Fetch the list of user feedback",
+        "description": "Retrieves the user feedback within the range [**{fromDateTime}**,**{toDateTime}**[.",
+        "operationId": "getUserFeedback",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fromDateTime",
+            "in": "path",
+            "description": "ISO-8601 date-time where the list begins (included)",
+            "required": true,
+            "type": "string",
+            "default": "2017-02-15T12:32:00+01:00"
+          },
+          {
+            "name": "toDateTime",
+            "in": "path",
+            "description": "ISO-8601 date-time where the list stops (excluded)",
+            "required": true,
+            "type": "string",
+            "default": "2018-01-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserFeedbacks"
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^([a-zA-Z][a-zA-Zd+\\-.]*):\\/\\/"
+    },
+    "text": {
+      "type": "string"
+    },
+    "non-negative-number": {
+      "type": "number",
+      "minimum": 0.0
+    },
+    "date-time": {
+      "title": "DateTime",
+      "type": "object",
+      "properties": {
+        "$date": {
+          "type": "string",
+          "description": "ISO-8601 date-time representation"
+        }
+      },
+      "required": [
+        "$date"
+      ]
+    },
+    "Model.Notation": {
+      "title": "Model Notation",
+      "description": "Notation of the Model",
+      "type": "string",
+      "enum": [
+        "Model.Notation.FPMN"
+      ]
+    },
+    "Model.FPMN.Interaction.Subject": {
+      "title": "FPMN Interaction Subject",
+      "description": "A FPMN Interaction Subject",
+      "type": "string",
+      "enum": [
+        "Model.FPMN.Interaction.Subject.PublicBody",
+        "Model.FPMN.Interaction.Subject.PrivateBody"
+      ]
+    },
+    "Model.FPMN.Interaction.Channel": {
+      "title": "FPMN Interaction Channel",
+      "description": "A FPMN Interaction Channel",
+      "type": "string",
+      "enum": [
+        "Model.FPMN.Interaction.Channel.EService",
+        "Model.FPMN.Interaction.Channel.EMail",
+        "Model.FPMN.Interaction.Channel.FaceToFace",
+        "Model.FPMN.Interaction.Channel.OrdinaryMail",
+        "Model.FPMN.Interaction.Channel.RegisteredMail",
+        "Model.FPMN.Interaction.Channel.Phone",
+        "Model.FPMN.Interaction.Channel.Fax"
+      ]
+    },
+    "Procedure.Summary": {
+      "title": "Procedure Summary",
+      "description": "Diagram Summary",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Procedure ID",
+          "description": "ID of the Procedure",
+          "example": "43467de2-9f42-477f-9f00-13b70f53ce24"
+        },
+        "notation": {
+          "title": "Notation",
+          "description": "Notation of the Diagram",
+          "$ref": "#/definitions/Model.Notation",
+          "example": "Model.Notation.FPMN"
+        },
+        "version": {
+          "type": "integer",
+          "title": "Version",
+          "description": "Version of the diagram"
+        },
+        "created": {
+          "$ref": "#/definitions/date-time",
+          "title": "Creation timestamp",
+          "description": "Date and time of diagram creation"
+        },
+        "lastModified": {
+          "$ref": "#/definitions/date-time",
+          "title": "Last modification timestamp",
+          "description": "Date and time of diagram last modification"
+        },
+        "language": {
+          "type": "string",
+          "title": "Language",
+          "description": "Language used for name and documentation fields"
+        },
+        "name": {
+          "title": "Procedure Name",
+          "description": "Name of the Procedure",
+          "type": "string",
+          "example": "Ammissione al servizio di nido d’infanzia"
+        },
+        "documentation": {
+          "title": "Documentation",
+          "description": "Documentation of the Procedure",
+          "type": "string",
+          "example": "Il servizio di asilo nido si propone di offrire il servizio..."
+        },
+        "phases": {
+          "title": "Phases",
+          "description": "Phases of the Procedure",
+          "type": "array",
+          "items": {
+            "title": "Phase",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "eServiceIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "08677aef-2b6d-4fff-bf10-91b2fe82bdc5"
+                }
+              },
+              "language": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string",
+                "example": "Richiesta di ammissione"
+              },
+              "documentation": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "language",
+              "name",
+              "url"
+            ]
+          }
+        },
+        "url": {
+          "title": "Url",
+          "description": "link to the Diagram in the web application",
+          "type": "string",
+          "example": "https://${cpd.server.pub.host}:${cpd.server.pub.port}${cpd.server.baseHref}en/en/procedures/d2c43fe1-2127-4969-8c07-5b1479c44ba2/33f60d00-79d5-4d8f-89cc-166ab4577b97"
+        },
+        "svg": {
+          "title": "Svg",
+          "description": "link to the svg image of the Diagram",
+          "type": "string",
+          "example": "https://${cpd.server.pub.host}:${cpd.server.pub.port}${cpd.server.baseHref}api/model/diagram/d2c43fe1-2127-4969-8c07-5b1479c44ba2.svg"
+        }
+      },
+      "required": [
+        "id",
+        "notation",
+        "version",
+        "created",
+        "lastModified",
+        "language",
+        "name",
+        "phases",
+        "url",
+        "svg"
+      ]
+    },
+    "Interaction.Task": {
+      "title": "FPMN Interaction Task",
+      "description": "A FPMN Interaction Task",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "ID",
+          "description": "ID of this Object",
+          "type": "string",
+          "readOnly": true
+        },
+        "notation": {
+          "title": "Notation",
+          "description": "Notation of this Model",
+          "$ref": "#/definitions/Model.Notation",
+          "readOnly": true
+        },
+        "parentId": {
+          "title": "Parten Id",
+          "description": "ID of the Model Element owning this Model Child",
+          "type": "string",
+          "readOnly": true
+        },
+        "incomingSequenceIds": {
+          "title": "Incoming Sequences IDs",
+          "description": "Array of incoming Interaciton Sequence IDs",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "outgoingSequenceIds": {
+          "title": "Outgoing Sequences IDs",
+          "description": "Array of outgoing Interaciton Sequence IDs",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "subject": {
+          "title": "Subject",
+          "description": "Subject of this Interaction",
+          "$ref": "#/definitions/Model.FPMN.Interaction.Subject"
+        },
+        "channels": {
+          "title": "Channel",
+          "description": "Interaction channel (e.g. \"e-mail\")",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Model.FPMN.Interaction.Channel"
+          }
+        },
+        "eServiceId": {
+          "title": "E-Service ID",
+          "description": "Optional ID of the e-service associated to this Interaction",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "description": "Language used for this Model",
+          "type": "string",
+          "default": "en"
+        },
+        "name": {
+          "title": "Name",
+          "description": "Name of this Model",
+          "type": "string"
+        },
+        "documentation": {
+          "title": "Documentation",
+          "description": "Documentation of this Model",
+          "type": "string"
+        },
+        "$domain": {
+          "title": "Domain",
+          "description": "Domain of this Object",
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "channels",
+        "subject",
+        "language",
+        "name"
+      ]
+    },
+    "UserFeedbacks": {
+      "title": "UserFeedbackList",
+      "description": "The list of user feedbacks within a date-time range",
+      "type": "object",
+      "properties": {
+        "dateTimeRange": {
+          "type": "object",
+          "properties": {
+            "$gte": {
+              "$ref": "#/definitions/date-time",
+              "example": {
+                "$date": "2017-02-15T12:32+01:00"
+              }
+            },
+            "$lt": {
+              "$ref": "#/definitions/date-time",
+              "example": {
+                "$date": "2017-04-15T00:00+01:00"
+              }
+            }
+          },
+          "required": [
+            "$gte"
+          ]
+        },
+        "feedbackList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "ID of the feedback",
+                "example": "4053a4e7-efb1-4c1c-99ba-2ed53176b37e"
+              },
+              "dateTime": {
+                "$ref": "#/definitions/date-time",
+                "description": "ISO-8601 date-time of when the feedback has been posted",
+                "example": {
+                  "$date": "2017-03-15T12:35:20.201Z"
+                }
+              },
+              "userId": {
+                "type": "string",
+                "description": "ID of the user who posted the feedback",
+                "example": "citizen1@simpatico.eu"
+              },
+              "message": {
+                "type": "string",
+                "description": "the posted feedback text",
+                "example": "Il permesso potrebbe essere rilasciato via PEC"
+              },
+              "diagramId": {
+                "type": "string",
+                "description": "ID of the diagram where the feedback has been posted",
+                "example": "62c02032-0b13-436c-9a96-00a7e479801b"
+              },
+              "modelId": {
+                "type": "string",
+                "description": "ID of the diagram element where the feedback has been posted",
+                "example": "5f9166af-8cd5-4bd5-a114-3c9c87ebddf9"
+              },
+              "url": {
+                "title": "Url",
+                "description": "link to the Diagram (with the focused Diagram Element) in the web application",
+                "type": "string",
+                "example": "https://${cpd.server.pub.host}:${cpd.server.pub.port}${cpd.server.baseHref}en/diagram/62c02032-0b13-436c-9a96-00a7e479801b/f17b9bf0-f2b7-4eb3-b8a4-0bd638dda677"
+              },
+              "svg": {
+                "title": "Svg",
+                "description": "link to the svg image of the Diagram",
+                "type": "string",
+                "example": "https://${cpd.server.pub.host}:${cpd.server.pub.port}${cpd.server.baseHref}assets/svg/62c02032-0b13-436c-9a96-00a7e479801b.svg"
+              }
+            },
+            "required": [
+              "id",
+              "dateTime",
+              "userId",
+              "message",
+              "diagramId",
+              "modelId",
+              "url"
+            ]
+          }
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    }
+  }
+}

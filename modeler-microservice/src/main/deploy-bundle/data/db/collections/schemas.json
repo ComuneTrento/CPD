@@ -1,0 +1,1361 @@
+[{
+	"_id": "Dg.Bounds",
+	"title": "Bounds",
+	"description": "Bounds Object",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Dg.Point",
+		"Dg.Dimensions"
+	],
+	"properties": {
+		"x": {
+			"propertyOrder": 1.0,
+			"description": "x coordinate of the top-left corner of this Bounds"
+		},
+		"y": {
+			"propertyOrder": 2.0,
+			"description": "y coordinate of the top-left corner of this Bounds"
+		},
+		"width": {
+			"propertyOrder": 3.0,
+			"description": "width of this Bounds"
+		},
+		"height": {
+			"propertyOrder": 4.0,
+			"description": "height of this Bounds"
+		}
+	}
+},
+{
+	"_id": "Dg.Dimensions",
+	"title": "Dimensions",
+	"description": "A Dimensions Object",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"width": {
+			"propertyOrder": 1.0,
+			"title": "Width",
+			"description": "Width of this Dimensions",
+			"＄ref": "type#non-negative-number"
+		},
+		"height": {
+			"propertyOrder": 2.0,
+			"title": "Height",
+			"description": "Height of this Dimensions",
+			"＄ref": "type#non-negative-number"
+		}
+	},
+	"required": [
+		"width",
+		"height"
+	]
+},
+{
+	"_id": "Dg.Label",
+	"title": "Label",
+	"description": "Label Object",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"bounds": {
+			"propertyOrder": 1.0,
+			"title": "Bounds",
+			"description": "Bounds of this Label",
+			"＄ref": "Dg.Bounds"
+		}
+	},
+	"required": [
+		"bounds"
+	]
+},
+{
+	"_id": "Dg.Point",
+	"title": "Point",
+	"description": "A Point Object",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"x": {
+			"propertyOrder": 1.0,
+			"title": "X",
+			"description": "X coordinate of this Point",
+			"＄ref": "type#number"
+		},
+		"y": {
+			"propertyOrder": 2.0,
+			"title": "Y",
+			"description": "Y coordinate of this Point",
+			"＄ref": "type#number"
+		}
+	},
+	"required": [
+		"x",
+		"y"
+	]
+},
+{
+	"_id": "Dg.Unit",
+	"title": "Unit",
+	"description": "Unit of linear measure",
+	"type": "string",
+	"enum": [
+		"em",
+		"ex",
+		"px",
+		"in",
+		"mm",
+		"cm",
+		"pt",
+		"pc"
+	]
+},
+{
+	"_id": "Dg.Waypoint",
+	"title": "Waypoint",
+	"description": "Waypoint Array",
+	"type": "array",
+	"items": {
+		"＄ref": "Dg.Point"
+	}
+},
+{
+	"_id": "Di.Board",
+	"title": "Board",
+	"description": "A Diagram Board",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Di.Shape"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"planeId": {
+			"propertyOrder": 2.0
+		},
+		"modelId": {
+			"propertyOrder": 3.0
+		},
+		"label": {
+			"propertyOrder": 4.0
+		},
+		"bounds": {
+			"propertyOrder": 5.0
+		},
+		"＄domain": {
+			"propertyOrder": 6.0,
+			"const": "Di.Board"
+		}
+	}
+},
+{
+	"_id": "Di.Edge",
+	"title": "Edge",
+	"description": "A Diagram Edge",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Di.Element"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"planeId": {
+			"propertyOrder": 2.0
+		},
+		"modelId": {
+			"propertyOrder": 3.0
+		},
+		"label": {
+			"propertyOrder": 4.0
+		},
+		"waypoints": {
+			"propertyOrder": 5.0,
+			"title": "Waypoint",
+			"description": "Waypoint of this Edge",
+			"＄ref": "Dg.Waypoint"
+		},
+		"＄domain": {
+			"propertyOrder": 6.0,
+			"const": "Di.Edge"
+		}
+	},
+	"required": [
+		"waypoints"
+	]
+},
+{
+	"_id": "Di.Element",
+	"title": "Diagram Element",
+	"description": "A Graphical Representation of a Model Element",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Di.Thing"
+	],
+	"properties": {
+		"planeId": {
+			"title": "Plane ID",
+			"description": "ID of the Plane owning this Diagram Element",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		},
+		"label": {
+			"title": "Label",
+			"description": "Label of this Diagram Element",
+			"＄ref": "Dg.Label"
+		}
+	},
+	"required": [
+		"planeId"
+	]
+},
+{
+	"_id": "Di.Plane",
+	"title": "Plane",
+	"description": "A Container of Diagram Elements",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Di.Thing"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"modelId": {
+			"propertyOrder": 2.0
+		},
+		"unit": {
+			"propertyOrder": 3.0,
+			"title": "Unit",
+			"description": "Unit of measure of this Plane",
+			"＄ref": "Dg.Unit"
+		},
+		"bounds": {
+			"propertyOrder": 4.0,
+			"title": "Bounds",
+			"description": "Bounds of this Plane",
+			"＄ref": "Dg.Bounds"
+		},
+		"＄domain": {
+			"propertyOrder": 5.0,
+			"const": "Di.Plane"
+		}
+	},
+	"required": [
+		"unit",
+		"bounds"
+	]
+},
+{
+	"_id": "Di.Shape",
+	"title": "Shape",
+	"description": "A Diagram Shape",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Di.Element"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"planeId": {
+			"propertyOrder": 2.0
+		},
+		"modelId": {
+			"propertyOrder": 3.0
+		},
+		"label": {
+			"propertyOrder": 4.0
+		},
+		"bounds": {
+			"propertyOrder": 5.0,
+			"title": "Bounds",
+			"description": "Bounds of this Shape",
+			"＄ref": "Dg.Bounds",
+			"readOnly": true
+		},
+		"＄domain": {
+			"propertyOrder": 6.0,
+			"const": "Di.Shape"
+		}
+	},
+	"required": [
+		"bounds"
+	]
+},
+{
+	"_id": "Di.Thing",
+	"title": "Diagram Thing",
+	"description": "A Diagram Thing",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"core.Thing"
+	],
+	"properties": {
+		"modelId": {
+			"title": "Model Id",
+			"description": "ID of the Model Element associated to this Diagram Thing",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		}
+	},
+	"required": [
+		"modelId"
+	]
+},
+{
+	"_id": "Model.Child",
+	"title": "Child",
+	"description": "A Model Child",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Element"
+	],
+	"properties": {
+		"parentId": {
+			"title": "Partent Id",
+			"description": "ID of the Model Element owning this Child",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		}
+	},
+	"required": [
+		"parentId"
+	]
+},
+{
+	"_id": "Model.Design",
+	"title": "Design",
+	"description": "A Design",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Thing",
+		"Model.Organization.Collaboration"
+	],
+	"properties": {
+		"version": {
+			"title": "Version",
+			"description": "The version of this Diagram",
+			"＄ref": "type#positive-integer",
+			"default": 1
+		},
+		"created": {
+			"title": "Creation timestamp",
+			"description": "The date and time this Diagram has been created",
+			"＄ref": "type#timestamp",
+			"readOnly": true
+		},
+		"lastModified": {
+			"title": "Last modification timestamp",
+			"description": "The date and time this Diagram has been modified",
+			"＄ref": "type#timestamp",
+			"readOnly": true
+		}
+	},
+	"required": [
+		"version",
+		"created",
+		"lastModified"
+	]
+},
+{
+	"_id": "Model.Diagram",
+	"title": "Diagram",
+	"description": "A Diagram",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Design"
+	],
+	"properties": {
+		"notation": {
+			"title": "Notation",
+			"description": "Notation of this Model",
+			"＄ref": "Model.Notation",
+			"readOnly": true,
+			"＄hidden": true
+		}
+	},
+	"required": [
+		"notation"
+	]
+},
+{
+	"_id": "Model.Element",
+	"title": "Element",
+	"description": "A Model Element",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Thing"
+	],
+	"properties": {
+		"designId": {
+			"title": "Design Id",
+			"description": "ID of the Design owning this Model Element",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		}
+	},
+	"required": [
+		"designId"
+	]
+},
+{
+	"_id": "Model.FPMN.Child",
+	"title": "FPMN Child",
+	"description": "A FPMN Child",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Child",
+		"Model.FPMN.Element"
+	]
+},
+{
+	"_id": "Model.FPMN.Diagram",
+	"title": "FPMN Diagram",
+	"description": "A FPMN Diagram",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.Diagram"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"notation": {
+			"propertyOrder": 2.0,
+			"const": "Model.Notation.FPMN"
+		},
+		"version": {
+			"propertyOrder": 3.0
+		},
+		"created": {
+			"propertyOrder": 4.0
+		},
+		"lastModified": {
+			"propertyOrder": 5.0
+		},
+		"language": {
+			"propertyOrder": 6.0
+		},
+		"name": {
+			"propertyOrder": 7.0
+		},
+		"documentation": {
+			"propertyOrder": 8.0
+		},
+		"team": {
+			"propertyOrder": 9.0,
+			"title": "Team",
+			"description": "team of this Collaboration",
+			"type": "object",
+			"properties": {
+				"owner": {
+					"＄ref": "type#array-of-string",
+					"readOnly": true
+				},
+				"reviewer": {
+					"＄ref": "type#array-of-string"
+				},
+				"editor": {
+					"＄ref": "type#array-of-string"
+				},
+				"observer": {
+					"＄ref": "type#array-of-string"
+				}
+			},
+			"required": [
+				"owner",
+				"reviewer",
+				"editor"
+			]
+		},
+		"＄domain": {
+			"propertyOrder": 10.0,
+			"const": "Model.FPMN.Diagram"
+		}
+	}
+},
+{
+	"_id": "Model.FPMN.Element",
+	"title": "FPMN Element",
+	"description": "A FPMN Element",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Element"
+	]
+},
+{
+	"_id": "Model.FPMN.Interaction.Channel",
+	"title": "FPMN Interaction Channel",
+	"description": "A FPMN Interaction Channel",
+	"＄ref": "type#enum",
+	"enum": [
+		"Model.FPMN.Interaction.Channel.EForm",
+		"Model.FPMN.Interaction.Channel.EMail",
+		"Model.FPMN.Interaction.Channel.FaceToFace",
+		"Model.FPMN.Interaction.Channel.OrdinaryMail",
+		"Model.FPMN.Interaction.Channel.RegisteredMail",
+		"Model.FPMN.Interaction.Channel.Phone",
+		"Model.FPMN.Interaction.Channel.Payment"
+	]
+},
+{
+	"_id": "Model.FPMN.Interaction.Decision",
+	"title": "FPMN Interaction Decision",
+	"description": "A FPMN Interaction Decision",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Interaction.Node"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"incomingSequenceIds": {
+			"propertyOrder": 4.0
+		},
+		"outgoingSequenceIds": {
+			"propertyOrder": 5.0
+		},
+		"responsible": {
+			"propertyOrder": 6.0,
+			"title": "Responsible",
+			"description": "Responsible for this Decision",
+			"type": "string",
+			"enum": [
+				"Model.FPMN.Interaction.Subject.Citizen",
+				"Model.FPMN.Interaction.Subject.PublicBody",
+				"Model.FPMN.Interaction.Subject.PrivateBody"
+			],
+			"default": "Model.FPMN.Interaction.Subject.Citizen"
+		},
+		"language": {
+			"propertyOrder": 7.0
+		},
+		"name": {
+			"propertyOrder": 8.0
+		},
+		"documentation": {
+			"propertyOrder": 9.0
+		},
+		"＄domain": {
+			"propertyOrder": 10.0,
+			"const": "Model.FPMN.Interaction.Decision"
+		}
+	},
+	"required": [
+		"responsible"
+	]
+},
+{
+	"_id": "Model.FPMN.Interaction.Element",
+	"title": "FPMN Interaction Element",
+	"description": "A FPMN Interaction Element",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.FPMN.Child"
+	]
+},
+{
+	"_id": "Model.FPMN.Interaction.End",
+	"title": "FPMN Interaction End",
+	"description": "A FPMN Interaction End",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Interaction.Node"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"incomingSequenceIds": {
+			"propertyOrder": 4.0
+		},
+		"outgoingSequenceIds": {
+			"propertyOrder": 5.0
+		},
+		"phaseFailure": {
+			"propertyOrder": 6.0,
+			"title": "Phase Failure",
+			"description": "Marks this Interaction End as a phase failure",
+			"type": "boolean"
+		},
+		"language": {
+			"propertyOrder": 7.0
+		},
+		"name": {
+			"propertyOrder": 8.0
+		},
+		"documentation": {
+			"propertyOrder": 9.0
+		},
+		"＄domain": {
+			"propertyOrder": 10.0,
+			"const": "Model.FPMN.Interaction.End"
+		}
+	}
+},
+{
+	"_id": "Model.FPMN.Interaction.Node",
+	"title": "FPMN Interaction Node",
+	"description": "A FPMN Interaction Node",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.FPMN.Interaction.Element"
+	],
+	"properties": {
+		"incomingSequenceIds": {
+			"title": "Incoming Sequences IDs",
+			"description": "Array of incoming Interaciton Sequence IDs",
+			"type": "array",
+			"items": {
+				"＄ref": "type#uuid",
+				"readOnly": true
+			},
+			"uniqueItems": true,
+			"＄hidden": true
+		},
+		"outgoingSequenceIds": {
+			"title": "Outgoing Sequences IDs",
+			"description": "Array of outgoing Interaciton Sequence IDs",
+			"type": "array",
+			"items": {
+				"＄ref": "type#uuid",
+				"readOnly": true
+			},
+			"uniqueItems": true,
+			"＄hidden": true
+		}
+	}
+},
+{
+	"_id": "Model.FPMN.Interaction.Sequence",
+	"title": "FPMN Interaction Sequence",
+	"description": "A FPMN Interaction Sequence",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Interaction.Element"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"sourceNodeId": {
+			"propertyOrder": 4.0,
+			"title": "Source Node ID",
+			"description": "ID of the Source Interaction Node",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		},
+		"targetNodeId": {
+			"propertyOrder": 5.0,
+			"title": "Target Node ID",
+			"description": "ID of the Target Interaction Node",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		},
+		"language": {
+			"propertyOrder": 6.0
+		},
+		"name": {
+			"propertyOrder": 7.0
+		},
+		"documentation": {
+			"propertyOrder": 8.0
+		},
+		"＄domain": {
+			"propertyOrder": 9.0,
+			"const": "Model.FPMN.Interaction.Sequence"
+		}
+	},
+	"required": [
+		"sourceNodeId",
+		"targetNodeId"
+	]
+},
+{
+	"_id": "Model.FPMN.Interaction.Start",
+	"title": "FPMN Interaction Start",
+	"description": "A FPMN Interaction Start",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Interaction.Node"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"incomingSequenceIds": {
+			"propertyOrder": 4.0
+		},
+		"outgoingSequenceIds": {
+			"propertyOrder": 5.0
+		},
+		"language": {
+			"propertyOrder": 6.0
+		},
+		"name": {
+			"propertyOrder": 7.0
+		},
+		"documentation": {
+			"propertyOrder": 8.0
+		},
+		"＄domain": {
+			"propertyOrder": 9.0,
+			"const": "Model.FPMN.Interaction.Start"
+		}
+	}
+},
+{
+	"_id": "Model.FPMN.Interaction.Subject",
+	"title": "FPMN Interaction Subject",
+	"description": "A FPMN Interaction Subject",
+	"type": "string",
+	"enum": [
+		"Model.FPMN.Interaction.Subject.Citizen",
+		"Model.FPMN.Interaction.Subject.PublicBody",
+		"Model.FPMN.Interaction.Subject.PrivateBody"
+	]
+},
+{
+	"_id": "Model.FPMN.Interaction.Task",
+	"title": "FPMN Interaction Task",
+	"description": "A FPMN Interaction Task",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Interaction.Node"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"incomingSequenceIds": {
+			"propertyOrder": 4.0
+		},
+		"outgoingSequenceIds": {
+			"propertyOrder": 5.0
+		},
+		"initiator": {
+			"propertyOrder": 6.0,
+			"title": "Initiator",
+			"description": "Initiator of this Interaction",
+			"type": "string",
+			"enum": [
+				"Model.FPMN.Interaction.Subject.Citizen",
+				"Model.FPMN.Interaction.Subject.PublicBody",
+				"Model.FPMN.Interaction.Subject.PrivateBody"
+			],
+			"default": "Model.FPMN.Interaction.Subject.Citizen"
+		},
+		"interlocutor": {
+			"propertyOrder": 7.0,
+			"title": "Interlocutor",
+			"description": "Interlocutor of this Interaction",
+			"type": "string",
+			"enum": [
+				"Model.FPMN.Interaction.Subject.Citizen",
+				"Model.FPMN.Interaction.Subject.PublicBody",
+				"Model.FPMN.Interaction.Subject.PrivateBody"
+			],
+			"default": "Model.FPMN.Interaction.Subject.PublicBody"
+		},
+		"institution": {
+			"propertyOrder": 8.0,
+			"title": "Institution",
+			"description": "Name of the Institution interacting with the citizen",
+			"type": "string"
+		},
+		"eServiceId": {
+			"propertyOrder": 10.0,
+			"title": "E-Service ID",
+			"description": "Optional ID of the e-service associated to this Interaction",
+			"type": "string"
+		},
+		"language": {
+			"propertyOrder": 11.0
+		},
+		"name": {
+			"propertyOrder": 12.0
+		},
+		"documentation": {
+			"propertyOrder": 13.0
+		},
+		"＄domain": {
+			"propertyOrder": 14.0,
+			"const": "Model.FPMN.Interaction.Task"
+		},
+		"channels": {
+			"propertyOrder": 9.0,
+			"title": "Channel",
+			"description": "Interaction channel (e.g. \"e-mail\")",
+			"type": "array",
+			"enum": [
+				"Model.FPMN.Interaction.Channel.EForm",
+				"Model.FPMN.Interaction.Channel.EMail",
+				"Model.FPMN.Interaction.Channel.FaceToFace",
+				"Model.FPMN.Interaction.Channel.OrdinaryMail",
+				"Model.FPMN.Interaction.Channel.RegisteredMail",
+				"Model.FPMN.Interaction.Channel.Phone",
+				"Model.FPMN.Interaction.Channel.Payment"
+			]
+		}
+	},
+	"required": [
+		"initiator",
+		"interlocutor",
+		"channel"
+	]
+},
+{
+	"_id": "Model.FPMN.Interaction.Task.Deadline",
+	"title": "FPMN Interaction Task Deadline",
+	"description": "A FPMN Interaction Task Deadline",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Interaction.Node"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"beyondId": {
+			"propertyOrder": 4.0,
+			"title": "Beyond deadline sequence ID",
+			"description": "ID of the Interaction Sequence to follow when beyond the deadline",
+			"＄ref": "type#uuid"
+		},
+		"language": {
+			"propertyOrder": 5.0
+		},
+		"name": {
+			"propertyOrder": 6.0
+		},
+		"documentation": {
+			"propertyOrder": 7.0
+		},
+		"＄domain": {
+			"propertyOrder": 8.0,
+			"const": "Model.FPMN.Interaction.Task.Deadline"
+		}
+	},
+	"required": [
+		"targetId"
+	]
+},
+{
+	"_id": "Model.FPMN.Label",
+	"title": "FPMN Label",
+	"description": "A FPMN Label",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Child"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"language": {
+			"propertyOrder": 4.0
+		},
+		"name": {
+			"propertyOrder": 5.0
+		},
+		"documentation": {
+			"propertyOrder": 6.0
+		},
+		"＄domain": {
+			"propertyOrder": 7.0,
+			"const": "Model.FPMN.Label"
+		}
+	},
+	"required": [
+		"targetId"
+	]
+},
+{
+	"_id": "Model.FPMN.Phase",
+	"title": "FPMN Phase",
+	"description": "A FPMN Phase",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Child"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"parentId": {
+			"propertyOrder": 3.0
+		},
+		"prevPhaseId": {
+			"propertyOrder": 4.0,
+			"title": "Previous Phase Id",
+			"description": "ID of the previous Phase",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		},
+		"nextPhaseId": {
+			"propertyOrder": 5.0,
+			"title": "Next Phase Id",
+			"description": "ID of the next Phase",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		},
+		"language": {
+			"propertyOrder": 6.0
+		},
+		"name": {
+			"propertyOrder": 7.0
+		},
+		"documentation": {
+			"propertyOrder": 8.0
+		},
+		"＄domain": {
+			"propertyOrder": 9.0,
+			"const": "Model.FPMN.Phase"
+		}
+	}
+},
+{
+	"_id": "Model.FPMN.Procedure",
+	"title": "FPMN Procedure",
+	"description": "A FPMN Procedure",
+	"type": "object",
+	"additionalProperties": false,
+	"＄extends": [
+		"Model.FPMN.Root"
+	],
+	"properties": {
+		"id": {
+			"propertyOrder": 1.0
+		},
+		"designId": {
+			"propertyOrder": 2.0
+		},
+		"category": {
+			"propertyOrder": 3.0,
+			"title": "Category",
+			"description": "Category of this Procedure",
+			"type": "string",
+			"enum": [
+				"Model.FPMN.Procedure.Category.Childhood",
+				"Model.FPMN.Procedure.Category.Construction",
+				"Model.FPMN.Procedure.Category.Health",
+				"Model.FPMN.Procedure.Category.SocialService"
+			]
+		},
+		"waitingTime": {
+			"propertyOrder": 4.0,
+			"title": "Waiting time",
+			"description": "The average waiting time for this Procedure to complete",
+			"type": "string"
+		},
+		"language": {
+			"propertyOrder": 5.0
+		},
+		"name": {
+			"propertyOrder": 6.0
+		},
+		"documentation": {
+			"propertyOrder": 7.0
+		},
+		"mission": {
+			"propertyOrder": 8.0,
+			"title": "Mission",
+			"description": "Long-term objective explaining the existence of this Procedure",
+			"＄ref": "type#text"
+		},
+		"regulatoryRefs": {
+			"propertyOrder": 9.0,
+			"title": "Regulatory references",
+			"description": "Regulatory references to this Procedure",
+			"＄ref": "type#text"
+		},
+		"＄domain": {
+			"propertyOrder": 10.0,
+			"const": "Model.FPMN.Procedure"
+		}
+	}
+},
+{
+	"_id": "Model.FPMN.Procedure.Category",
+	"title": "Procedure Category",
+	"type": "string",
+	"enum": [
+		"Model.FPMN.Procedure.Category.Childhood",
+		"Model.FPMN.Procedure.Category.Construction",
+		"Model.FPMN.Procedure.Category.Health",
+		"Model.FPMN.Procedure.Category.SocialService"
+	]
+},
+{
+	"_id": "Model.FPMN.Root",
+	"title": "FPMN Root",
+	"description": "A FPMN Root",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Root",
+		"Model.FPMN.Element"
+	]
+},
+{
+	"_id": "Model.Notation",
+	"title": "Model Notation",
+	"description": "Notation of the Model",
+	"type": "string",
+	"enum": [
+		"Model.Notation.Example",
+		"Model.Notation.BPMN",
+		"Model.Notation.FPMN"
+	]
+},
+{
+	"_id": "Model.Organization.Collaboration",
+	"title": "Collaboration",
+	"description": "A Collaboration",
+	"type": "object",
+	"additionalProperties": true,
+	"properties": {
+		"team": {
+			"title": "Team",
+			"description": "The team of this collaboration",
+			"＄ref": "Model.Organization.Team"
+		}
+	},
+	"required": [
+		"team"
+	]
+},
+{
+	"_id": "Model.Organization.Team",
+	"title": "Organization Team",
+	"description": "An Organization Team",
+	"type": "object",
+	"minProperties": 1,
+	"properties": {
+		"^[-a-z]+$": {
+			"type": "array",
+			"items": {
+				"＄ref": "type#uuid"
+			}
+		}
+	}
+},
+{
+	"_id": "Model.Root",
+	"title": "Root",
+	"description": "A Model Root",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"Model.Element"
+	]
+},
+{
+	"_id": "Model.Thing",
+	"title": "Model",
+	"description": "A Model Thing",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"core.Thing"
+	],
+	"properties": {
+		"language": {
+			"title": "Language",
+			"description": "Language used for this Model",
+			"＄ref": "type#language",
+			"default": "en",
+			"＄hidden": true
+		},
+		"name": {
+			"title": "Name",
+			"description": "Name of this Model",
+			"type": "string"
+		},
+		"documentation": {
+			"title": "Documentation",
+			"description": "Documentation of this Model",
+			"＄ref": "type#text"
+		}
+	},
+	"required": [
+		"language",
+		"name"
+	]
+},
+{
+	"_id": "core.Domain",
+	"title": "Domain",
+	"description": "A classifiable Object",
+	"type": "object",
+	"additionalProperties": true,
+	"properties": {
+		"＄domain": {
+			"title": "Domain",
+			"description": "Domain of this Object",
+			"＄ref": "type#domain",
+			"readOnly": true,
+			"＄hidden": true
+		}
+	},
+	"required": [
+		"$domain"
+	]
+},
+{
+	"_id": "core.Entity",
+	"title": "Entity",
+	"description": "An identifiable Object",
+	"type": "object",
+	"additionalProperties": true,
+	"properties": {
+		"id": {
+			"title": "ID",
+			"description": "ID of this Object",
+			"＄ref": "type#uuid",
+			"readOnly": true,
+			"＄hidden": true
+		}
+	},
+	"required": [
+		"id"
+	]
+},
+{
+	"_id": "core.Thing",
+	"title": "Thing",
+	"description": "A Thing is a classifiable (Domain) and identifiable (Entity) Object",
+	"type": "object",
+	"additionalProperties": true,
+	"＄extends": [
+		"core.Domain",
+		"core.Entity"
+	]
+},
+{
+	"_id": "type",
+	"title": "Type",
+	"description": "Type definitions",
+	"definitions": {
+		"null": {
+			"_id": "#null",
+			"type": "null"
+		},
+		"boolean": {
+			"_id": "#boolean",
+			"type": "boolean"
+		},
+		"string": {
+			"_id": "#string",
+			"type": "string"
+		},
+		"number": {
+			"_id": "#number",
+			"type": "number"
+		},
+		"integer": {
+			"_id": "#integer",
+			"type": "integer"
+		},
+		"domain": {
+			"_id": "#domain",
+			"type": "string"
+		},
+		"array-of-string": {
+			"_id": "#array-of-string",
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"expression": {
+			"_id": "#expression",
+			"type": "string",
+			"pattern": "^\\$\\{(?:[^=]+|(?:=\u003e){1})+\\}$"
+		},
+		"path": {
+			"_id": "#path",
+			"type": "string",
+			"pattern": "^(?:\\/|(?:\\/[^\\/]+)+)$"
+		},
+		"text": {
+			"_id": "#text",
+			"type": "string"
+		},
+		"email": {
+			"_id": "#email",
+			"format": "email"
+		},
+		"uri": {
+			"_id": "#uri",
+			"type": "string",
+			"format": "uri"
+		},
+		"uuid": {
+			"_id": "#uuid",
+			"type": "string",
+			"format": "uuid"
+		},
+		"md5": {
+			"_id": "#md5",
+			"type": "string",
+			"pattern": "^[0-9a-f]{40}$"
+		},
+		"entry": {
+			"_id": "#entry",
+			"type": "object",
+			"properties": {
+				"key": {
+					"propertyOrder": 1.0,
+					"title": "Key",
+					"description": "Entry key",
+					"type": "string"
+				},
+				"value": {
+					"propertyOrder": 2.0,
+					"title": "Value",
+					"description": "Entry value",
+					"type": "string"
+				}
+			},
+			"required": [
+				"key",
+				"value"
+			]
+		},
+		"non-negative-number": {
+			"_id": "#non-negative-number",
+			"type": "number",
+			"minimum": 0.0
+		},
+		"positive-integer": {
+			"_id": "#positive-integer",
+			"type": "integer",
+			"minimum": 1
+		},
+		"language": {
+			"_id": "#language",
+			"type": "string",
+			"enum": [
+				"da",
+				"nl",
+				"en",
+				"fi",
+				"fr",
+				"de",
+				"hu",
+				"it",
+				"nb",
+				"pt",
+				"ro",
+				"ru",
+				"es",
+				"sv",
+				"tr",
+				"ara",
+				"prs",
+				"pes",
+				"urd",
+				"zhs",
+				"zht"
+			]
+		},
+		"timestamp": {
+			"_id": "#timestamp",
+			"title": "Timestamp",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"＄date": {
+					"title": "Timesamp",
+					"description": "ISO-8601 timestamp representation",
+					"type": "string"
+				}
+			},
+			"required": [
+				"$date"
+			]
+		}
+	}
+}]
+

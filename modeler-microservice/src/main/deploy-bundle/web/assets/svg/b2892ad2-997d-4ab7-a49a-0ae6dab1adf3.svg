@@ -1,0 +1,84 @@
+<svg id="diagram-43467de2-9f42-477f-9f00-13b70f53ce24"
+     preserveAspectRatio="xMinYMin meet" width="780" height="200" viewBox="0,0,780,200"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:html="http://www.w3.org/1999/xhtml">
+  <symbol id="graphics-e-service" width="24" height="24" viewBox="0 0 24 24" fill="#000000">
+    <path d="M0 0h24v24H0z" opacity="0"/>
+    <path
+      d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/>
+  </symbol>
+  <g id="svg-element-126350b3-4c12-4fd7-b206-6d96e08a0ba1">
+    <g id="svg-paints-126350b3-4c12-4fd7-b206-6d96e08a0ba1">
+      <rect x="20" y="20" width="740" height="160"
+            style="fill: white; fill-opacity: 0.5; stroke: black; stroke-width: 2;"/>
+    </g>
+    <g id="svg-texts-126350b3-4c12-4fd7-b206-6d96e08a0ba1">
+      <foreignObject x="20" y="20" width="740" height="40">
+        <html:div style="display: table; width: 100%; height: 100%;">
+          <html:span
+            style="display: table-cell; padding: .1em; text-align: center; vertical-align: middle; font-weight: bold;">
+            Ammissione al servizio di nido d’infanzia
+          </html:span>
+        </html:div>
+      </foreignObject>
+    </g>
+    <g id="svg-childs-126350b3-4c12-4fd7-b206-6d96e08a0ba1">
+      <g id="svg-element-58664498-6cfc-4040-b121-a090a9db8701">
+        <g id="svg-paints-58664498-6cfc-4040-b121-a090a9db8701">
+          <path d="M 240 60 L 500 60 L 540 120 L 500 180 L 240 180 L 280 120 Z"
+                style="fill: white; fill-opacity: 0.5; stroke: black; stroke-width: 1;"/>
+        </g>
+        <g id="svg-texts-58664498-6cfc-4040-b121-a090a9db8701">
+          <foreignObject x="280" y="60" width="220" height="120">
+            <html:div style="display: table; width: 100%; height: 100%;">
+              <html:span style="display: table-cell; padding: .1em; text-align: center; vertical-align: middle;">
+                Esame delle richieste
+              </html:span>
+            </html:div>
+          </foreignObject>
+        </g>
+      </g>
+      <g id="svg-element-c374b442-4216-4464-a860-ee9007578b25">
+        <g id="svg-paints-c374b442-4216-4464-a860-ee9007578b25">
+          <path d="M 20 60 L 240 60 L 280 120 L 240 180 L 20 180 L 20 120 Z"
+                style="fill: white; fill-opacity: 0.5; stroke: black; stroke-width: 1;"/>
+        </g>
+        <g id="svg-icon-sets-c374b442-4216-4464-a860-ee9007578b25">
+          <g>
+            <use x="22" y="62" width="24" height="24" xlink:href="#graphics-e-service"/>
+          </g>
+        </g>
+        <g id="svg-texts-c374b442-4216-4464-a860-ee9007578b25">
+          <foreignObject x="20" y="60" width="220" height="120" style="pointer-events: none;">
+            <html:div style="display: table; width: 100%; height: 100%;">
+              <html:span style="display: table-cell; padding: .1em; text-align: center; vertical-align: middle;">
+                Richiesta di ammissione
+              </html:span>
+            </html:div>
+          </foreignObject>
+        </g>
+      </g>
+      <g id="svg-element-ea844b6c-7395-4436-a3d6-b7b06afbfb80">
+        <g id="svg-paints-ea844b6c-7395-4436-a3d6-b7b06afbfb80">
+          <path d="M 500 60 L 760 60 L 760 120 L 760 180 L 500 180 L 540 120 Z"
+                style="fill: white; fill-opacity: 0.5; stroke: black; stroke-width: 1;"/>
+        </g>
+        <g id="svg-icon-sets-ea844b6c-7395-4436-a3d6-b7b06afbfb80">
+          <g>
+            <use x="542" y="62" width="24" height="24" xlink:href="#graphics-e-service"/>
+          </g>
+        </g>
+        <g id="svg-texts-ea844b6c-7395-4436-a3d6-b7b06afbfb80">
+          <foreignObject x="540" y="60" width="220" height="120" style="pointer-events: none;">
+            <html:div style="display: table; width: 100%; height: 100%;">
+              <html:span style="display: table-cell; padding: .1em; text-align: center; vertical-align: middle;">
+                Accettazione
+              </html:span>
+            </html:div>
+          </foreignObject>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,86 @@
+{
+  "version": "${version}",
+  "custom": {
+    "assets": "${cpd.custom.assets}",
+    "logo": {
+      "src": "${cpd.custom.logo.src}",
+      "href": "${cpd.custom.logo.href}"
+    }
+  },
+  "server": {
+    "baseHref": "${cpd.server.baseHref}",
+    "useLocalAuth": ${cpd.app.useLocalAuth},
+    "schema": {
+      "path": "${cpd.server.schema.path}"
+    },
+    "eventBus": {
+      "path": "${cpd.server.eventBus.path}",
+      "diagramAddress": "${cpd.server.eventBus.diagramAddress}"
+    },
+    "auth": {
+      "path": "${cpd.server.auth.path}",
+      "login": "${cpd.server.auth.login}",
+      "logout": "${cpd.server.auth.logout}",
+      "delUserData": "${cpd.server.auth.delUserData}",
+      "getOAuth2Providers": "${cpd.server.auth.getOAuth2Providers}",
+      "getUser": "${cpd.server.auth.getUser}",
+      "getUserIsAuthenticated": "${cpd.server.auth.getUserIsAuthenticated}",
+      "getUserHasAccess": "${cpd.server.auth.getUserHasAccess}",
+      "getUserIsAuthorized": "${cpd.server.auth.getUserIsAuthorized}",
+      "getAccounts": "${cpd.server.auth.getAccounts}"
+    },
+    "data": {
+      "path": "${cpd.server.data.path}"
+    },
+    "api": {
+      "path": "${cpd.server.api.path}",
+      "getDiagramSummaryList": "${cpd.server.api.getDiagramSummaryList}",
+      "postUserFeedback": "${cpd.server.api.postUserFeedback}",
+
+      "getDiagramSVG": "${cpd.server.api.getDiagramSVG}",
+      "getDiagramMyList": "${cpd.server.api.getDiagramMyList}",
+      "getDiagramSearchList": "${cpd.server.api.getDiagramSearchList}",
+      "getDiagramNewerList": "${cpd.server.api.getDiagramNewerList}",
+
+      "getDiagramElement": "${cpd.server.api.getDiagramElement}",
+      "putDiagramElement": "${cpd.server.api.putDiagramElement}",
+      "delDiagramElement": "${cpd.server.api.delDiagramElement}",
+      "getModelElement": "${cpd.server.api.getModelElement}",
+      "putModelElement": "${cpd.server.api.putModelElement}",
+      "delModelElement": "${cpd.server.api.delModelElement}",
+      "getDiagramElements": "${cpd.server.api.getDiagramElements}",
+      "getDiagramModels": "${cpd.server.api.getDiagramModels}",
+      "getStencilSetDefinition": "${cpd.server.api.getStencilSetDefinition}"
+    }
+  },
+  "qae": {
+    "enabled": ${cpd.qae.enabled},
+    "href": "${cpd.qae.href}",
+    "api": {
+      "path": "${cpd.qae.api.path}",
+      "getQuestionCount": "${cpd.qae.api.getQuestionCount}"
+    },
+    "link": {
+      "newQuestion": "${cpd.qae.link.newQuestion}",
+      "relatedQuestions": "${cpd.qae.link.relatedQuestions}"
+    }
+  },
+  "gamification": {
+    "enabled": ${cpd.gamification.enabled},
+    "href": "${cpd.gamification.href}",
+    "executePath": "${cpd.gamification.executePath}",
+    "username": "${cpd.gamification.username}",
+    "password": "${cpd.gamification.password}",
+    "gameId": "${cpd.gamification.gameId}",
+    "actionId": {
+      "sendFeedback": "${cpd.gamification.actionId.sendFeedback}"
+    }
+  },
+  "tae": {
+    "enabled": ${cpd.tae.enabled},
+    "href": "${cpd.tae.href}",
+    "api": {
+      "simplify": "${cpd.tae.api.simplify}"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+### Private files
+/log/
+/dump/
+/develop.properties
+/production.properties
+/oauth.sh
+/keystore.sh
+/develop.json
+/deploy-dev.sh
+/conf
+/data
+/tmp
+/web/
+/src/main/deploy-bundle/web/ROOT/
+/keystore.jks
+/simpatico.sh
+/config-persistent
+/mongo-persistent
+/process-engine/
+dump.*
+*.log
+
+### OSX fork resources
+.DS_Store
+
+### Maven template
+/target/
+#pom.xml.tag
+#pom.xml.releaseBackup
+#pom.xml.versionsBackup
+#pom.xml.next
+#release.properties
+#dependency-reduced-pom.xml
+#buildNumber.properties
+#.mvn/timing.properties
+
+### VS Code
+.history
+.settings
+.vscode
+.classpath
+.project
+.factorypath
+
+### IntelliJ IDEA
+/.idea
+*.iml
+
+### vert.x
+/.vertx/
+
+### project generated
+/**/*/node_modules

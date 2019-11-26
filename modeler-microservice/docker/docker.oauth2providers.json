@@ -1,0 +1,23 @@
+[
+  {
+    "provider": "AAC",
+    "logoUrl": "assets/img/oauth2_aac_logo.png",
+    "site": "http://my.aac:8080",
+    "authPath": "/aac/eauth/authorize",
+    "tokenPath": "/aac/oauth/token",
+    "clientId": "my aac app client id",
+    "clientSecret": "my aac app client secret",
+    "flows": [
+      {
+        "flowType": "AUTH_CODE",
+        "scope": [
+          "profile.basicprofile.me"
+        ],
+        "getUserProfile": "http://my.aac:8080/aac/basicprofile/me"
+      },
+      {
+        "flowType": "CLIENT"
+      }
+    ]
+  }
+]

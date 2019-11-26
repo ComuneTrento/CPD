@@ -1,0 +1,34 @@
+{
+  "aggregate": "{collection}",
+  "pipeline": [
+    {
+      "$match": {
+        "_id": {match$id}
+      }
+    },
+    {
+      "$graphLookup": {
+        "from": "{collection}",
+        "startWith": "$＄extends",
+        "connectFromField": "＄extends",
+        "connectToField": "_id",
+        "as": "upstream"
+      }
+    },
+    {
+      "$graphLookup": {
+        "from": "{collection}",
+        "startWith": "$_id",
+        "connectFromField": "_id",
+        "connectToField": "＄extends",
+        "as": "downstream"
+      }
+    },
+    {
+      "$match": {
+        "upstream": {match$haveUpstream},
+        "downstream": {match$haveDownstream}
+      }
+    }
+  ]
+}

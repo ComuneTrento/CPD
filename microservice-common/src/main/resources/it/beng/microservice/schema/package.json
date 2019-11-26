@@ -1,0 +1,14 @@
+{
+  "name": "microservice-schema",
+  "version": "1.0.0",
+  "description": "BEng Microservice Schema Javascript API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vincenzo Cartelli",
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "~5.1.6"
+  }
+}

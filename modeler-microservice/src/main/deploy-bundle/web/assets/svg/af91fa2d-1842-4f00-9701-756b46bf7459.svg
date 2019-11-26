@@ -1,0 +1,1349 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="84 21 2117 1766" width="2117" height="1766">
+    <defs>
+        <style type="text/css">
+            <![CDATA[@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:100,300,400,700');
+text {
+    font: 400 14px/20px 'Roboto Slab', serif;
+}]]>
+        </style>
+        <marker id="sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba" viewBox="0 0 20 20" refX="11"
+                refY="10" markerWidth="10" markerHeight="10" orient="auto">
+            <path d="M 1 5 L 11 10 L 1 15 Z"
+                  style="fill: black; stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 10000, 1; stroke: black;"></path>
+        </marker>
+    </defs>
+    <g>
+        <g>
+            <g>
+                <g style="display: block;" transform="translate(85 22)">
+                    <g>
+                        <rect x="0" y="0" width="2115" height="1764" rx="0" ry="0"
+                              style="stroke: black; stroke-width: 2px; fill: rgb(238, 238, 238);"></rect>
+                        <text style="font-weight: bold;">
+                            <tspan x="979.9609375" y="24.625">Organizzazione Eventi</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <g style="display: block;" transform="translate(85 62)">
+                            <g>
+                                <path d="M0,0h489l40,60l-40,60h-489zM0,120h489v1604h-489z"
+                                      style="fill: white; stroke-width: 2px; stroke: black; fill-opacity: 0.5;"></path>
+                                <text style="font-size: 200%;">
+                                    <tspan x="112.09375" y="69.25">Richiesta degli spazi</tspan>
+                                </text>
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  341,310L391,310 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  411,290L411,239 L507,239 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(400 228)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="6.671875" y="15.5">SI</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  141,312L201,312 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  412,329L412,381 L510,381 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(399 366)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="3.3359375" y="15.5">NO</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(201 262)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="46.671875" y="16.5">Comune</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="20.90625" y="49.375">Selezione dello</tspan>
+                                            <tspan x="12.0078125" y="67.875">spazio disponibile</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M16,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3s-3,1.34-3,3C13,9.66,14.34,11,16,11zM8,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3S5,6.34,5,8C5,9.66,6.34,11,8,11zM8,13c-2.33,0-7,1.17-7,3.5V18c0,0.55,0.45,1,1,1h12c0.55,0,1-0.45,1-1v-1.5C15,14.17,10.33,13,8,13zM16,13c-0.29,0-0.62,0.02-0.97,0.05c0.02,0.01,0.03,0.03,0.04,0.04C16.21,13.92,17,15.03,17,16.5V18c0,0.35-0.07,0.69-0.18,1H22c0.55,0,1-0.45,1-1v-1.5C23,14.17,18.33,13,16,13z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(121 303)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(509.75 371.25)">
+                                    <g>
+                                        <circle cx="10" cy="10" r="10"
+                                                style="stroke: black; stroke-width: 3px; fill: black; fill-opacity: 0.95;"></circle>
+                                        <path d="M6 6l12 12m-12 0l12-12"
+                                              style="fill: none; stroke-width: 3px; stroke: white;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(506.75 230.25)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(391 290)">
+                                    <g>
+                                        <circle cx="20" cy="20" r="20"
+                                                style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                        <text style="font-size: 85%;">
+                                            <tspan x="44" y="8.375">Lo spazio è</tspan>
+                                            <tspan x="44" y="23.875">stato</tspan>
+                                            <tspan x="44" y="39.375">individuato?</tspan>
+                                        </text>
+                                        <path
+                                            d="M10.8 19.2L13.2 19.2L13.2 16.8L10.8 16.8ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12 4.8C9.348 4.8 7.2 6.948 7.2 9.6L9.6 9.6C9.6 8.28 10.68 7.2 12 7.2C13.32 7.2 14.4 8.28 14.4 9.6C14.4 12 10.8 11.7 10.8 15.6L13.2 15.6C13.2 12.9 16.8 12.6 16.8 9.6C16.8 6.948 14.652 4.8 12 4.8Z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="scale(1.66667 1.66667)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                    <g>
+                        <g style="display: block;" transform="translate(1311 62)">
+                            <g>
+                                <path d="M0,0h889v120h-889l40,-60zM0,120h889v1604h-889z"
+                                      style="fill: white; stroke-width: 2px; stroke: black; fill-opacity: 0.5;"></path>
+                                <text style="font-size: 200%;">
+                                    <tspan x="295.6640625" y="69.25">Rilascio della concessione</tspan>
+                                </text>
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1590,293L1660,293 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1799,293L1878,293 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1395,294L1450,294 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  2018.5,292.82229965156796L2077.5,292.82229965156796 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                    <polyline points="2018.5,292.82229965156796 2077.5,292.82229965156796 "
+                                              style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;"></polyline>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1878.5 240.5)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H107l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H109l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="0" y="16.5">Comune</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="26.234375" y="49.375">Rilascio della</tspan>
+                                            <tspan x="31.3515625" y="67.875">concessione</tspan>
+                                        </text>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M12.72,2.03C6.63,1.6,1.6,6.63,2.03,12.72C2.39,18.01,7.01,22,12.31,22L16,22c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1l-3.67,0c-3.73,0-7.15-2.42-8.08-6.03c-1.49-5.8,3.91-11.21,9.71-9.71C17.58,5.18,20,8.6,20,12.33l0,1.1c0,0.79-0.71,1.57-1.5,1.57S17,14.22,17,13.43v-1.25c0-2.51-1.78-4.77-4.26-5.12c-3.4-0.49-6.27,2.45-5.66,5.87c0.34,1.91,1.83,3.49,3.72,3.94c1.84,0.43,3.59-0.16,4.74-1.33c0.89,1.22,2.67,1.86,4.3,1.21c1.34-0.53,2.16-1.9,2.16-3.34c0-0.33,0-0.7,0-1.09C22,7.01,18.01,2.39,12.72,2.03z M12,15c-1.66,0-3-1.34-3-3s1.34-3,3-3s3,1.34,3,3S13.66,15,12,15z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1659.5 244.5)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="46.671875" y="16.5">Comune</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="34.453125" y="58.625">Pagamento</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M15,18.5c-2.51,0-4.68-1.42-5.76-3.5H14c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H8.58c-0.05-0.33-0.08-0.66-0.08-1s0.03-0.67,0.08-1H14c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H9.24C10.32,6.92,12.5,5.5,15,5.5c1.25,0,2.42,0.36,3.42,0.97c0.5,0.31,1.15,0.26,1.57-0.16l0,0c0.58-0.58,0.45-1.53-0.25-1.96C18.36,3.5,16.73,3,15,3c-3.92,0-7.24,2.51-8.48,6H4c-0.55,0-1,0.45-1,1v0c0,0.55,0.45,1,1,1h2.06C6.02,11.33,6,11.66,6,12s0.02,0.67,0.06,1H4c-0.55,0-1,0.45-1,1v0c0,0.55,0.45,1,1,1h2.52c1.24,3.49,4.56,6,8.48,6c1.74,0,3.36-0.49,4.74-1.35c0.69-0.43,0.82-1.39,0.24-1.97l0,0c-0.42-0.42-1.07-0.47-1.57-0.15C17.42,18.15,16.26,18.5,15,18.5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1450.25 244)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H107l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H109l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="0" y="16.5">Comune</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="19.796875" y="40.125">Comunicazione</tspan>
+                                            <tspan x="21.6796875" y="58.625">dell'importo da</tspan>
+                                            <tspan x="48.6875" y="77.125">pagare</tspan>
+                                        </text>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M12.72,2.03C6.63,1.6,1.6,6.63,2.03,12.72C2.39,18.01,7.01,22,12.31,22L16,22c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1l-3.67,0c-3.73,0-7.15-2.42-8.08-6.03c-1.49-5.8,3.91-11.21,9.71-9.71C17.58,5.18,20,8.6,20,12.33l0,1.1c0,0.79-0.71,1.57-1.5,1.57S17,14.22,17,13.43v-1.25c0-2.51-1.78-4.77-4.26-5.12c-3.4-0.49-6.27,2.45-5.66,5.87c0.34,1.91,1.83,3.49,3.72,3.94c1.84,0.43,3.59-0.16,4.74-1.33c0.89,1.22,2.67,1.86,4.3,1.21c1.34-0.53,2.16-1.9,2.16-3.34c0-0.33,0-0.7,0-1.09C22,7.01,18.01,2.39,12.72,2.03z M12,15c-1.66,0-3-1.34-3-3s1.34-3,3-3s3,1.34,3,3S13.66,15,12,15z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1375 284.25)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(2077.5 282.5)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                    <g>
+                        <g style="display: block;" transform="translate(574 62)">
+                            <g>
+                                <path d="M0,0h737l40,60l-40,60h-737l40,-60zM0,120h737v1604h-737z"
+                                      style="fill: white; stroke-width: 2px; stroke: black; fill-opacity: 0.5;"></path>
+                                <text style="font-size: 200%;">
+                                    <tspan x="224.3515625" y="69.25">Presentazione dell'istanza</tspan>
+                                </text>
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  789,1373L789,1424 L1219,1424 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(774.75 1409.25)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="3.3359375" y="15.5">NO</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1136,1291L1136,1332 L1222,1332 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;); stroke-dasharray: 5, 3;"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  635,354L681.1600000000001,354 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  953,599L953,551 L1213,551 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  641,620L792.4343786295005,620 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1145,271L1210,270 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  951,784L951,740 L1220,740 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  644,1073L760,1072.75 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  952,824L952,861 L1222,861 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;); stroke-dasharray: 5, 3;"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  646,1603L783,1604 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1125,967L1125,925 L1219,925 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  703,373L703,458 L794,458 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(690.692 438.326)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="6.671875" y="15.5">SI</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1136,1251L1136,1212 L1222,1212 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  804,1623L804,1676 L1217,1676 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(789.242 1663.28)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="3.3359375" y="15.5">NO</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  953,639L953,678 L1220,678 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;); stroke-dasharray: 5, 3;"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  779.5,1057.75L779.5,987.75 L966.5,987.75 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(767.5 976.75)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="6.671875" y="15.5">SI</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  788,1334L788,1271 L975,1271 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(774.75 1259.25)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="6.671875" y="15.5">SI</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1126,1008L1126,1052 L1220,1052 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;); stroke-dasharray: 5, 3;"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  780,1095L780,1150 L1222,1150 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(765 1137)">
+                                            <g>
+                                                <rect x="0" y="0" width="25" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="3.8359375" y="15.5">NO</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  1123,1525L1219,1524 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  646,802L792,803 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  642,1354L768.25,1354.5 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  934,452L960,452 L960,290 L1005,290 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path d="m  701,335L701,257 L1005,257 "
+                                              style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(689.692 243.326)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="3.3359375" y="15.5">NO</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;">
+                                    <g>
+                                        <path
+                                            d="m  803,1586L803,1521.2834008097166 L981.2415654520919,1521.2834008097166 "
+                                            style="fill: none; stroke-width: 2px; stroke: black; stroke-linejoin: round; marker-end: url(&quot;#sequenceflow-end-black-black-2636cd96-bb1a-4ab4-b185-b5aa138fd2ba&quot;);"></path>
+                                    </g>
+                                    <polyline
+                                        points="803,1586 803,1521.2834008097166 981.2415654520919,1521.2834008097166 "
+                                        style="fill: none; stroke-opacity: 0; stroke: white; stroke-width: 15px;"></polyline>
+                                    <rect x="797" y="1515.2834008097166" width="190.2415654520919"
+                                          height="76.71659919028343" style="fill: none;"></rect>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(790 1509)">
+                                            <g>
+                                                <rect x="0" y="0" width="24" height="24" rx="0" ry="0"
+                                                      style="stroke: black; stroke-width: 0.5px; fill: white;"></rect>
+                                                <text style="fill: black; font-size: 75%;">
+                                                    <tspan x="6.671875" y="15.5">SI</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(791.857 753.901)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="60.65625" y="16.5">APSS</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="11.5703125" y="40.125">Comunicazione di</tspan>
+                                            <tspan x="7.125" y="58.625">svolgimento evento</tspan>
+                                            <tspan x="9.8046875" y="77.125">e/o manifestazione</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M12.72,2.03C6.63,1.6,1.6,6.63,2.03,12.72C2.39,18.01,7.01,22,12.31,22L16,22c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1l-3.67,0c-3.73,0-7.15-2.42-8.08-6.03c-1.49-5.8,3.91-11.21,9.71-9.71C17.58,5.18,20,8.6,20,12.33l0,1.1c0,0.79-0.71,1.57-1.5,1.57S17,14.22,17,13.43v-1.25c0-2.51-1.78-4.77-4.26-5.12c-3.4-0.49-6.27,2.45-5.66,5.87c0.34,1.91,1.83,3.49,3.72,3.94c1.84,0.43,3.59-0.16,4.74-1.33c0.89,1.22,2.67,1.86,4.3,1.21c1.34-0.53,2.16-1.9,2.16-3.34c0-0.33,0-0.7,0-1.09C22,7.01,18.01,2.39,12.72,2.03z M12,15c-1.66,0-3-1.34-3-3s1.34-3,3-3s3,1.34,3,3S13.66,15,12,15z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(931.857 783.901)">
+                                            <g>
+                                                <circle cx="20" cy="20" r="20"
+                                                        style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                                <text style="font-size: 85%;">
+                                                    <tspan x="44" y="8.375">da 15 a 45</tspan>
+                                                    <tspan x="44" y="23.875">giorni prima</tspan>
+                                                    <tspan x="44" y="39.375">dell’evento</tspan>
+                                                </text>
+                                                <path
+                                                    d="M12 0C5.4 0 0 5.4 0 12C0 18.6 5.4 24 12 24C18.6 24 24 18.6 24 12C24 5.4 18.6 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12.6 6L10.8 6L10.8 13.2L17.04 17.04L18 15.48L12.6 12.24Z"
+                                                    style="fill: black; stroke-width: 2px; stroke: none;"
+                                                    transform="scale(1.66667 1.66667)"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1219.39 1513.93)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(615.16 344.73)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(681.16 334.73)">
+                                    <g>
+                                        <circle cx="20" cy="20" r="20"
+                                                style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                        <text style="font-size: 85%;">
+                                            <tspan x="44" y="-14.875">È prevista la</tspan>
+                                            <tspan x="44" y="0.625">somministrazi</tspan>
+                                            <tspan x="44" y="16.125">one e/o</tspan>
+                                            <tspan x="44" y="31.625">vendita di</tspan>
+                                            <tspan x="44" y="47.125">alimenti e/o</tspan>
+                                            <tspan x="44" y="62.625">bevande?</tspan>
+                                        </text>
+                                        <path
+                                            d="M10.8 19.2L13.2 19.2L13.2 16.8L10.8 16.8ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12 4.8C9.348 4.8 7.2 6.948 7.2 9.6L9.6 9.6C9.6 8.28 10.68 7.2 12 7.2C13.32 7.2 14.4 8.28 14.4 9.6C14.4 12 10.8 11.7 10.8 15.6L13.2 15.6C13.2 12.9 16.8 12.6 16.8 9.6C16.8 6.948 14.652 4.8 12 4.8Z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="scale(1.66667 1.66667)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1219.86 729.901)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1219.43 666.657)">
+                                    <g>
+                                        <circle cx="10" cy="10" r="10"
+                                                style="stroke: black; stroke-width: 3px; fill: black; fill-opacity: 0.95;"></circle>
+                                        <path d="M6 6l12 12m-12 0l12-12"
+                                              style="fill: none; stroke-width: 3px; stroke: white;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1221.5 1139.75)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(792.434 568.657)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="42" y="16.5">Questura</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="30.2265625" y="40.125">Preavviso di</tspan>
+                                            <tspan x="42.453125" y="58.625">pubblica</tspan>
+                                            <tspan x="21.578125" y="77.125">manifestazione</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M16,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3s-3,1.34-3,3C13,9.66,14.34,11,16,11zM8,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3S5,6.34,5,8C5,9.66,6.34,11,8,11zM8,13c-2.33,0-7,1.17-7,3.5V18c0,0.55,0.45,1,1,1h12c0.55,0,1-0.45,1-1v-1.5C15,14.17,10.33,13,8,13zM16,13c-0.29,0-0.62,0.02-0.97,0.05c0.02,0.01,0.03,0.03,0.04,0.04C16.21,13.92,17,15.03,17,16.5V18c0,0.35-0.07,0.69-0.18,1H22c0.55,0,1-0.45,1-1v-1.5C23,14.17,18.33,13,16,13z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(932.434 598.657)">
+                                            <g>
+                                                <circle cx="20" cy="20" r="20"
+                                                        style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                                <text style="font-size: 85%;">
+                                                    <tspan x="44" y="16.125">3 giorni prima</tspan>
+                                                    <tspan x="44" y="31.625">dell’evento</tspan>
+                                                </text>
+                                                <path
+                                                    d="M12 0C5.4 0 0 5.4 0 12C0 18.6 5.4 24 12 24C18.6 24 24 18.6 24 12C24 5.4 18.6 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12.6 6L10.8 6L10.8 13.2L17.04 17.04L18 15.48L12.6 12.24Z"
+                                                    style="fill: black; stroke-width: 2px; stroke: none;"
+                                                    transform="scale(1.66667 1.66667)"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1213.43 540.657)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(624.5 1063.75)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(982.737 1474.92)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="62" y="16.5">SIAE</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="22.6796875" y="49.375">Pagamento dei</tspan>
+                                            <tspan x="24.796875" y="67.875">diritti d'autore</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M15,11V5.83c0-0.53-0.21-1.04-0.59-1.41l-1.71-1.71c-0.39-0.39-1.02-0.39-1.41,0L9.59,4.41C9.21,4.79,9,5.3,9,5.83V7H5C3.9,7,3,7.9,3,9v10c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2v-6c0-1.1-0.9-2-2-2H15z M7,19H5v-2h2V19z M7,15H5v-2h2V15z M7,11H5V9h2V11z M13,19h-2v-2h2V19z M13,15h-2v-2h2V15z M13,11h-2V9h2V11z M13,7h-2V5h2V7z M19,19h-2v-2h2V19z M19,15h-2v-2h2V15z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M15,18.5c-2.51,0-4.68-1.42-5.76-3.5H14c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H8.58c-0.05-0.33-0.08-0.66-0.08-1s0.03-0.67,0.08-1H14c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H9.24C10.32,6.92,12.5,5.5,15,5.5c1.25,0,2.42,0.36,3.42,0.97c0.5,0.31,1.15,0.26,1.57-0.16l0,0c0.58-0.58,0.45-1.53-0.25-1.96C18.36,3.5,16.73,3,15,3c-3.92,0-7.24,2.51-8.48,6H4c-0.55,0-1,0.45-1,1v0c0,0.55,0.45,1,1,1h2.06C6.02,11.33,6,11.66,6,12s0.02,0.67,0.06,1H4c-0.55,0-1,0.45-1,1v0c0,0.55,0.45,1,1,1h2.52c1.24,3.49,4.56,6,8.48,6c1.74,0,3.36-0.49,4.74-1.35c0.69-0.43,0.82-1.39,0.24-1.97l0,0c-0.42-0.42-1.07-0.47-1.57-0.15C17.42,18.15,16.26,18.5,15,18.5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(783.242 1584.28)">
+                                    <g>
+                                        <circle cx="20" cy="20" r="20"
+                                                style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                        <text style="font-size: 85%;">
+                                            <tspan x="44" y="0.625">Sono previsti</tspan>
+                                            <tspan x="44" y="16.125">permessi per il</tspan>
+                                            <tspan x="44" y="31.625">diritto</tspan>
+                                            <tspan x="44" y="47.125">d’autore?</tspan>
+                                        </text>
+                                        <path
+                                            d="M10.8 19.2L13.2 19.2L13.2 16.8L10.8 16.8ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12 4.8C9.348 4.8 7.2 6.948 7.2 9.6L9.6 9.6C9.6 8.28 10.68 7.2 12 7.2C13.32 7.2 14.4 8.28 14.4 9.6C14.4 12 10.8 11.7 10.8 15.6L13.2 15.6C13.2 12.9 16.8 12.6 16.8 9.6C16.8 6.948 14.652 4.8 12 4.8Z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="scale(1.66667 1.66667)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1219.25 915.25)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(768.25 1333.5)">
+                                    <g>
+                                        <circle cx="20" cy="20" r="20"
+                                                style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                        <text style="font-size: 85%;">
+                                            <tspan x="44" y="-14.875">Serve</tspan>
+                                            <tspan x="44" y="0.625">l’allacciament</tspan>
+                                            <tspan x="44" y="16.125">o temporaneo</tspan>
+                                            <tspan x="44" y="31.625">all’energia</tspan>
+                                            <tspan x="44" y="47.125">elettrica e</tspan>
+                                            <tspan x="44" y="62.625">all’acqua?</tspan>
+                                        </text>
+                                        <path
+                                            d="M10.8 19.2L13.2 19.2L13.2 16.8L10.8 16.8ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12 4.8C9.348 4.8 7.2 6.948 7.2 9.6L9.6 9.6C9.6 8.28 10.68 7.2 12 7.2C13.32 7.2 14.4 8.28 14.4 9.6C14.4 12 10.8 11.7 10.8 15.6L13.2 15.6C13.2 12.9 16.8 12.6 16.8 9.6C16.8 6.948 14.652 4.8 12 4.8Z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="scale(1.66667 1.66667)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(625.857 792.901)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1005.16 224.73)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="46.671875" y="16.5">Comune</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="13.8046875" y="40.125">Presentazione del</tspan>
+                                            <tspan x="23.1171875" y="58.625">Modulo Unico</tspan>
+                                            <tspan x="49.1171875" y="77.125">Eventi</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M21,3H3C1.9,3,1,3.9,1,5v12c0,1.1,0.9,2,2,2h5v1c0,0.55,0.45,1,1,1h6c0.55,0,1-0.45,1-1v-1h5c1.1,0,2-0.9,2-2V5C23,3.9,22.1,3,21,3z M20,17H4c-0.55,0-1-0.45-1-1V6c0-0.55,0.45-1,1-1h16c0.55,0,1,0.45,1,1v10C21,16.55,20.55,17,20,17z M18,8H9C8.45,8,8,8.45,8,9v0c0,0.55,0.45,1,1,1h9c0.55,0,1-0.45,1-1v0C19,8.45,18.55,8,18,8z M18,12H9c-0.55,0-1,0.45-1,1v0c0,0.55,0.45,1,1,1h9c0.55,0,1-0.45,1-1v0C19,12.45,18.55,12,18,12z M7,8H5v2h2V8z M7,12H5v2h2V12z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1210.16 259.73)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1220.25 1042.25)">
+                                    <g>
+                                        <circle cx="10" cy="10" r="10"
+                                                style="stroke: black; stroke-width: 3px; fill: black; fill-opacity: 0.95;"></circle>
+                                        <path d="M6 6l12 12m-12 0l12-12"
+                                              style="fill: none; stroke-width: 3px; stroke: white;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(966 937)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="8.6875" y="9.5">Polizia Amm.va</tspan>
+                                            <tspan x="32.234375" y="23.5">Provinciale</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="32.0078125" y="49.375">Richiesta di</tspan>
+                                            <tspan x="23.3671875" y="67.875">autorizzazione</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M16,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3s-3,1.34-3,3C13,9.66,14.34,11,16,11zM8,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3S5,6.34,5,8C5,9.66,6.34,11,8,11zM8,13c-2.33,0-7,1.17-7,3.5V18c0,0.55,0.45,1,1,1h12c0.55,0,1-0.45,1-1v-1.5C15,14.17,10.33,13,8,13zM16,13c-0.29,0-0.62,0.02-0.97,0.05c0.02,0.01,0.03,0.03,0.04,0.04C16.21,13.92,17,15.03,17,16.5V18c0,0.35-0.07,0.69-0.18,1H22c0.55,0,1-0.45,1-1v-1.5C23,14.17,18.33,13,16,13z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(1106 967)">
+                                            <g>
+                                                <circle cx="20" cy="20" r="20"
+                                                        style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                                <text style="font-size: 85%;">
+                                                    <tspan x="44" y="8.375">da 15 a 45</tspan>
+                                                    <tspan x="44" y="23.875">giorni prima</tspan>
+                                                    <tspan x="44" y="39.375">dell’evento</tspan>
+                                                </text>
+                                                <path
+                                                    d="M12 0C5.4 0 0 5.4 0 12C0 18.6 5.4 24 12 24C18.6 24 24 18.6 24 12C24 5.4 18.6 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12.6 6L10.8 6L10.8 13.2L17.04 17.04L18 15.48L12.6 12.24Z"
+                                                    style="fill: black; stroke-width: 2px; stroke: none;"
+                                                    transform="scale(1.66667 1.66667)"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1221.75 1201.5)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1219.25 1413.5)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(794.16 405.73)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="60.65625" y="16.5">APSS</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="19.796875" y="49.375">Comunicazione</tspan>
+                                            <tspan x="4.03125" y="67.875">della manifestazione</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M12.72,2.03C6.63,1.6,1.6,6.63,2.03,12.72C2.39,18.01,7.01,22,12.31,22L16,22c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1l-3.67,0c-3.73,0-7.15-2.42-8.08-6.03c-1.49-5.8,3.91-11.21,9.71-9.71C17.58,5.18,20,8.6,20,12.33l0,1.1c0,0.79-0.71,1.57-1.5,1.57S17,14.22,17,13.43v-1.25c0-2.51-1.78-4.77-4.26-5.12c-3.4-0.49-6.27,2.45-5.66,5.87c0.34,1.91,1.83,3.49,3.72,3.94c1.84,0.43,3.59-0.16,4.74-1.33c0.89,1.22,2.67,1.86,4.3,1.21c1.34-0.53,2.16-1.9,2.16-3.34c0-0.33,0-0.7,0-1.09C22,7.01,18.01,2.39,12.72,2.03z M12,15c-1.66,0-3-1.34-3-3s1.34-3,3-3s3,1.34,3,3S13.66,15,12,15z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(975.25 1221.25)">
+                                    <g>
+                                        <rect x="0" y="0" width="140" height="108" rx="10" ry="10"
+                                              style="stroke: none; stroke-width: 2px; fill: none;"></rect>
+                                        <path d="M0,10a10,10,0,0,1,10,-10H24l6,13l-6,13H0z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <path d="M140,26v-16a10,10,0,0,0,-10,-10H26l6,13l-6,13z"
+                                              style="fill: rgb(238, 238, 238); stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <text style="fill: black; font-size: 75%; font-weight: bold;"
+                                              transform="translate(25 0)">
+                                            <tspan x="36.90625" y="9.5">Operatore</tspan>
+                                            <tspan x="10.703125" y="23.5">Elettrico/Idrico</tspan>
+                                        </text>
+                                        <path d="M0,82v16a10,10,0,0,0,10,10H130a10,10,0,0,0,10,-10v-16z"
+                                              style="fill: white; stroke-width: 1px; stroke: black; fill-opacity: 0.95;"></path>
+                                        <rect x="0" y="0" width="140" height="56" rx="0" ry="0"
+                                              style="stroke: black; stroke-width: 1px; fill: white; fill-opacity: 0.95;"
+                                              transform="translate(0 26)"></rect>
+                                        <text style="fill: black;">
+                                            <tspan x="32.0078125" y="49.375">Richiesta di</tspan>
+                                            <tspan x="42.015625" y="67.875">fornitura</tspan>
+                                        </text>
+                                        <path
+                                            d="M9 11.5c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(1 1)"></path>
+                                        <path
+                                            d="M15,11V5.83c0-0.53-0.21-1.04-0.59-1.41l-1.71-1.71c-0.39-0.39-1.02-0.39-1.41,0L9.59,4.41C9.21,4.79,9,5.3,9,5.83V7H5C3.9,7,3,7.9,3,9v10c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2v-6c0-1.1-0.9-2-2-2H15z M7,19H5v-2h2V19z M7,15H5v-2h2V15z M7,11H5V9h2V11z M13,19h-2v-2h2V19z M13,15h-2v-2h2V15z M13,11h-2V9h2V11z M13,7h-2V5h2V7z M19,19h-2v-2h2V19z M19,15h-2v-2h2V15z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(115 1)"></path>
+                                        <path
+                                            d="M16,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3s-3,1.34-3,3C13,9.66,14.34,11,16,11zM8,11c1.66,0,2.99-1.34,2.99-3c0-1.66-1.33-3-2.99-3S5,6.34,5,8C5,9.66,6.34,11,8,11zM8,13c-2.33,0-7,1.17-7,3.5V18c0,0.55,0.45,1,1,1h12c0.55,0,1-0.45,1-1v-1.5C15,14.17,10.33,13,8,13zM16,13c-0.29,0-0.62,0.02-0.97,0.05c0.02,0.01,0.03,0.03,0.04,0.04C16.21,13.92,17,15.03,17,16.5V18c0,0.35-0.07,0.69-0.18,1H22c0.55,0,1-0.45,1-1v-1.5C23,14.17,18.33,13,16,13z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="translate(58 83)"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <g
+                                            style="display: block;" transform="translate(1115.25 1251.25)">
+                                            <g>
+                                                <circle cx="20" cy="20" r="20"
+                                                        style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                                <text style="font-size: 85%;">
+                                                    <tspan x="44" y="-7.125">almeno 20</tspan>
+                                                    <tspan x="44" y="8.375">giorni</tspan>
+                                                    <tspan x="44" y="23.875">lavorativi</tspan>
+                                                    <tspan x="44" y="39.375">prima</tspan>
+                                                    <tspan x="44" y="54.875">dell’evento</tspan>
+                                                </text>
+                                                <path
+                                                    d="M12 0C5.4 0 0 5.4 0 12C0 18.6 5.4 24 12 24C18.6 24 24 18.6 24 12C24 5.4 18.6 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12.6 6L10.8 6L10.8 13.2L17.04 17.04L18 15.48L12.6 12.24Z"
+                                                    style="fill: black; stroke-width: 2px; stroke: none;"
+                                                    transform="scale(1.66667 1.66667)"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1221.75 1320.5)">
+                                    <g>
+                                        <circle cx="10" cy="10" r="10"
+                                                style="stroke: black; stroke-width: 3px; fill: black; fill-opacity: 0.95;"></circle>
+                                        <path d="M6 6l12 12m-12 0l12-12"
+                                              style="fill: none; stroke-width: 3px; stroke: white;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(760 1055)">
+                                    <g>
+                                        <circle cx="20" cy="20" r="20"
+                                                style="stroke: none; stroke-width: 2px; fill: white; fill-opacity: 0.95;"></circle>
+                                        <text style="font-size: 85%;">
+                                            <tspan x="44" y="0.625">Serve la</tspan>
+                                            <tspan x="44" y="16.125">Licenza di</tspan>
+                                            <tspan x="44" y="31.625">Pubblica</tspan>
+                                            <tspan x="44" y="47.125">Sicurezza?</tspan>
+                                        </text>
+                                        <path
+                                            d="M10.8 19.2L13.2 19.2L13.2 16.8L10.8 16.8ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12 4.8C9.348 4.8 7.2 6.948 7.2 9.6L9.6 9.6C9.6 8.28 10.68 7.2 12 7.2C13.32 7.2 14.4 8.28 14.4 9.6C14.4 12 10.8 11.7 10.8 15.6L13.2 15.6C13.2 12.9 16.8 12.6 16.8 9.6C16.8 6.948 14.652 4.8 12 4.8Z"
+                                            style="fill: black; stroke-width: 2px; stroke: none;"
+                                            transform="scale(1.66667 1.66667)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(622.25 1343.5)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(621.434 608.657)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(626.242 1593.28)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 2.5px; fill: white; fill-opacity: 0.95;"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1221.86 850.901)">
+                                    <g>
+                                        <circle cx="10" cy="10" r="10"
+                                                style="stroke: black; stroke-width: 3px; fill: black; fill-opacity: 0.95;"></circle>
+                                        <path d="M6 6l12 12m-12 0l12-12"
+                                              style="fill: none; stroke-width: 3px; stroke: white;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                            <g>
+                                <g style="display: block;"
+                                   transform="translate(1216.24 1664.28)">
+                                    <g>
+                                        <rect x="0" y="0" width="20" height="20" rx="2" ry="2"
+                                              style="stroke: black; stroke-width: 3px; fill: white; fill-opacity: 0.95;"></rect>
+                                        <path d="M20 6 l-11 11 l-5-5"
+                                              style="fill: none; stroke-width: 2px; stroke: black;"
+                                              transform="scale(0.833333 0.833333)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
