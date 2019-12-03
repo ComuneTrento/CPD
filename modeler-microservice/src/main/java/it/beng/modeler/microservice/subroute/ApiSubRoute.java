@@ -367,9 +367,9 @@ public final class ApiSubRoute extends VoidSubRoute {
         context.fail(new NoStackTraceThrowable("no diagram ID in feedback"));
         return;
       }
-      String elementId = feedback.getString("elementId");
-      if (elementId == null || elementId.trim().length() == 0) {
-        context.fail(new NoStackTraceThrowable("no element ID in feedback"));
+      String modelId = feedback.getString("modelId");
+      if (modelId == null || modelId.trim().length() == 0) {
+        context.fail(new NoStackTraceThrowable("no model ID in feedback"));
         return;
       }
       feedback
