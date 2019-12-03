@@ -1,0 +1,45 @@
+{
+  "indexes": [
+    {
+      "keys": {
+        "_id": 1
+      },
+      "options": {
+        "name": "_id_"
+      }
+    },
+    {
+      "keys": {
+        "dateTime" : 1
+      },
+      "options": {
+        "name": "_dateTime_"
+      }
+    },
+    {
+      "keys": {
+        "userId" : 1
+      },
+      "options": {
+        "name": "_userId_"
+      }
+    },
+    {
+      "keys": {
+        "diagramId" : 1
+      },
+      "options": {
+        "name": "_diagramId_"
+      }
+    },
+    {
+      "keys": {
+        "modelId" : 1
+      },
+      "options": {
+        "name": "_modelId_"
+      }
+    }
+  ],
+  "documents": []
+}

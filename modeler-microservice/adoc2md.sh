@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 # NOTE: this script assumes pandoc and asciidoc are installed in your system
 #       (sudo apt install pandoc asciidoc)
-FILE=$1
-if [ -z "$FILE" ]; then
+if [ -z "$1" ]; then
   echo "please provide an asciidoc file to convert"
   exit 1
 fi
 
-[[ "$FILE" =~ ^(.*\.)+(.*)$ ]]
-NAME=${BASH_REMATCH[1]%?}
-EXT=${BASH_REMATCH[2]}
-#echo "NAME:" $NAME "EXT:" $EXT
+[[ "$1" =~ ^(.*/)*(.*\.)+(.*)?$ ]]
+DIR=${BASH_REMATCH[1]}
+NAME=${BASH_REMATCH[2]%?}
+EXT=${BASH_REMATCH[3]}
 
-asciidoc -b docbook -o - "$FILE" | pandoc -f docbook -t markdown_strict -o "$NAME.md"
+if [ -n "$EXT" ]; then
+  EXT=.$EXT
+fi;
+
+echo "DIR: $DIR"
+echo "NAME: $NAME"
+echo "EXT: $EXT"
+
+asciidoc -b docbook -o - "$1" | pandoc -f docbook -t markdown_strict -o "$DIR$NAME".md

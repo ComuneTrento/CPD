@@ -12,6 +12,7 @@ import it.beng.modeler.microservice.actions.diagram.DiagramAction;
 import it.beng.modeler.microservice.actions.diagram.reply.DefinitionLoadedAction;
 import it.beng.modeler.microservice.utils.DBUtils;
 import it.beng.modeler.microservice.utils.JsonUtils;
+import it.beng.modeler.model.Domain;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -104,7 +105,7 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
             // 2nd stage (for translations retrieval)
             final String lang = cpd.languageCode(context);
             DBUtils.loadCollection(
-                "extensions",
+                Domain.Collection.EXTENSIONS,
                 new JsonObject()
                     // filter "extensions" collection by process-task key of fetched tasks
                     .put("id", new JsonObject()

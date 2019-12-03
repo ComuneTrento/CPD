@@ -5,16 +5,8 @@ if [ -z "$NAME" ]; then
   exit 1
 fi
 
-COLLECTIONS="properties schemas models dis extensions"
+COLLECTIONS="dis extensions models properties schemas user.feedbacks users"
 
 for COLLECTION in $COLLECTIONS; do
   mongodump --gzip --db=cpd --collection=$COLLECTION --out="dump/$NAME"
 done
-
-SRC=$2
-if [[ $NAME == "all" ]] && [[ $SRC ]] && [[ $SRC == "src" ]]; then
-  echo "exporting jsons to src..."
-  for COLLECTION in $COLLECTIONS; do
-    mongoexport --db=cpd --collection=$COLLECTION --jsonArray --pretty --out src/main/deploy-bundle/data/db/collections/$COLLECTION.json
-  done
-fi

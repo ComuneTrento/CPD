@@ -1,0 +1,81 @@
+{
+  "indexes": [
+    {
+      "keys": {
+        "_id": 1
+      },
+      "options": {
+        "name": "_id_"
+      }
+    },
+    {
+      "keys": {
+        "notation" : 1
+      },
+      "options": {
+        "name": "_notation_"
+      }
+    },
+    {
+      "keys": {
+        "planeId" : 1
+      },
+      "options": {
+        "name": "_planeId_",
+        "unique": true,
+        "sparse": true
+      }
+    },
+    {
+      "keys": {
+        "lastModified" : 1
+      },
+      "options": {
+        "name": "_lastModified_",
+        "sparse": true
+      }
+    },
+    {
+      "keys": {
+        "parentId" : 1
+      },
+      "options": {
+        "name": "_parentId_",
+        "sparse": true
+      }
+    },
+    {
+      "keys": {
+        "＄domain" : 1
+      },
+      "options": {
+        "name": "_＄domain_"
+      }
+    },
+    {
+      "keys": {
+        "name" : "text",
+        "documentation": "text"
+      },
+      "options": {
+        "name": "_name_documentation_text_",
+        "defaultLanguage": "english",
+        "languageOverride": "language",
+        "weights": {
+          "name" : 1,
+          "documentation" : 2
+        }
+      }
+    },
+    {
+      "keys": {
+        "eServiceId" : 1
+      },
+      "options": {
+        "name": "_eServiceId_",
+        "sparse": true
+      }
+    }
+  ],
+  "documents": []
+}

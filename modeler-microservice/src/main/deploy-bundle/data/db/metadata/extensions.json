@@ -1,0 +1,202 @@
+{
+  "indexes": [
+    {
+      "keys": {
+        "_id": 1
+      },
+      "options": {
+        "name": "_id_"
+      }
+    }
+  ],
+  "documents": [
+    {
+      "_id": {
+        "processKey": "procedure-modeling-process",
+        "taskKey": "approved-notification"
+      },
+      "name": {
+        "en": "Notification of approval",
+        "it": "Notifica di Approvazione",
+        "es": "Notificación de la aprobación",
+        "gl": "Notificación de aprobación"
+      },
+      "documentation": {
+        "en": "The Procedure has been approved by the «owner» and is now publicly available.",
+        "it": "La Procedura è stata approvata dal «responsabile» (owner) ed è ora disonibile al pubblico.",
+        "es": "El procedimiento ha sido aprobado por el «propietario» (owner) y ahora esta disponible publicamente.",
+        "gl": "O procedemento foi aprobado polo «propietario» e agora está públicamente dispoñible."
+      },
+      "model": {
+        "roles": [
+          "reviewer",
+          "editor"
+        ],
+        "readonly": true,
+        "outputs": {
+          "confirm": {
+            "en": "OK",
+            "it": "OK",
+            "es": "OK",
+            "gl": "OK"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "processKey": "procedure-modeling-process",
+        "taskKey": "procedure-approval"
+      },
+      "name": {
+        "en": "Procedure approval",
+        "it": "Approvazione della Procedura",
+        "es": "Aprobación del procedimiento",
+        "gl": "Aprobación do procedemento"
+      },
+      "documentation": {
+        "en": "As a Procedure «owner» you can either definitely approve the Procedure, making it publicly available, or return it to the «reviewer»/«editor» for further modifications.",
+        "it": "In qualità di «responsabile» (owner) della Procedura hai la facoltà di approvare in maniera definitiva la Procedura, rendendola visibile ai cittadini, oppure di ritornare la Procedura al «revisore»/«editore» (reviewer/editor) al fine di apportare le modifiche necessarie all'approvazione.",
+        "es": "Como «propetario» (owner) del procedimiento puedes aprovar el procedimiento, haciendolo publico, o devolverselo al «revisor»/«editor» (reviewer/editor) para futuras modificaciones.",
+        "gl": "Como «propietario» (owner) do procedemento pode tanto aprobar definitivamente o procedemento, marcado como públicamente dispoñible, ou retornalo ao «revisor»/«editor» (reviewer/eitor) para modificacións futuras."
+      },
+      "model": {
+        "roles": [
+          "owner"
+        ],
+        "variable": "decision",
+        "outputs": {
+          "confirm": {
+            "en": "Approve",
+            "it": "Finalizza",
+            "es": "Aprovar",
+            "gl": "Aprobar"
+          },
+          "reject": {
+            "en": "Return to «reviewer»/«editor»",
+            "it": "Modifica ulteriormente",
+            "es": "Devolverselo al «revisor»/«editor»",
+            "gl": "Retornalo ao «revisor»/«editor»"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "processKey": "procedure-modeling-process",
+        "taskKey": "procedure-modeling"
+      },
+      "name": {
+        "en": "Procedure modeling",
+        "it": "Modellazione della Procedura",
+        "es": "Modelado del procedimiento",
+        "gl": "Modelado do procedemento"
+      },
+      "documentation": {
+        "en": "As a Procedure «editor» you have to model the Procedure as a diagram. Once the diagram is completed, it will be handed over to the «reviewer» for validation.",
+        "it": "In qualità di «editore» (editor) della Procedura hai il compito di modellare la Procedura sotto forma di diagramma. Una volta completato il progetto della Procedura, questa passerà al «revisore» (reviewer) per la validazione.",
+        "es": "Como «editor» tienes que modelar en un diagrama el procedimiento. Cuando el diagrama esta terminado, se enviará al «revisor» (reviewer) para su validación.",
+        "gl": "Como «editor» do procedemento ten que modelar o procedemento como un diagrama. Unha vez que o diagrama estea completo, será posto a disposición do «revisor» (reviewer) para a súa validación."
+      },
+      "model": {
+        "roles": [
+          "editor"
+        ],
+        "isEditingTask": true
+      }
+    },
+    {
+      "_id": {
+        "processKey": "procedure-modeling-process",
+        "taskKey": "procedure-validation"
+      },
+      "name": {
+        "en": "Procedure validation",
+        "it": "Validazione della Procedura",
+        "es": "Validación del procedimiento",
+        "gl": "Validación do procedemento"
+      },
+      "documentation": {
+        "en": "As a Procedure «reviewer» you can either validate the Procedure, passing it to the «owner» for final approval, or return it to the «editor» for further modifications.",
+        "it": "In qualità di «revisore» (reviewer) della Procedura hai la facoltà di validare la Procedura, passandola così al «responsabile» (owner) per l'approvazione definitiva, oppure di ritornare la Procedura all'«editore» (editor) al fine di apportare le modifiche necessarie alla validazione.",
+        "es": "Como «revisor» (reviewer) del procedimiento puedes tanto validar el procedimiento, enviandoselo al «propietarios» (owner) para la validación final, como mandarselo de nuevo al «editor» para futuras modificaciones.",
+        "gl": "Como «revisor» (reviewer) do procedemento pode tanto validar o procedemento, coma pasalo ao «propietario» (owner) para a aprobación final, ou ben retornalo ao «editor» para modificacións futuras."
+      },
+      "model": {
+        "roles": [
+          "reviewer"
+        ],
+        "variable": "decision",
+        "outputs": {
+          "confirm": {
+            "en": "Validate",
+            "it": "Accetta",
+            "es": "Validar",
+            "gl": "Validar"
+          },
+          "reject": {
+            "en": "Return to «editor»",
+            "it": "Modifica ulteriormente",
+            "es": "Mandarselo al «editor»",
+            "gl": "Retornalo ao «editor»"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "processKey": "procedure-modeling-process",
+        "taskKey": "requirements-definition"
+      },
+      "name": {
+        "en": "Procedure requirements definition",
+        "it": "Definizione requisiti della Procedura",
+        "es": "Definición de los requisitos del procedimiento",
+        "gl": "Definición dos requirimentos do procedemento"
+      },
+      "documentation": {
+        "en": "As a Procedure «reviewer» you have to define and provide to the «editor» the Procedure requirements, among which the users that will participate in the collaborative design.",
+        "it": "In qualità di «revisore» (reviewer) della Procedura hai il compito di definire e fornire all'«editore» (editor) i requisiti della Procedura, tra cui gli utenti che parteciperanno al design collaborativo della Procedura.",
+        "es": "Como «revisor» (reviewer) del procedimiento tienes que definir y proporcionar al «editor» los requisitos del procedimientos, junto con los usuarios que participarán en el diseño colaborativo.",
+        "gl": "Como «revisor» (reviewer) do procedemento ten que definir e proporciona ao «editor» os requirimentos do procedemento, entre os cales os usuarios participarán no deseño colaborativo."
+      },
+      "model": {
+        "roles": [
+          "reviewer"
+        ]
+      }
+    },
+    {
+      "_id": {
+        "processKey": "procedure-modeling-process",
+        "taskKey": "validated-notification"
+      },
+      "name": {
+        "en": "Notification of validation",
+        "it": "Notifica di Validazione",
+        "es": "Notificación de la validación",
+        "gl": "Notificación de validación"
+      },
+      "documentation": {
+        "en": "The Procedure has been validated by the «reviewer» and is now to the «owner» attention.",
+        "it": "La Procedura è stata validata dal «revisore» (reviewer) ed è ora all'attenzione del «responsabile» (owner) della Procedura.",
+        "es": "El procedimiento ha sido validado por el «revisor» (reviewer) y ahora esta siendo analizado por el «propietario» (owner)",
+        "gl": "O procedemento foi validado polo «revisor» (reviewer) e agora está á atención do «propietario» (owner)."
+      },
+      "model": {
+        "roles": [
+          "editor"
+        ],
+        "readonly": true,
+        "outputs": {
+          "confirm": {
+            "en": "OK",
+            "es": "OK",
+            "it": "OK",
+            "gl": "OK"
+          }
+        }
+      }
+    }
+  ]
+}

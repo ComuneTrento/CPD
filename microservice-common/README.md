@@ -1,10 +1,10 @@
-# CPD common
+# Microservice common
 
-Just a set of classes used by the other projects. It configures the discovery infrastructure. 
+A set of classes used by the other microservice projects. 
 
-Before building make sure to execute an `npm install` from the `src/main/resources/it/beng/microservice/schema` directory, in
-order to download and install the Ajv schema validator javascript library needed by the Java nashorn engine.
-
+The building executes `npm install` on the `src/main/resources/it/beng/microservice/schema`
+directory, in order to download and install the Ajv schema validator javascript library user by the
+Nashorn engine.
 
 ## Build
 

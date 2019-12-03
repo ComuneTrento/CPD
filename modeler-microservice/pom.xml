@@ -285,6 +285,7 @@
         <filtering>true</filtering>
         <includes>
           <include>conf/config.json</include>
+          <include>data/db/collections/*.json</include>
           <include>web/assets/conf/*.json</include>
           <include>web/assets/swagger/*.json</include>
           <include>web/swagger-ui/swagger.json</include>

@@ -5,6 +5,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import it.beng.microservice.common.AsyncHandler;
 import it.beng.modeler.config.cpd;
+import it.beng.modeler.model.Domain;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -103,7 +104,7 @@ public final class ProcessEngineUtils {
             // NOTE: assignee role is stored in the mongodb "extensions" collection
             final TaskService taskService = processEngine.getTaskService();
             DBUtils.loadCollection(
-                "extensions",
+                Domain.Collection.EXTENSIONS,
                 // query example: { "model.roles": { $in: [ "editor" ] } }
                 new JsonObject()
                     .put("model.roles", new JsonObject()

@@ -1,12 +1,14 @@
 package it.beng.modeler.config;
 
 import io.vertx.core.Future;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
+import io.vertx.ext.mongo.IndexOptions;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.RoutingContext;
 import it.beng.microservice.common.AsyncHandler;
@@ -307,391 +309,432 @@ public final class cpd {
     return "cpd." + server.pub.scheme + ".session";
   }
 
-  public static void setup(
-      final Vertx vertx, final JsonObject config, AsyncHandler<Void> complete) {
+  public static void setup(final Vertx vertx, final JsonObject config,
+                           AsyncHandler<Void> complete) {
     _vertx = vertx;
     _version = config.getString("version");
     _develop = config.getBoolean("develop", false);
 
-    final Countdown setupStage = new Countdown(9);
+    final Countdown setupStage = new Countdown(5);
 
-    final AsyncHandler<Void> setupStageHandler =
-        c -> {
-          if (c.succeeded()) { setupStage.next(); } else { setupStage.fail(c.cause()); }
-        };
+    final AsyncHandler<Void> setupStageHandler = setupStageCompleted -> {
+      if (setupStageCompleted.succeeded()) {
+        setupStage.next();
+      } else {
+        setupStage.fail(setupStageCompleted.cause());
+      }
+    };
 
-    setupStage
-        .onStep(
-            setupStep -> {
-              if (setupStep.succeeded()) {
-                switch (setupStep.result()) {
-                  case 1:
-                    // (1) configuration => setupStep: 1, 2
-                    vertx.executeBlocking(
-                        future -> future.complete(buildConfig(vertx, config, setupStageHandler)),
-                        setupStageHandler);
-                    break;
-                  case 3:
-                    // (2) database => setupSteps: 3, 4
-                    vertx.executeBlocking(
-                        future -> future.complete(buildDatabase(vertx, setupStageHandler)),
-                        setupStageHandler);
-                    break;
-                  case 5:
-                    // (3) process engine => setupSteps: 5, 6
-                    vertx.executeBlocking(
-                        future -> future.complete(buildProcessEngine(setupStageHandler)),
-                        setupStageHandler);
-                    break;
-                  case 7:
-                    // (4) schema tools => setupSteps: 7, 8
-                    vertx.<SchemaTools>executeBlocking(
-                        blocking ->
-                            blocking.complete(
-                                new SchemaTools(
-                                    vertx,
-                                    _mongoClient,
-                                    Domain.Collection.SCHEMAS,
-                                    server.schema.uriBase(),
-                                    server.scheme,
-                                    SCHEMA_MAPPINGS_EXTENSION,
-                                    setupStageHandler)),
-                        result -> {
-                          if (result.succeeded()) {
-                            _schemaTools = result.result();
-                            setupStage.next();
-                          } else { setupStage.fail(result.cause()); }
-                        });
-                    break;
-                }
-              }
-            })
-        .onComplete(
-            setupComplete -> {
-              if (setupComplete.succeeded()) { complete.handle(Future.succeededFuture()); } else {
-                complete.handle(Future.failedFuture(setupComplete.cause()));
-              }
-            });
+    setupStage.onStep(setupStep -> {
+      if (setupStep.succeeded()) {
+        switch (setupStep.result()) {
+          case 1:
+            // 1. configuration
+            vertx.executeBlocking(buildConfig(vertx, config), setupStageHandler);
+            break;
+          case 2:
+            // 2. database
+            vertx.executeBlocking(buildDatabase(vertx), setupStageHandler);
+            break;
+          case 3:
+            // 3. process engine
+            vertx.executeBlocking(buildProcessEngine(), setupStageHandler);
+            break;
+          case 4:
+            // 4. schema tools
+            vertx.executeBlocking(buildSchemaTools(vertx), setupStageHandler);
+            break;
+        }
+      }
+    }).onComplete(setupComplete -> {
+      if (setupComplete.succeeded()) {
+        complete.handle(Future.succeededFuture());
+      } else {
+        complete.handle(Future.failedFuture(setupComplete.cause()));
+      }
+    });
 
     setupStage.next();
   }
 
-  public static Void buildConfig(Vertx vertx, JsonObject config, AsyncHandler<Void> complete) {
-    _config = config;
+  public static Handler<Future<Void>> buildConfig(final Vertx vertx, final JsonObject config) {
+    return completed -> {
+      try {
+        _config = config;
 
-    JsonObject node;
-    /* ssl */
-    node = config.getJsonObject("ssl");
-    cpd.ssl.enabled = node.getBoolean("enabled");
-    cpd.ssl.keyStoreFilename = node.getString("keyStoreFilename");
-    cpd.ssl.keyStorePassword = node.getString("keyStorePassword");
+        JsonObject node;
+        /* ssl */
+        node = config.getJsonObject("ssl");
+        cpd.ssl.enabled = node.getBoolean("enabled");
+        cpd.ssl.keyStoreFilename = node.getString("keyStoreFilename");
+        cpd.ssl.keyStorePassword = node.getString("keyStorePassword");
 
-    /* server */
-    node = config.getJsonObject("server");
-    cpd.server.adminId = node.getString("adminId", null);
-    cpd.server.name = node.getString("name", "BEng CPD Server");
-    cpd.server.scheme = node.getString("scheme", "https");
-    cpd.server.hostname = node.getString("hostname", "localhost");
-    cpd.server.port = node.getInteger("port", 8901);
-    cpd.server.baseHref = checkBaseHref(node.getString("baseHref", "/"));
-    cpd.server.allowedOriginPattern = node.getString("allowedOriginPattern");
+        /* server */
+        node = config.getJsonObject("server");
+        cpd.server.adminId = node.getString("adminId", null);
+        cpd.server.name = node.getString("name", "BEng CPD Server");
+        cpd.server.scheme = node.getString("scheme", "https");
+        cpd.server.hostname = node.getString("hostname", "localhost");
+        cpd.server.port = node.getInteger("port", 8901);
+        cpd.server.baseHref = checkBaseHref(node.getString("baseHref", "/"));
+        cpd.server.allowedOriginPattern = node.getString("allowedOriginPattern");
 
-    /* server.secret */
-    node = config.getJsonObject("server").getJsonObject("secret");
-    server.secret.csrf = node.getString("csrf", UUID.randomUUID().toString());
-    server.secret.jwt = node.getString("jwt", UUID.randomUUID().toString());
+        /* server.secret */
+        node = config.getJsonObject("server").getJsonObject("secret");
+        server.secret.csrf = node.getString("csrf", UUID.randomUUID().toString());
+        server.secret.jwt = node.getString("jwt", UUID.randomUUID().toString());
 
-    JWT = JWTAuth.create(vertx, new JWTAuthOptions().addPubSecKey(
-        new PubSecKeyOptions()
-            .setAlgorithm("HS256")
-            .setPublicKey(server.secret.jwt)
-            .setSymmetric(true)
-    ));
-    logger.info("JWT provider crated.");
+        JWT = JWTAuth.create(vertx, new JWTAuthOptions().addPubSecKey(
+            new PubSecKeyOptions()
+                .setAlgorithm("HS256")
+                .setPublicKey(server.secret.jwt)
+                .setSymmetric(true)
+        ));
+        logger.info("JWT provider crated.");
 
-    /* server.pub */
-    node = config.getJsonObject("server").getJsonObject("pub");
-    cpd.server.pub.scheme = node.getString("scheme", cpd.server.scheme);
-    cpd.server.pub.hostname = node.getString("hostname", cpd.server.hostname);
-    cpd.server.pub.port = node.getInteger("port", cpd.server.port);
+        /* server.pub */
+        node = config.getJsonObject("server").getJsonObject("pub");
+        cpd.server.pub.scheme = node.getString("scheme", cpd.server.scheme);
+        cpd.server.pub.hostname = node.getString("hostname", cpd.server.hostname);
+        cpd.server.pub.port = node.getInteger("port", cpd.server.port);
 
-    /* server.cacheBuilder */
-    node = config.getJsonObject("server").getJsonObject("cacheBuilder");
-    cpd.server.cacheBuilder.concurrencyLevel = node.getInteger("concurrencyLevel", 1);
-    cpd.server.cacheBuilder.initialCapacity = node.getInteger("initialCapacity", 100);
-    cpd.server.cacheBuilder.maximumSize = node.getInteger("maximumSize", 1000);
-    cpd.server.cacheBuilder.expireAfterAccess = node.getString("expireAfterAccess", "60m");
+        /* server.cacheBuilder */
+        node = config.getJsonObject("server").getJsonObject("cacheBuilder");
+        cpd.server.cacheBuilder.concurrencyLevel = node.getInteger("concurrencyLevel", 1);
+        cpd.server.cacheBuilder.initialCapacity = node.getInteger("initialCapacity", 100);
+        cpd.server.cacheBuilder.maximumSize = node.getInteger("maximumSize", 1000);
+        cpd.server.cacheBuilder.expireAfterAccess = node.getString("expireAfterAccess", "60m");
 
-    /* server.schema */
-    node = config.getJsonObject("server").getJsonObject("schema");
-    cpd.server.schema.path = checkPath(node.getString("path", "schema/"), true);
+        /* server.schema */
+        node = config.getJsonObject("server").getJsonObject("schema");
+        cpd.server.schema.path = checkPath(node.getString("path", "schema/"), true);
 
-    /* server.auth */
-    node = config.getJsonObject("server").getJsonObject("auth");
-    cpd.server.auth.path = checkPath(node.getString("path", "auth/"), true);
+        /* server.auth */
+        node = config.getJsonObject("server").getJsonObject("auth");
+        cpd.server.auth.path = checkPath(node.getString("path", "auth/"), true);
 
-    /* server.api */
-    node = config.getJsonObject("server").getJsonObject("api");
-    cpd.server.api.path = checkPath(node.getString("path", "api/"), true);
+        /* server.api */
+        node = config.getJsonObject("server").getJsonObject("api");
+        cpd.server.api.path = checkPath(node.getString("path", "api/"), true);
 
-    /* server.eventBus */
-    node = config.getJsonObject("server").getJsonObject("eventBus");
-    cpd.server.eventBus.path = checkPath(node.getString("path", "eventbus/"), true);
-    cpd.server.eventBus.diagramAddress = node.getString("diagramAddress", "cpd::diagram");
+        /* server.eventBus */
+        node = config.getJsonObject("server").getJsonObject("eventBus");
+        cpd.server.eventBus.path = checkPath(node.getString("path", "eventbus/"), true);
+        cpd.server.eventBus.diagramAddress = node.getString("diagramAddress", "cpd::diagram");
 
-    /* server.assets */
-    node = config.getJsonObject("server").getJsonObject("assets");
-    cpd.server.assets.allowListing = node.getBoolean("allowListing", false);
+        /* server.assets */
+        node = config.getJsonObject("server").getJsonObject("assets");
+        cpd.server.assets.allowListing = node.getBoolean("allowListing", false);
 
-    checkPath(CollaborationsSubRoute.PATH, true);
+        checkPath(CollaborationsSubRoute.PATH, true);
 
-    /* ROOT app */
-    node = config.getJsonObject("app");
-    // app.path = checkPath(node.getString("path", ""), false);
-    cpd.app.useLocalAuth = node.getBoolean("useLocalAuth", false);
-    cpd.app.locales = node.getJsonArray("locales").getList();
-    cpd.app.designerPath = checkPath(node.getString("designerPath", "designer/"), false);
+        /* ROOT app */
+        node = config.getJsonObject("app");
+        // app.path = checkPath(node.getString("path", ""), false);
+        cpd.app.useLocalAuth = node.getBoolean("useLocalAuth", false);
+        cpd.app.locales = node.getJsonArray("locales").getList();
+        cpd.app.designerPath = checkPath(node.getString("designerPath", "designer/"), false);
 
-    /* oauth2 */
-    node = config.getJsonObject("oauth2");
-    cpd.oauth2.origin = CommonUtils.implicitUrlOriginPort(node.getString("origin"));
-    cpd.oauth2.configs = new LinkedList<>();
-    for (Object provider : node.getJsonArray("providers")) {
-      JsonObject p = JsonObject.class.cast(provider);
-      OAuth2Config oAuth2Config = new OAuth2Config();
-      oAuth2Config.provider = p.getString("provider");
-      oAuth2Config.logoUrl = cpd.server.baseHref + /* app.path + */ p.getString("logoUrl");
-      oAuth2Config.site = p.getString("site");
-      oAuth2Config.authPath = p.getString("authPath");
-      oAuth2Config.tokenPath = p.getString("tokenPath");
-      oAuth2Config.revokeEndpoint = p.getString("revokeEndpoint");
-      oAuth2Config.introspectionPath = p.getString("introspectionPath");
-      oAuth2Config.clientId = p.getString("clientId");
-      oAuth2Config.clientSecret = p.getString("clientSecret");
-      oAuth2Config.flows = new LinkedHashMap<>();
-      for (Object flow : p.getJsonArray("flows")) {
-        JsonObject f = JsonObject.class.cast(flow);
-        OAuth2Config.Flow oAuth2ConfigFlow = new OAuth2Config.Flow();
-        JsonArray scope = f.getJsonArray("scope");
-        if (scope != null) { oAuth2ConfigFlow.scope = scope.getList(); }
-        oAuth2ConfigFlow.getUserProfile = f.getString("getUserProfile");
-        oAuth2Config.flows.put(f.getString("flowType"), oAuth2ConfigFlow);
+        /* oauth2 */
+        node = config.getJsonObject("oauth2");
+        cpd.oauth2.origin = CommonUtils.implicitUrlOriginPort(node.getString("origin"));
+        cpd.oauth2.configs = new LinkedList<>();
+        for (Object provider : node.getJsonArray("providers")) {
+          JsonObject p = JsonObject.class.cast(provider);
+          OAuth2Config oAuth2Config = new OAuth2Config();
+          oAuth2Config.provider = p.getString("provider");
+          oAuth2Config.logoUrl = cpd.server.baseHref + /* app.path + */ p.getString("logoUrl");
+          oAuth2Config.site = p.getString("site");
+          oAuth2Config.authPath = p.getString("authPath");
+          oAuth2Config.tokenPath = p.getString("tokenPath");
+          oAuth2Config.revokeEndpoint = p.getString("revokeEndpoint");
+          oAuth2Config.introspectionPath = p.getString("introspectionPath");
+          oAuth2Config.clientId = p.getString("clientId");
+          oAuth2Config.clientSecret = p.getString("clientSecret");
+          oAuth2Config.flows = new LinkedHashMap<>();
+          for (Object flow : p.getJsonArray("flows")) {
+            JsonObject f = JsonObject.class.cast(flow);
+            OAuth2Config.Flow oAuth2ConfigFlow = new OAuth2Config.Flow();
+            JsonArray scope = f.getJsonArray("scope");
+            if (scope != null) { oAuth2ConfigFlow.scope = scope.getList(); }
+            oAuth2ConfigFlow.getUserProfile = f.getString("getUserProfile");
+            oAuth2Config.flows.put(f.getString("flowType"), oAuth2ConfigFlow);
+          }
+          cpd.oauth2.configs.add(oAuth2Config);
+        }
+
+        // set mongodb username and password to null if empty
+        node = config.getJsonObject("mongodb");
+        if ("".equals(node.getString("username"))) { node.put("username", (String) null); }
+        if ("".equals(node.getString("password"))) { node.put("password", (String) null); }
+
+        _mongoClient = MongoClient.createShared(vertx, node);
+
+        _rawDB = MongoDB.create(vertx, _mongoClient, DB_PATH + "commands/", Collections.emptyMap());
+
+        _schemaDB = MongoDB.create(vertx, _mongoClient, DB_PATH + "commands/",
+                                   new HashMap<String, String>(SchemaTools.DEFAULT_MAPPINGS) {{
+                                     putAll(SCHEMA_MAPPINGS_EXTENSION);
+                                   }}
+        );
+
+        _dataDB = MongoDB.create(vertx, _mongoClient, DB_PATH + "commands/", DATA_MAPPINGS);
+
+        completed.handle(Future.succeededFuture());
+      } catch (Exception e) {
+        completed.handle(Future.failedFuture(e));
       }
-      cpd.oauth2.configs.add(oAuth2Config);
-    }
-
-    // set mongodb username and password to null if empty
-    node = config.getJsonObject("mongodb");
-    if ("".equals(node.getString("username"))) { node.put("username", (String) null); }
-    if ("".equals(node.getString("password"))) { node.put("password", (String) null); }
-
-    _mongoClient = MongoClient.createShared(vertx, node);
-
-    _rawDB = MongoDB.create(vertx, _mongoClient, DB_PATH + "commands/", Collections.emptyMap());
-
-    _schemaDB =
-        MongoDB.create(
-            vertx,
-            _mongoClient,
-            DB_PATH + "commands/",
-            new HashMap<String, String>(SchemaTools.DEFAULT_MAPPINGS) {
-              {
-                putAll(SCHEMA_MAPPINGS_EXTENSION);
-              }
-            });
-
-    _dataDB = MongoDB.create(vertx, _mongoClient, DB_PATH + "commands/", DATA_MAPPINGS);
-
-    complete.handle(Future.succeededFuture());
-    return null;
+    };
   }
 
-  private static Void buildDatabase(Vertx vertx, AsyncHandler<Void> complete) {
-    // get last persisted version from DB
-    DBUtils.Properties.get(
-        "version",
-        getProperty -> {
-          if (getProperty.succeeded()) {
-            final String dbVersion = (String) getProperty.result();
-            if (_version.equals(dbVersion)) { // 1) version = dbVersion
-              complete.handle(Future.succeededFuture()); // NO upgrade to perform
-            } else if (dbVersion != null
-                && compareVersions(_version, dbVersion) > 0) { // 2) version > DB version
-              vertx
-                  .fileSystem()
-                  .readFile(
-                      DB_PATH + "upgrade.json",
-                      readFile -> {
-                        if (readFile.succeeded()) {
-                          JsonObject upgrade = readFile.result().toJsonObject();
-                          if (!_version.equals(upgrade.getString("version"))) {
-                            complete.handle(
-                                Future.failedFuture(
-                                    "upgrade version mismatch: expected version is ["
-                                        + _version
-                                        + "] but upgrade version is ["
-                                        + upgrade.getString("version")
-                                        + "]"));
-                            return;
-                          }
-                          if (!upgrade.containsKey(dbVersion)) {
-                            // NO DB upgrade, but it is an upgrade (version > DB version)
-                            complete.handle(
-                                Future.failedFuture(
-                                    "no database upgrade found for ["
-                                        + dbVersion
-                                        + "] => ["
-                                        + _version
-                                        + "]"));
-                          } else {
-                            logger.warn(
-                                "upgrading database from version ["
-                                    + dbVersion
-                                    + "] to version ["
-                                    + _version
-                                    + "]");
-                            JsonObject aggregates = upgrade.getJsonObject(dbVersion);
-                            logger.debug(
-                                "database changes: " + aggregates.encodePrettily());
-
-                            // DONE: update the database based on upgrade.json
-                            final Countdown aggregatesCount =
-                                new Countdown(aggregates.size())
-                                    .onComplete(
-                                        allAggregatesProcessed -> {
-                                          if (allAggregatesProcessed.succeeded()) {
-                                            VERSION_CHANGED = true;
-                                            // ... update db version as last task:
-                                            DBUtils.Properties.set(
-                                                "version",
-                                                _version,
-                                                propertySet -> {
-                                                  if (propertySet.succeeded()) {
-                                                    complete
-                                                        .handle(
-                                                            Future
-                                                                .succeededFuture());
-                                                  } else {
-                                                    complete.handle(
-                                                        Future
-                                                            .failedFuture(
-                                                                propertySet
-                                                                    .cause()));
-                                                  }
-                                                });
-                                          } else {
-                                            complete.handle(
-                                                Future.failedFuture(
-                                                    allAggregatesProcessed
-                                                        .cause()));
-                                          }
-                                        });
-                            aggregates.forEach(
-                                entry -> {
-                                  final String collection = entry.getKey();
-                                  final JsonArray pipelines = (JsonArray) entry
-                                      .getValue();
-                                  final Countdown pipelinesCounter =
-                                      new Countdown(pipelines.size())
-                                          .onComplete(
-                                              done -> {
-                                                if (done.succeeded()) {
-                                                  aggregatesCount.next();
-                                                } else {
-                                                  aggregatesCount
-                                                      .fail(done.cause());
-                                                }
-                                              });
-                                  pipelines.forEach(
-                                      pipeline -> {
-                                        rawDB()
-                                            .runCommand(
-                                                "aggregate",
-                                                rawDB()
-                                                    .command(
-                                                        "aggregate",
-                                                        new HashMap<String, String>() {
-                                                          {
-                                                            put("aggregate",
-                                                                collection);
-                                                            put(
-                                                                "pipeline",
-                                                                ((JsonArray) pipeline)
-                                                                    .encode());
-                                                          }
-                                                        }),
-                                                command -> {
-                                                  if (command.succeeded()) {
-                                                    JsonArray result =
-                                                        command.result()
-                                                               .getJsonArray(
-                                                                   "result");
-                                                    Countdown resultCount =
-                                                        new Countdown(
-                                                            result.size())
-                                                            .onComplete(
-                                                                done -> {
-                                                                  if (done
-                                                                      .succeeded()) {
-                                                                    pipelinesCounter
-                                                                        .next();
-                                                                  } else {
-                                                                    pipelinesCounter
-                                                                        .fail(
-                                                                            done.cause());
-                                                                  }
-                                                                });
-                                                    result.stream()
-                                                          .filter(
-                                                              document ->
-                                                                  document instanceof JsonObject)
-                                                          .map(
-                                                              document -> (JsonObject) document)
-                                                          .forEach(
-                                                              document -> {
-                                                                rawDB()
-                                                                    .findOneAndReplace(
-                                                                        collection,
-                                                                        new JsonObject()
-                                                                            .put(
-                                                                                "_id",
-                                                                                document
-                                                                                    .getString(
-                                                                                        "_id")),
-                                                                        document,
-                                                                        done -> {
-                                                                          if (done
-                                                                              .succeeded()) {
-                                                                            resultCount
-                                                                                .next();
-                                                                          } else {
-                                                                            resultCount
-                                                                                .fail(
-                                                                                    done.cause());
-                                                                          }
-                                                                        });
-                                                              });
-                                                  } else {
-                                                    pipelinesCounter
-                                                        .fail(command.cause());
-                                                  }
-                                                });
+  private static Handler<Future<Void>> buildDatabase(Vertx vertx) {
+    return completed -> {
+      // get last persisted version from DB
+      DBUtils.Properties.get("version", getProperty -> {
+        if (getProperty.succeeded()) {
+          final String dbVersion = (String) getProperty.result();
+          if (_version.equals(dbVersion)) {
+            // 1) version = dbVersion => everything is fine, go on
+            completed.handle(Future.succeededFuture());
+          } else if (dbVersion != null && compareVersions(_version, dbVersion) > 0) {
+            // 2) version > DB version
+            vertx
+                .fileSystem()
+                .readFile(DB_PATH + "upgrade.json", readFile -> {
+                  if (readFile.succeeded()) {
+                    JsonObject upgrade = readFile.result().toJsonObject();
+                    if (!_version.equals(upgrade.getString("version"))) {
+                      // wrong upgrade.json file
+                      completed.handle(Future.failedFuture(
+                          "upgrade version mismatch: expected version is ["
+                              + _version
+                              + "] but upgrade version is ["
+                              + upgrade.getString("version")
+                              + "]"
+                      ));
+                      return;
+                    }
+                    if (!upgrade.containsKey(dbVersion)) {
+                      // NO DB upgrade available but version > DB version
+                      completed.handle(Future.failedFuture(
+                          "no database upgrade found for ["
+                              + dbVersion
+                              + "] => ["
+                              + _version
+                              + "]"
+                      ));
+                    } else {
+                      logger.warn(
+                          "upgrading database from version ["
+                              + dbVersion
+                              + "] to version ["
+                              + _version
+                              + "]"
+                      );
+                      JsonObject aggregates = upgrade.getJsonObject(dbVersion);
+                      logger.debug("database changes: " + aggregates.encodePrettily());
+                      final Countdown aggregatesCount = new Countdown(aggregates.size())
+                          .onComplete(allAggregatesProcessed -> {
+                            if (allAggregatesProcessed.succeeded()) {
+                              VERSION_CHANGED = true;
+                              // ... update db version as last task:
+                              DBUtils.Properties.set("version", _version, propertySet -> {
+                                if (propertySet.succeeded()) {
+                                  completed.handle(Future.succeededFuture());
+                                } else {
+                                  completed.handle(Future.failedFuture(propertySet.cause()));
+                                }
+                              });
+                            } else {
+                              completed.handle(Future.failedFuture(allAggregatesProcessed.cause()));
+                            }
+                          });
+                      aggregates.forEach(entry -> {
+                        final String collection = entry.getKey();
+                        final JsonArray pipelines = (JsonArray) entry.getValue();
+                        final Countdown pipelinesCounter = new Countdown(pipelines.size())
+                            .onComplete(done -> {
+                              if (done.succeeded()) {
+                                aggregatesCount.next();
+                              } else {
+                                aggregatesCount.fail(done.cause());
+                              }
+                            });
+                        pipelines.forEach(pipeline -> {
+                          rawDB().runCommand(
+                              "aggregate",
+                              rawDB().command(
+                                  "aggregate",
+                                  new HashMap<String, String>() {{
+                                    put("aggregate", collection);
+                                    put("pipeline", ((JsonArray) pipeline).encode());
+                                  }}),
+                              command -> {
+                                if (command.succeeded()) {
+                                  JsonArray result = command.result().getJsonArray("result");
+                                  Countdown resultCount = new Countdown(result.size())
+                                      .onComplete(done -> {
+                                        if (done.succeeded()) {
+                                          pipelinesCounter.next();
+                                        } else {
+                                          pipelinesCounter.fail(done.cause());
+                                        }
                                       });
-                                });
-                          }
-                        } else { complete.handle(Future.failedFuture(readFile.cause())); }
+                                  result
+                                      .stream()
+                                      .filter(document -> document instanceof JsonObject)
+                                      .map(document -> (JsonObject) document)
+                                      .forEach(document -> {
+                                        rawDB().findOneAndReplace(
+                                            collection,
+                                            new JsonObject()
+                                                .put("_id", document.getString("_id")),
+                                            document,
+                                            done -> {
+                                              if (done.succeeded()) {
+                                                resultCount.next();
+                                              } else {
+                                                resultCount.fail(done.cause());
+                                              }
+                                            });
+                                      });
+                                } else {
+                                  pipelinesCounter.fail(command.cause());
+                                }
+                              }
+                          );
+                        });
                       });
-            } else { // 3) dbVersion == null (or version < dbVersion)
-              // DB version = null => there is no database, so it needs to be created from scripts
-              // TODO: create new DB from some script files and insert latestDbVersion in "versions"
-              // collection
-              VERSION_CHANGED = true;
-              complete.handle(Future.succeededFuture()); // upgrade
-            }
+                    }
+                  } else {
+                    completed.handle(Future.failedFuture(readFile.cause()));
+                  }
+                });
+          } else {
+            // 3) dbVersion == null (or version < dbVersion)
+            // DB version = null => there is no database, so it needs to be created from scripts
+            // TODO: create new DB from some script files and insert latestDbVersion in "versions"
+            _mongoClient.getCollections(getCollections -> {
+              if (getCollections.succeeded()) {
+                final List<String> collections = getCollections.result();
+                if (collections.size() > 0) {
+                  logger.warn(
+                      "database should not exists but collections where found: " + collections
+                  );
+                }
+              } else {
+                completed.handle(Future.failedFuture(getCollections.cause()));
+              }
+            });
+            Countdown createCollectionCounter =
+                new Countdown(Domain.Collection.LIST).onComplete(done -> {
+                  if (done.succeeded()) {
+                    VERSION_CHANGED = true;
+                    completed.handle(Future.succeededFuture());
+                  } else {
+                    completed.handle(Future.failedFuture(done.cause()));
+                  }
+                });
+            Domain.Collection.LIST.forEach(collection -> {
+              _mongoClient.createCollection(collection, createCollection -> {
+                if (createCollection.succeeded()) {
+                  logger.info("collection '$1' created".replace("$1", collection));
+                  vertx.fileSystem().readFile(
+                      DB_PATH + "metadata/" + collection + ".json",
+                      metadataFile -> {
+                        if (metadataFile.succeeded()) {
+                          final JsonObject metaData = metadataFile.result().toJsonObject();
+                          final JsonArray indexes = metaData.getJsonArray("indexes");
+                          final JsonArray documents = metaData.getJsonArray("documents");
+                          final Countdown createIndexCounter =
+                              new Countdown(indexes).onComplete(done -> {
+                                if (done.succeeded()) {
+                                  createCollectionCounter.next();
+                                } else {
+                                  createCollectionCounter.fail(done.cause());
+                                }
+                              });
+                          indexes.stream().map(index -> (JsonObject) index).forEach(index -> {
+                            final JsonObject keys = index.getJsonObject("keys");
+/*
+                            background: Boolean;
+                            unique: Boolean;
+                            name: String;
+                            sparse: Boolean;
+                            expireAfterSeconds: Long;
+                            version: Integer;
+                            weights: JsonObject;
+                            defaultLanguage: String;
+                            languageOverride: String;
+                            textVersion: Integer;
+                            sphereVersion: Integer;
+                            bits: Integer;
+                            min: Double;
+                            max: Double;
+                            bucketSize: Double;
+                            storageEngine: JsonObject;
+                            partialFilterExpression: JsonObject;
+*/
+                            final IndexOptions options = new IndexOptions(
+                                index.getJsonObject("options")
+                            );
+                            _mongoClient
+                                .createIndexWithOptions(collection, keys, options, createIndex -> {
+                                  if (createIndex.succeeded()) {
+                                    logger.info("index created on '$1': $2"
+                                                    .replace("$1", collection)
+                                                    .replace("$2", keys.encodePrettily())
+                                    );
+                                    if (documents.isEmpty()) {
+                                      createIndexCounter.next();
+                                    } else {
+                                      final Countdown insertDocumentCounter =
+                                          new Countdown(documents).onComplete(done -> {
+                                            if (done.succeeded()) {
+                                              createIndexCounter.next();
+                                            } else {
+                                              createIndexCounter.fail(done.cause());
+                                            }
+                                          });
+                                      documents
+                                          .stream().map(document -> (JsonObject) document)
+                                          .forEach(document -> {
+                                            _mongoClient
+                                                .insert(collection, document, insertComplete -> {
+                                                  if (insertComplete.succeeded()) {
+                                                    logger.info("document added on '$1': $2"
+                                                                    .replace("$1", collection)
+                                                                    .replace("$2", document
+                                                                        .encodePrettily())
+                                                    );
+                                                    insertDocumentCounter.next();
+                                                  } else {
+                                                    insertDocumentCounter
+                                                        .fail(insertComplete.cause());
+                                                  }
+                                                });
+                                          });
+                                    }
+                                  } else {
+                                    createIndexCounter.fail(createIndex.cause());
+                                  }
+                                });
+                          });
+                        } else {
+                          createCollectionCounter.fail(metadataFile.cause());
+                        }
+                      });
+                } else {
+                  createCollectionCounter.fail(createCollection.cause());
+                }
+              });
+            });
+//            complete.handle(Future.succeededFuture()); // upgrade
+          }
 
-          } else { complete.handle(Future.failedFuture(getProperty.cause())); }
-        });
-    return null;
+        } else { completed.handle(Future.failedFuture(getProperty.cause())); }
+      });
+    };
   }
 
   private static int compareVersions(String version, String other) {
@@ -703,48 +746,51 @@ public final class cpd {
     } else { return 0; }
   }
 
-  private static Void buildProcessEngine(AsyncHandler<Void> complete) {
-    if (_develop) {
+  private static Handler<Future<Void>> buildProcessEngine() {
+    return completed -> {
       try {
-        org.h2.tools.Server.createWebServer("-web", "-webAllowOthers", "-webPort", "9081")
-                           .start();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
+        if (_develop) {
+          try {
+            org.h2.tools.Server.createWebServer("-web", "-webAllowOthers", "-webPort", "9081")
+                               .start();
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+        }
 
-    _processEngine =
-        new StandaloneProcessEngineConfiguration()
-            .setJdbcUrl("jdbc:h2:file:./process-engine/database")
-            .setJdbcUsername("sa")
-            .setJdbcPassword("")
-            .setJdbcDriver("org.h2.Driver")
-            .setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE)
-            .buildProcessEngine();
+        _processEngine =
+            new StandaloneProcessEngineConfiguration()
+                .setJdbcUrl("jdbc:h2:file:./process-engine/database")
+                .setJdbcUsername("sa")
+                .setJdbcPassword("")
+                .setJdbcDriver("org.h2.Driver")
+                .setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE)
+                .buildProcessEngine();
 
-    RepositoryService repositoryService = _processEngine.getRepositoryService();
+        RepositoryService repositoryService = _processEngine.getRepositoryService();
 
-    if (VERSION_CHANGED
-        || repositoryService
-        .createDeploymentQuery()
-        .deploymentCategory(Process.CPD_CATEGORY)
-        .list()
-        .size()
-        == 0) {
-      // deploy the new processes in case of a version upgrade or no deploy present
-      logger.info(
-          "deploying process definitions because of "
-              + (VERSION_CHANGED ? "VERSION CHANGED (" + _version + ")" : "NO DEPLOYMENTS FOUND"));
-      repositoryService
-          .createDeployment()
-          .category(Process.CPD_CATEGORY)
-          .key(Process.PROCEDURE_MODELING_KEY)
-          .name(Process.PROCEDURE_MODELING_NAME)
-          .addClasspathResource("it/beng/modeler/processengine/Procedure_Modeling.bpmn20.xml")
-          .deploy();
-      // other process definitions here ...
-    }
-    logger.info("'" + Process.CPD_CATEGORY + "' is deployed");
+        if (VERSION_CHANGED
+            || repositoryService
+            .createDeploymentQuery()
+            .deploymentCategory(Process.CPD_CATEGORY)
+            .list()
+            .size()
+            == 0) {
+          // deploy the new processes in case of a version upgrade or no deploy present
+          logger.info(
+              "deploying process definitions because of "
+                  + (VERSION_CHANGED ? "VERSION CHANGED (" + _version + ")"
+                                     : "NO DEPLOYMENTS FOUND"));
+          repositoryService
+              .createDeployment()
+              .category(Process.CPD_CATEGORY)
+              .key(Process.PROCEDURE_MODELING_KEY)
+              .name(Process.PROCEDURE_MODELING_NAME)
+              .addClasspathResource("it/beng/modeler/processengine/Procedure_Modeling.bpmn20.xml")
+              .deploy();
+          // other process definitions here ...
+        }
+        logger.info("'" + Process.CPD_CATEGORY + "' is deployed");
 
     /*
             _idm = ((IdmEngineConfiguration) new StandaloneIdmEngineConfiguration()
@@ -755,8 +801,30 @@ public final class cpd {
                 .setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE))
                 .buildIdmEngine();
     */
-    complete.handle(Future.succeededFuture());
-    return null;
+        completed.handle(Future.succeededFuture());
+      } catch (Exception e) {
+        completed.handle(Future.failedFuture(e));
+      }
+    };
+  }
+
+  private static Handler<Future<Void>> buildSchemaTools(Vertx vertx) {
+    return completed -> {
+      _schemaTools = new SchemaTools(
+          vertx,
+          _mongoClient,
+          Domain.Collection.SCHEMAS,
+          server.schema.uriBase(),
+          server.scheme,
+          SCHEMA_MAPPINGS_EXTENSION,
+          done -> {
+            if (done.succeeded()) {
+              completed.handle(Future.succeededFuture());
+            } else {
+              completed.handle(Future.failedFuture(done.cause()));
+            }
+          });
+    };
   }
 
   public static void tearDown() {

@@ -2,11 +2,14 @@ package it.beng.modeler.model;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class is a member of <strong>modeler-microservice</strong> project.
@@ -14,21 +17,34 @@ import java.util.stream.Collectors;
  * @author vince
  */
 public class Domain {
+
   private static final Logger logger = LogManager.getLogger(Domain.class);
 
   public static final class Collection {
-    public static final String PROPERTIES = "properties";
+
     public static final String DIS = "dis";
+    public static final String EXTENSIONS = "extensions";
     public static final String MODELS = "models";
-    public static final String NOTATIONS = "notations";
+    public static final String PROPERTIES = "properties";
     public static final String SCHEMAS = "schemas";
     public static final String USERS = "users";
     public static final String USER_FEEDBACKS = "user.feedbacks";
+
+    public static final List<String> LIST = Collections.unmodifiableList(Arrays.asList(
+        DIS,
+        EXTENSIONS,
+        MODELS,
+        PROPERTIES,
+        SCHEMAS,
+        USERS,
+        USER_FEEDBACKS
+    ));
 
     private Collection() {}
   }
 
   public static final class Definition {
+
     public static final String DIAGRAM = "diagram";
     public static final String PLANE = "plane";
     public static final String ELEMENT = "element";
@@ -97,8 +113,8 @@ public class Domain {
                 "$or",
                 new JsonArray(
                     domains.stream()
-                        .map(domain -> new JsonObject().put("$domain", domain))
-                        .collect(Collectors.toList())));
+                           .map(domain -> new JsonObject().put("$domain", domain))
+                           .collect(Collectors.toList())));
     domains.forEach(
         domain -> {
           if (DOMAINS.containsKey(domain)) {

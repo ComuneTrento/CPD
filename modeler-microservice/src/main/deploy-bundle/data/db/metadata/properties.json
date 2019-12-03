@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "keys": {
+        "_id": 1
+      },
+      "options": {
+        "name": "_id_"
+      }
+    }
+  ],
+  "documents": [
+    {
+      "_id": "version",
+      "value": "1.9-SNAPSHOT"
+    }
+  ]
+}

@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
  * @author vince
  */
 public class ModelerConfigVerticle extends MicroServiceVerticle {
+
   private static final Logger logger = LogManager.getLogger(ModelerConfigVerticle.class);
 
   static {
@@ -21,31 +22,31 @@ public class ModelerConfigVerticle extends MicroServiceVerticle {
         Log4J2LoggerFactory.INSTANCE);
   }
 
+  private void halt(Throwable error) {
+    logger.fatal("Cannot deploy ModelerServerVerticle: " + error.getMessage());
+    vertx.undeploy(deploymentID(), undeployComplete -> vertx.close());
+  }
+
   @Override
   public void start() {
     super.start();
 
-    cpd.setup(
-        vertx,
-        config(),
-        done -> {
-          if (done.succeeded()) {
-            vertx.deployVerticle(
-                new ModelerServerVerticle(),
-                new DeploymentOptions().setConfig(config()),
-                complete -> {
-                  if (complete.succeeded()) {
-                    logger.info("Succesfully deployed ModelerServerVerticle: " + complete.result());
-                  } else {
-                    logger.fatal(
-                        "Cannot deploy ModelerServerVerticle: " + complete.cause().getMessage());
-                    throw new IllegalStateException(complete.cause());
-                  }
-                });
-          } else {
-            throw new IllegalStateException(done.cause());
-          }
-        });
+    cpd.setup(vertx, config(), setupComplete -> {
+      if (setupComplete.succeeded()) {
+        vertx.deployVerticle(
+            new ModelerServerVerticle(),
+            new DeploymentOptions().setConfig(config()), deployVerticleComplete -> {
+              if (deployVerticleComplete.succeeded()) {
+                logger.info("Succesfully deployed ModelerServerVerticle: "
+                                + deployVerticleComplete.result());
+              } else {
+                halt(deployVerticleComplete.cause());
+              }
+            });
+      } else {
+        halt(setupComplete.cause());
+      }
+    });
 
     // config.set(this.vertx, config(), configSet -> {
     //     if (configSet.succeeded()) {
@@ -88,7 +89,7 @@ public class ModelerConfigVerticle extends MicroServiceVerticle {
   @Override
   public void stop(Future<Void> future) throws Exception {
     logger.info("Killing main thread...");
-    super.stop(future);
     cpd.tearDown();
+    super.stop(future);
   }
 }

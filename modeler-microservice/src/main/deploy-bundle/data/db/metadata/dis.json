@@ -1,0 +1,29 @@
+{
+  "indexes": [
+    {
+      "keys": {
+        "_id": 1
+      },
+      "options": {
+        "name": "_id_"
+      }
+    },
+    {
+      "keys": {
+        "planeId" : 1
+      },
+      "options": {
+        "name": "_planeId_"
+      }
+    },
+    {
+      "keys": {
+        "＄domain" : 1
+      },
+      "options": {
+        "name": "_＄domain_"
+      }
+    }
+  ],
+  "documents": []
+}

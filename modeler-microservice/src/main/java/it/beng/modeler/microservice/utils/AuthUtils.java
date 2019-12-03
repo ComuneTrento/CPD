@@ -24,14 +24,12 @@ public final class AuthUtils {
   public static final JsonObject LOGGED_OUT_CITIZEN_ROLES =
       new JsonObject()
           .put("system", "guest")
-          .put("interaction", "citizen")
-          .put("things", new JsonObject());
+          .put("interaction", "citizen");
 
   public static final JsonObject LOGGED_IN_CITIZEN_ROLES =
       new JsonObject()
           .put("system", "user")
-          .put("interaction", "citizen")
-          .put("things", new JsonObject());
+          .put("interaction", "citizen");
 
   public static boolean isAdmin(User user) {
     return user != null

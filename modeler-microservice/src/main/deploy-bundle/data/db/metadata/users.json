@@ -1,0 +1,31 @@
+{
+  "indexes": [
+    {
+      "keys": {
+        "_id": 1
+      },
+      "options": {
+        "name": "_id_"
+      }
+    },
+    {
+      "keys": {
+        "password": 1
+      },
+      "options": {
+        "name": "_password_",
+        "sparse": true
+      }
+    },
+    {
+      "keys": {
+        "firstName" : 1,
+        "lastName" : 1
+      },
+      "options": {
+        "name": "_firstName_lastName_"
+      }
+    }
+  ],
+  "documents": []
+}

@@ -8,7 +8,7 @@ if [ "$PROFILE" != "develop" ] && [ "$PROFILE" != "production" ]; then
   exit 1
 fi;
 source version.sh
-cd "$(dirname '$0')"
+cd "$(dirname '$0')" || exit 1
 echo "starting profile '$PROFILE' compilation of version '$VERSION'..."
 mvn clean package -P $PROFILE
 echo "copying target jar to deploy-bundle..."
