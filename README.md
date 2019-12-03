@@ -90,7 +90,7 @@ della qualità delle informazioni raccolte.
 
 Per maggiori informazioni è possibile consultare:
 
- * documento [di progetto](doc/BP-OR-AP-06_v1.0_Trento)
+ * documento [di progetto](doc/BP-OR-AP-06_v1.0_Trento.pdf)
 
 ## Product status
 
