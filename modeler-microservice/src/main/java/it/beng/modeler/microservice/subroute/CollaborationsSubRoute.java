@@ -374,7 +374,7 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
   }
 
   private void delete(RoutingContext context) {
-    if (isAdminFailOtherwise(context)) {
+    if (isAdminOtherwiseFail(context)) {
       final String id = context.pathParam("id");
       if (id == null) {
         context.fail(new NullPointerException("no id"));

@@ -111,7 +111,7 @@ public abstract class SubRoute<T> {
     return passCondition;
   }
 
-  protected static boolean isLoggedInOrFail(RoutingContext context) {
+  protected static boolean isLoggedInOtherwiseFail(RoutingContext context) {
     return passOrFail(context, context.user() != null, HttpResponseStatus.UNAUTHORIZED);
   }
 
@@ -119,7 +119,7 @@ public abstract class SubRoute<T> {
     return AuthUtils.isAdmin(user);
   }
 
-  protected static boolean isAdminFailOtherwise(RoutingContext context) {
+  protected static boolean isAdminOtherwiseFail(RoutingContext context) {
     return passOrFail(context, isAdmin(context.user()), HttpResponseStatus.UNAUTHORIZED);
   }
 

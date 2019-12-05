@@ -10,7 +10,6 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import it.beng.modeler.microservice.http.JsonResponse;
 import it.beng.modeler.microservice.utils.JsonUtils;
-
 import java.util.Map;
 
 /**
@@ -37,12 +36,12 @@ public final class DataSubRoute extends VoidSubRoute {
     router.route(HttpMethod.GET, path + ":collection/:id/:field").handler(this::findField);
     // POST
     // creates a new item
-    router.route(HttpMethod.POST, path + ":collection").handler(this::postCollection);
+    router.route(HttpMethod.POST, path + ":collection").handler(this::postDocument);
     // not allowed
     router.route(HttpMethod.POST, path + ":collection/:id").handler(SubRoute::failMethodNotAllowed);
     // PUT
     // updates all items
-    router.route(HttpMethod.PUT, path + ":collection").handler(this::putCollection);
+    router.route(HttpMethod.PUT, path + ":collection").handler(this::putDocument);
     // updates the specified item
     // router.route(HttpMethod.PUT, path + ":collection/:id").handler(this::putItem);
     // // DELETE
@@ -67,7 +66,7 @@ public final class DataSubRoute extends VoidSubRoute {
           or.add(new JsonObject().put(key, orValue));
         }
         query.put("$or", or);
-      } else query.put(key, value);
+      } else { query.put(key, value); }
     }
     return query;
   }
@@ -75,47 +74,54 @@ public final class DataSubRoute extends VoidSubRoute {
   /* DATA API */
 
   private void find(RoutingContext context) {
-    String collection = context.pathParam("collection");
-    JsonResponse response = new JsonResponse(context).chunked();
-    mongodb
-        .findBatch(collection, query(context))
-        .exceptionHandler(h -> context.fail(h))
-        .endHandler(h -> response.end())
-        .handler(h -> response.write(h));
+    if (isLoggedInOtherwiseFail(context)) {
+      String collection = context.pathParam("collection");
+      JsonResponse response = new JsonResponse(context).chunked();
+      mongodb
+          .findBatch(collection, query(context))
+          .exceptionHandler(context::fail)
+          .handler(response::write)
+          .endHandler(h -> response.end());
+    }
   }
 
   private void findOne(RoutingContext context) {
-    String collection = context.pathParam("collection");
-    JsonObject query = new JsonObject().put("id", context.pathParam("id"));
-    mongodb.findOne(
-        collection,
-        query,
-        new JsonObject(),
-        findOne -> {
-          JsonResponse response = new JsonResponse(context);
-          if (findOne.succeeded() && findOne.result().size() > 0) response.end(findOne.result());
-          else response.end(null);
-        });
+    if (isLoggedInOtherwiseFail(context)) {
+      String collection = context.pathParam("collection");
+      JsonObject query = new JsonObject().put("id", context.pathParam("id"));
+      mongodb.findOne(
+          collection,
+          query,
+          new JsonObject(),
+          findOne -> {
+            JsonResponse response = new JsonResponse(context);
+            if (findOne.succeeded() && findOne.result().size() > 0) {
+              response.end(findOne.result());
+            } else { response.end(null); }
+          });
+    }
   }
 
   private void findField(RoutingContext context) {
-    String collection = context.pathParam("collection");
-    JsonObject query = new JsonObject().put("id", context.pathParam("id"));
-    FindOptions options = new FindOptions();
-    options.setFields(new JsonObject().put(context.pathParam("field"), 1));
-    mongodb.findWithOptions(
-        collection,
-        query,
-        options,
-        getItem -> {
-          if (getItem.succeeded())
-            new JsonResponse(context).end(JsonUtils.firstOrNull(getItem.result()));
-          else new JsonResponse(context).end(null);
-        });
+    if (isLoggedInOtherwiseFail(context)) {
+      String collection = context.pathParam("collection");
+      JsonObject query = new JsonObject().put("id", context.pathParam("id"));
+      FindOptions options = new FindOptions();
+      options.setFields(new JsonObject().put(context.pathParam("field"), 1));
+      mongodb.findWithOptions(
+          collection,
+          query,
+          options,
+          getItem -> {
+            if (getItem.succeeded()) {
+              new JsonResponse(context).end(JsonUtils.firstOrNull(getItem.result()));
+            } else { new JsonResponse(context).end(null); }
+          });
+    }
   }
 
-  private void postCollection(RoutingContext context) {
-    if (isLoggedInOrFail(context)) {
+  private void postDocument(RoutingContext context) {
+    if (isAdminOtherwiseFail(context)) {
       String collection = context.pathParam("collection");
       JsonObject document = context.getBodyAsJson();
       schemaTools.validate(
@@ -146,13 +152,13 @@ public final class DataSubRoute extends VoidSubRoute {
     }
   }
 
-  private void putCollection(RoutingContext context) {
-    if (isAdminFailOtherwise(context)) {
+  private void putDocument(RoutingContext context) {
+    if (isAdminOtherwiseFail(context)) {
       String collection = context.pathParam("collection");
-      JsonObject item = context.getBodyAsJson();
+      JsonObject document = context.getBodyAsJson();
       mongodb.save(
           collection,
-          item,
+          document,
           save -> {
             if (save.succeeded()) {
               new JsonResponse(context).status(HttpResponseStatus.CREATED).end(save.result());
@@ -160,8 +166,6 @@ public final class DataSubRoute extends VoidSubRoute {
               context.fail(save.cause());
             }
           });
-    } else {
-      context.fail(HttpResponseStatus.UNPROCESSABLE_ENTITY.code());
     }
   }
 }

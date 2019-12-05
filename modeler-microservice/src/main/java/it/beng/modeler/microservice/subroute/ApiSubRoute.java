@@ -350,7 +350,7 @@ public final class ApiSubRoute extends VoidSubRoute {
   }
 
   private void postUserFeedback(RoutingContext context) {
-    if (isLoggedInOrFail(context)) {
+    if (isLoggedInOtherwiseFail(context)) {
       User user = context.user();
       if (user == null) {
         context.fail(new NoStackTraceThrowable("user is not authenticated"));

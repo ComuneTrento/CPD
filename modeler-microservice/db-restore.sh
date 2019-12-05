@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-NAME=$1
-if [ -z "$NAME" ]
-then
-  NAMES=$(ls -1 dump | tr '\n' '|')
-  echo "please provide the name of the dump (${NAMES%?})"
+
+DUMP_DIR="$1" || {
+  echo "dump directory parameter is missing"
   exit 1
+}
+
+PARAMS='--gzip'
+
+if [ "$2" == "drop" ]; then
+  PARAMS="'--drop' $PARAMS"
 fi
-if [ "$2" != "nodrop" ]
-then
-  DROP='--drop '
-fi
-mongorestore --dir "dump/$NAME" --nsInclude 'cpd.*' $DROP--gzip
+mongorestore --dir "$DUMP_DIR" --nsInclude 'cpd.*' "$PARAMS"

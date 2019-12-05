@@ -374,7 +374,7 @@ public final class AuthSubRoute extends VoidSubRoute {
   }
 
   private void getAccounts(RoutingContext context) {
-    if (isAdminFailOtherwise(context)) {
+    if (isAdminOtherwiseFail(context)) {
       mongodb.find(
           "users",
           new JsonObject(),
@@ -389,7 +389,7 @@ public final class AuthSubRoute extends VoidSubRoute {
   }
 
   private void putAccounts(RoutingContext context) {
-    if (isAdminFailOtherwise(context)) {
+    if (isAdminOtherwiseFail(context)) {
       JsonObject account = context.getBodyAsJson();
       String id = (String) account.remove("id");
       if (id == null) {

@@ -509,7 +509,7 @@ public class MongoDB {
   }
 
   /**
-   * Save a document in the specified collection
+   * Save (upsert) a document in the specified collection
    * <p>
    * This operation might change <i>_id</i> field of <i>document</i> parameter
    *
