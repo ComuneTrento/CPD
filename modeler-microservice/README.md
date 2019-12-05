@@ -159,6 +159,7 @@ These properties define how the server is accessed from the external world.
 -   `cpd.server.allowedOriginPattern`: this is a **regex pattern** for
     [CORS](http://www.w3.org/TR/cors) allowed origins (use `*` to
     allow calls from everywhere;
+
 | | |
 | :information_source: | in Java properties files the double backslash `\\` must be escaped two times: `\\\\`). |
 |-|-|
