@@ -161,8 +161,8 @@ These properties define how the server is accessed from the external world.
     allow calls from everywhere;
 
 | | |
-| :information_source: | in Java properties files the double backslash `\\` must be escaped two times: `\\\\`). |
 |-|-|
+| :information_source: | in Java properties files the double backslash `\\` must be escaped two times: `\\\\`). |
 
 ###### `cpd.server.pub.*`
 
@@ -277,8 +277,8 @@ simplifying the integration with the AAC module.
         }
 
 | | |
-| :information_source: | the CPD accepts three oauth2 flows: "AUTH\_CODE", "IMPLICIT" or "CLIENT". For AAC "AUTH_CODE" has been well tested. |
 |-|-|
+| :information_source: | the CPD accepts three oauth2 flows: "AUTH\_CODE", "IMPLICIT" or "CLIENT". For AAC "AUTH_CODE" has been well tested. |
 
 Remember that in Java properties files, in order to continue writing the
 same string in a new line, a `\` must be placed at the end of the
@@ -386,8 +386,8 @@ The `deploy.sh` script requires **two** mandatory input parameters:
     The application will run with that user’s privileges;
 
 | | |
-| :warning: | Never launch the application as `root` user! |
 |-|-|
+| :warning: | Never launch the application as `root` user! |
 
 -   the `SERVER` hostname or ip address of the remote machine where the
     application will be deployed.
