@@ -10,9 +10,12 @@ import it.beng.modeler.config.cpd;
 import it.beng.modeler.microservice.actions.SendAction;
 import it.beng.modeler.microservice.actions.diagram.DiagramAction;
 import it.beng.modeler.microservice.actions.diagram.reply.DefinitionLoadedAction;
+import it.beng.modeler.microservice.utils.CommonUtils;
 import it.beng.modeler.microservice.utils.DBUtils;
 import it.beng.modeler.microservice.utils.JsonUtils;
+import it.beng.modeler.microservice.utils.ProcessEngineUtils;
 import it.beng.modeler.model.Domain;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +24,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.flowable.engine.repository.ProcessDefinitionQuery;
+import org.flowable.engine.RepositoryService;
+import org.flowable.engine.RuntimeService;
+import org.flowable.engine.TaskService;
+import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.task.api.Task;
-import org.flowable.task.api.TaskQuery;
 
 public class LoadDefinitionAction extends SendAction implements DiagramAction {
 
@@ -65,30 +70,39 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
         final JsonObject definition =
             JsonUtils.firstOrNull(getDiagramDefinition.result().getJsonArray("result"));
         if (definition != null) {
-          final ProcessDefinitionQuery processDefinitionQuery =
-              cpd.processEngine().getRepositoryService().createProcessDefinitionQuery();
-          final TaskQuery taskQuery = cpd.processEngine().getTaskService().createTaskQuery();
+          final RepositoryService repositoryService = cpd.processEngine().getRepositoryService();
+          final RuntimeService runtimeService = cpd.processEngine().getRuntimeService();
+          final TaskService taskService = cpd.processEngine().getTaskService();
           final List<JsonObject> tasks =
               (context == null || context.user() == null
                // user is not logged in => keep tasks empty
                ? Collections.<Task>emptyList()
                // take all active tasks of processes that have diagramId as business key
-               : taskQuery.processInstanceBusinessKey(diagramId()).active().list()
+               : taskService.createTaskQuery()
+                            .processInstanceBusinessKey(diagramId())
+                            .active()
+                            .list()
               ).stream()
                .map(task -> {
-                 String processKey = processDefinitionQuery
-                     .processDefinitionId(task.getProcessDefinitionId())
-                     .singleResult()
-                     .getKey();
-                 final String taskKey = task.getTaskDefinitionKey();
+                 final HistoricProcessInstance process = ProcessEngineUtils
+                     .getHistoricProcess(task.getProcessInstanceId(), true);
+                 final String processKey = process.getProcessDefinitionKey();
+                 final String taskKey = Arrays.asList(
+                     "notification-process"
+                 ).contains(processKey)
+                                        ? process.getProcessVariables().get("taskKey").toString()
+                                        : task.getTaskDefinitionKey();
+                 Double progress = (Double) process.getProcessVariables().get("progress");
                  // transform flowable task to partial JsonObject Task
                  // NOTE: language dependent fields ("name", "documentation" and "model")
                  //       will be added in a 2nd stage using the "extensions" mongodb collection
                  return new JsonObject()
                      .put("processKey", processKey)
                      .put("taskKey", taskKey)
+                     .put("businessKey", diagramId())
                      .put("id", task.getId())
                      .put("processId", task.getProcessInstanceId())
+                     .put("progress", CommonUtils.coalesce(progress, 0d))
                      .put("assignee", task.getAssignee())
                      .put("createTime", DBUtils.mongoDateTime(
                          DBUtils.parseDateTime(

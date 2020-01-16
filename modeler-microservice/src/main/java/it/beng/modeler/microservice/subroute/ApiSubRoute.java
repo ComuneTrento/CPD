@@ -454,6 +454,7 @@ public final class ApiSubRoute extends VoidSubRoute {
       List<String> userIds,
       String searchText,
       String searchLanguageCode,
+      JsonObject customQuery,
       Integer limit,
       Handler<Future<List<JsonObject>>> handler) {
     if (diagramIds != null && diagramIds.isEmpty()) {
@@ -485,7 +486,8 @@ public final class ApiSubRoute extends VoidSubRoute {
         DBUtils.and(
             Arrays.asList(
                 diagramDomain.getQuery(),
-                andArray.isEmpty() ? null : new JsonObject().put("$and", andArray)));
+                andArray.isEmpty() ? null : new JsonObject().put("$and", andArray),
+                customQuery));
     logger.info("query: " + query.encodePrettily());
     final FindOptions findOptions =
         new FindOptions().setSort(new JsonObject().put("lastModified", -1));
@@ -519,6 +521,7 @@ public final class ApiSubRoute extends VoidSubRoute {
         null,
         null,
         null,
+        null,
         list -> {
           if (list.succeeded()) {
             new JsonResponse(context).end(list.result());
@@ -534,7 +537,8 @@ public final class ApiSubRoute extends VoidSubRoute {
         null,
         null,
         searchText,
-        "italian", // cpd.languageCode(context),
+        cpd.language(context),
+        isCivilServant(context.user()) ? null : new JsonObject().put("progress", 1d),
         null,
         list -> {
           if (list.succeeded()) {
@@ -563,6 +567,7 @@ public final class ApiSubRoute extends VoidSubRoute {
         null,
         null,
         null,
+        isCivilServant(context.user()) ? null : new JsonObject().put("progress", 1d),
         limit,
         list -> {
           if (list.succeeded()) {

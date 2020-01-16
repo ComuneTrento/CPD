@@ -4,6 +4,7 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -28,6 +29,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.flowable.engine.history.HistoricProcessInstance;
 
 /**
  * This class is a member of <strong>modeler-microservice</strong> project.
@@ -68,14 +70,35 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
 
   private void completeTask(RoutingContext context) {
     try {
-      JsonObject body = context.getBodyAsJson();
-      ProcessEngineUtils.completeTask(
-          body.getJsonObject("task"),
-          body.getJsonObject("variable"), complete -> {
-            if (complete.succeeded()) {
-              new JsonResponse(context).end();
-            } else { new JsonResponse(context).fail(complete.cause()); }
-          });
+      final JsonObject body = context.getBodyAsJson();
+      final JsonObject task = body.getJsonObject("task");
+      final JsonObject variable = body.getJsonObject("variable");
+      final String svg = body.getString("svg");
+      ProcessEngineUtils.completeTask(task, variable, complete -> {
+        if (complete.succeeded()) {
+          final HistoricProcessInstance process =
+              ProcessEngineUtils.getHistoricProcess(task.getString("processId"), true);
+          if (process != null) {
+            final String diagramId = process.getBusinessKey();
+            if (svg != null) {
+              String filePath = "web/" + cpd.ASSETS_PATH + "svg/" + diagramId + ".svg";
+              vertx.fileSystem().writeFileBlocking(filePath, Buffer.buffer(svg));
+            }
+            double progress = (Double) process.getProcessVariables().get("progress");
+            mongodb.findOneAndUpdate(Domain.ofDefinition(Domain.Definition.DIAGRAM).getCollection(),
+                                     new JsonObject().put("id", diagramId),
+                                     new JsonObject().put("$set", new JsonObject()
+                                         .put("progress", progress)
+                                     ), updateProgress -> {
+                  if (updateProgress.succeeded()) {
+                    new JsonResponse(context).end();
+                  } else { new JsonResponse(context).fail(updateProgress.cause()); }
+                });
+          } else {
+            new JsonResponse(context).fail(new NullPointerException("process instance not found"));
+          }
+        } else { new JsonResponse(context).fail(complete.cause()); }
+      });
     } catch (Exception e) {
       context.fail(e);
     }
@@ -220,17 +243,17 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
         isAdminOrOwner -> {
           if (isAdminOrOwner.succeeded()) {
             if (isAdminOrOwner.result()) {
-              mongodb.findOne(
+              mongodb.findOneAndUpdate(
                   Domain.ofDefinition(Domain.Definition.DIAGRAM).getCollection(),
                   new JsonObject().put("id", collaborationId),
-                  new JsonObject(),
-                  findOne -> {
-                    if (findOne.succeeded()) {
-                      JsonObject collaboration = findOne.result();
+                  new JsonObject().put("$set", new JsonObject().put("progress", 0d)),
+                  findOneAndUpdate -> {
+                    if (findOneAndUpdate.succeeded()) {
+                      JsonObject collaboration = findOneAndUpdate.result();
                       ProcessEngineUtils.startCollaboration(
                           collaborationId, collaboration.getJsonObject("team"));
                       new JsonResponse(context).end(collaboration);
-                    } else { context.fail(findOne.cause()); }
+                    } else { context.fail(findOneAndUpdate.cause()); }
                   });
             } else { context.fail(HttpResponseStatus.UNAUTHORIZED.code()); }
           } else { context.fail(isAdminOrOwner.cause()); }
@@ -281,6 +304,7 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
               .put("editor", CommonUtils.coalesce(team.getJsonArray("editor"), ownerIdArray))
               .put("observer",
                    CommonUtils.coalesce(team.getJsonArray("observer"), new JsonArray())))
+          .put("progress", 0d)
           .put("$domain", $domain);
 
       final JsonObject newPlane = new JsonObject()
@@ -353,10 +377,8 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
                         if (childSaved.succeeded()) {
                           mongodb.save(Domain.Collection.DIS, newChildShape, childShapeSaved -> {
                             if (childShapeSaved.succeeded()) {
-                              final String diagramId =
-                                  newDiagram.getString("id");
-                              ProcessEngineUtils.startCollaboration(
-                                  diagramId, team);
+                              final String diagramId = newDiagram.getString("id");
+                              ProcessEngineUtils.startCollaboration(diagramId, team);
                               new JsonResponse(context).end(diagramId);
                             } else { context.fail(childShapeSaved.cause()); }
                           });

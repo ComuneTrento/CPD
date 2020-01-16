@@ -6,6 +6,7 @@ import io.vertx.core.json.JsonObject;
 import it.beng.microservice.common.AsyncHandler;
 import it.beng.modeler.config.cpd;
 import it.beng.modeler.model.Domain;
+import it.beng.modeler.processengine.ProcessDefinitions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,9 @@ import org.apache.logging.log4j.Logger;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
+import org.flowable.engine.history.HistoricProcessInstance;
+import org.flowable.engine.history.HistoricProcessInstanceQuery;
+import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
 
 /**
@@ -47,24 +51,24 @@ public final class ProcessEngineUtils {
               .collect(Collectors.toList());
   }
 
-  public static void startCollaboration(String collaborationId, JsonObject team) {
-    cpd.processEngine()
-       .getRuntimeService()
-       .startProcessInstanceByKey(
-           cpd.Process.PROCEDURE_MODELING_KEY,
-           collaborationId,
-           new HashMap<String, Object>() {
-             {
-               put("owner", team.getJsonArray("owner").getString(0));
-               put("reviewer", team.getJsonArray("reviewer").getString(0));
-               put("editor", team.getJsonArray("editor").getString(0));
-               // observer isn't mandatory
-               if (team.getJsonArray("observer") != null
-                   && team.getJsonArray("observer").size() > 0) {
-                 put("observer", team.getJsonArray("observer").getString(0));
-               }
-             }
-           });
+  public static ProcessInstance startCollaboration(String collaborationId, JsonObject team) {
+    return cpd.processEngine()
+              .getRuntimeService()
+              .startProcessInstanceByKey(
+                  ProcessDefinitions.COLLABORATION_PROCESS_KEY,
+                  collaborationId,
+                  new HashMap<String, Object>() {
+                    {
+                      put("owner", team.getJsonArray("owner").getString(0));
+                      put("reviewer", team.getJsonArray("reviewer").getString(0));
+                      put("editor", team.getJsonArray("editor").getString(0));
+                      // observer isn't mandatory
+                      if (team.getJsonArray("observer") != null
+                          && team.getJsonArray("observer").size() > 0) {
+                        put("observer", team.getJsonArray("observer").getString(0));
+                      }
+                    }
+                  });
   }
 
   public static void update(JsonObject update, final AsyncHandler<Void> complete) {
@@ -117,8 +121,8 @@ public final class ProcessEngineUtils {
                       final String taskDefinitionKey = id.getString("taskKey");
                       taskService
                           .createTaskQuery()
-                          .processInstanceBusinessKey(businessKey)
                           .active()
+                          .processInstanceBusinessKey(businessKey)
                           .processDefinitionKey(processDefinitionKey)
                           .taskDefinitionKey(taskDefinitionKey)
                           .list()
@@ -159,24 +163,47 @@ public final class ProcessEngineUtils {
             });
   }
 
+  public static ProcessInstance getRootProcess(String executionId) {
+    RuntimeService runtimeService = cpd.processEngine().getRuntimeService();
+    Execution execution = runtimeService.createExecutionQuery()
+                                        .executionId(executionId)
+                                        .singleResult();
+    if (execution != null) {
+      return runtimeService.createProcessInstanceQuery()
+                           .processInstanceId(execution.getRootProcessInstanceId())
+                           .singleResult();
+    }
+    return null;
+  }
+
+  public static HistoricProcessInstance getHistoricProcess(String processId,
+                                                           boolean includeProcessVariables) {
+    if (processId != null) {
+      HistoricProcessInstanceQuery processQuery = cpd.processEngine().getHistoryService()
+                                                     .createHistoricProcessInstanceQuery();
+      if (includeProcessVariables) {
+        processQuery = processQuery.includeProcessVariables();
+      }
+      return processQuery.processInstanceId(processId).singleResult();
+    }
+    return null;
+  }
+
   public static void completeTask(JsonObject task, JsonObject variable,
                                   AsyncHandler<Void> complete) {
     Objects.requireNonNull(task);
-    String taskId = task.getString("id");
+    final String taskId = task.getString("id");
     Objects.requireNonNull(taskId);
+    final TaskService taskService = cpd.processEngine().getTaskService();
     try {
-      cpd.processEngine()
-         .getTaskService()
-         .complete(
-             taskId,
-             new HashMap<String, Object>() {
-               {
-                 if (variable != null) {
-                   String key = variable.getMap().keySet().iterator().next();
-                   put(key, variable.getValue(key));
-                 }
-               }
-             });
+      taskService.complete(
+          taskId,
+          new HashMap<String, Object>() {{
+            if (variable != null) {
+              String key = variable.getMap().keySet().iterator().next();
+              put(key, variable.getValue(key));
+            }
+          }});
       complete.handle(Future.succeededFuture());
     } catch (Exception e) {
       complete.handle(Future.failedFuture(e));

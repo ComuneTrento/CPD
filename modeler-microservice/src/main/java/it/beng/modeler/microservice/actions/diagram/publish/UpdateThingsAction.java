@@ -56,7 +56,7 @@ public class UpdateThingsAction extends AuthorizedAction {
       replace.put("lastModified", DBUtils.mongoDateTime(OffsetDateTime.now()));
     }
     Domain domain = Domain.get($domain);
-    Countdown counter = new Countdown(2).onComplete(complete -> {
+    final Countdown counter = new Countdown(2).onComplete(complete -> {
       if (complete.succeeded()) {
         handler.handle(Future.succeededFuture());
       } else { handler.handle(Future.failedFuture(complete.cause())); }

@@ -19,6 +19,7 @@ import it.beng.modeler.microservice.subroute.CollaborationsSubRoute;
 import it.beng.modeler.microservice.utils.CommonUtils;
 import it.beng.modeler.microservice.utils.DBUtils;
 import it.beng.modeler.model.Domain;
+import it.beng.modeler.processengine.ProcessDefinitions;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -31,6 +32,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.zip.ZipInputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.flowable.engine.ProcessEngine;
@@ -65,13 +67,6 @@ public final class cpd {
           put("$hidden", "\uFF04hidden");
         }
       };
-
-  public static class Process {
-
-    public static final String CPD_CATEGORY = "Collaborative Procedure Designer";
-    public static final String PROCEDURE_MODELING_KEY = "procedure-modeling-process";
-    public static final String PROCEDURE_MODELING_NAME = "Procedure Modeling Process";
-  }
 
   private static Vertx _vertx;
 
@@ -772,7 +767,8 @@ public final class cpd {
         if (VERSION_CHANGED
             || repositoryService
             .createDeploymentQuery()
-            .deploymentCategory(Process.CPD_CATEGORY)
+            .deploymentCategory(ProcessDefinitions.PROCESS_DEPLOY_CATEGORY)
+            .deploymentKey(ProcessDefinitions.PROCESS_DEPLOY_KEY)
             .list()
             .size()
             == 0) {
@@ -783,15 +779,15 @@ public final class cpd {
                                      : "NO DEPLOYMENTS FOUND"));
           repositoryService
               .createDeployment()
-              .category(Process.CPD_CATEGORY)
-              .key(Process.PROCEDURE_MODELING_KEY)
-              .name(Process.PROCEDURE_MODELING_NAME)
-              .addClasspathResource("it/beng/modeler/processengine/Procedure_Modeling.bpmn20.xml")
+              .category(ProcessDefinitions.PROCESS_DEPLOY_CATEGORY)
+              .key(ProcessDefinitions.PROCESS_DEPLOY_KEY)
+              .name(ProcessDefinitions.PROCESS_DEPLOY_NAME)
+              .addZipInputStream(new ZipInputStream(
+                  ProcessDefinitions.class.getResourceAsStream("Procedure_Modeling.bar")))
               .deploy();
-          // other process definitions here ...
+          logger.info("'" + ProcessDefinitions.PROCESS_DEPLOY_NAME + " ("
+                          + ProcessDefinitions.PROCESS_DEPLOY_CATEGORY + ")' has been deployed");
         }
-        logger.info("'" + Process.CPD_CATEGORY + "' is deployed");
-
     /*
             _idm = ((IdmEngineConfiguration) new StandaloneIdmEngineConfiguration()
                 .setJdbcUrl("jdbc:h2:file:./process-engine/process-engine")

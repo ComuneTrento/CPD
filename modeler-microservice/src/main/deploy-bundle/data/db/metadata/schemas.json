@@ -473,8 +473,11 @@
         "documentation": {
           "propertyOrder": 8.0
         },
+        "progress": {
+          "propertyOrder": 9.0
+        },
         "team": {
-          "propertyOrder": 9.0,
+          "propertyOrder": 10.0,
           "title": "Team",
           "description": "team of this Collaboration",
           "type": "object",
@@ -500,7 +503,7 @@
           ]
         },
         "＄domain": {
-          "propertyOrder": 10.0,
+          "propertyOrder": 11.0,
           "const": "Model.FPMN.Diagram"
         }
       }
@@ -1106,11 +1109,22 @@
       "description": "A Collaboration",
       "type": "object",
       "additionalProperties": true,
+      "＄extends" : [
+        "core.Entity"
+      ],
       "properties": {
         "team": {
           "title": "Team",
           "description": "The team of this collaboration",
           "＄ref": "Model.Organization.Team"
+        },
+        "progress": {
+          "title": "Progress",
+          "description": "The percentage of work done from begin of work (0) to work done (1). All intermediate values represent a work in progress state.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "readOnly": true
         }
       },
       "required": [
