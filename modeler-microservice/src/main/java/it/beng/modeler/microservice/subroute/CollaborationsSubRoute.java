@@ -88,6 +88,8 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
             mongodb.findOneAndUpdate(Domain.ofDefinition(Domain.Definition.DIAGRAM).getCollection(),
                                      new JsonObject().put("id", diagramId),
                                      new JsonObject().put("$set", new JsonObject()
+                                         .put("lastModified",
+                                              DBUtils.mongoDateTime(OffsetDateTime.now()))
                                          .put("progress", progress)
                                      ), updateProgress -> {
                   if (updateProgress.succeeded()) {

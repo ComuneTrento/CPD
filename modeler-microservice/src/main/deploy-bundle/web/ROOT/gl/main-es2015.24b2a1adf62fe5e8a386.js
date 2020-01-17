@@ -2489,7 +2489,7 @@ class BengHomePageComponent {
 /*!******************************************!*\
   !*** ./src/app/core/containers/index.ts ***!
   \******************************************/
-/*! exports provided: BengAppComponent, BengNoConnectionPageComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent */
+/*! exports provided: BengAppComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent, BengNoConnectionPageComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9643,7 +9643,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************!*\
   !*** ./src/modules/diagram/index.ts ***!
   \**************************************/
-/*! exports provided: DiagramReducer, BengDiagramModule, DiagramAction, DiagramComponent, DefinitionLoadedGuard */
+/*! exports provided: DiagramReducer, BengDiagramModule, DiagramComponent, DefinitionLoadedGuard, DiagramAction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

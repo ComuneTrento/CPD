@@ -5949,7 +5949,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./src/app/core/containers/index.ts ***!
     \******************************************/
 
-  /*! exports provided: BengAppComponent, BengNoConnectionPageComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent */
+  /*! exports provided: BengAppComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent, BengNoConnectionPageComponent */
 
   /***/
   function srcAppCoreContainersIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -22533,7 +22533,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./src/modules/diagram/index.ts ***!
     \**************************************/
 
-  /*! exports provided: DiagramReducer, BengDiagramModule, DiagramAction, DiagramComponent, DefinitionLoadedGuard */
+  /*! exports provided: DiagramReducer, BengDiagramModule, DiagramComponent, DefinitionLoadedGuard, DiagramAction */
 
   /***/
   function srcModulesDiagramIndexTs(module, __webpack_exports__, __webpack_require__) {
