@@ -124,7 +124,7 @@ Il repository è organizzato con una struttura di directory tipica dei progetti 
   > affiliation: _BEng Business Engineering Srl_
 
 ## Segnalazioni di sicurezza
-Le segnalazioni di sicurezza vanno inviate all'indirizzo pistore@fbk.eu
+Le segnalazioni di sicurezza vanno inviate all'indirizzo v.cartelli@business-engineering.it
 
 ## Prerequisiti e dipendenze
 
