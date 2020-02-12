@@ -65,8 +65,6 @@ it:
     cie: false
     pagopa: false
     spid: true
-  riuso:
-    codiceIPA: c_l378
 legal:
   license: MIT
   mainCopyrightOwner: Comune di Trento

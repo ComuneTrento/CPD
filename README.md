@@ -128,12 +128,10 @@ Le segnalazioni di sicurezza vanno inviate all'indirizzo v.cartelli@business-eng
 
 ## Prerequisiti e dipendenze
 
- * TAE nel caso si intenda utilizzarne le funzioni
- * WAE nel caso si intenda utilizzarne le funzioni
- * CPD nel caso si intenda utilizzarne le funzioni
- * Citizenpedia-QAE nel caso si intenda utilizzarne le funzioni
  * AAC nel caso si intenda abilitare l'autenticazione utente per l'accesso alle funzionalità
    supportate
+ * Citizenpedia-QAE nel caso si intenda utilizzarne le funzioni
+ * TAE nel caso si intenda utilizzarne le funzioni
 
 # Documentazione tecnica
 
