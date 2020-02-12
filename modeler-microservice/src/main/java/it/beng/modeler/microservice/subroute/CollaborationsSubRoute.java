@@ -4,7 +4,6 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -62,10 +61,20 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
     router.route(HttpMethod.POST, path + "new").handler(this::post);
     router.route(HttpMethod.POST, path + "completeTask").handler(this::completeTask);
 
+    router.route(HttpMethod.PUT, path + ":id/svg").handler(this::writeSVG);
+
     router.route(HttpMethod.PUT, path + ":id/team").handler(this::putTeam);
     router.route(HttpMethod.PUT, path + ":id/new").handler(this::startNew);
 
     router.route(HttpMethod.DELETE, path + ":id").handler(this::delete);
+  }
+
+  private void writeSVG(RoutingContext context) {
+    final JsonObject body = context.getBodyAsJson();
+    final String svg = body.getString("svg");
+    final String diagramId = context.pathParam("id");
+    AssetsSubRoute.writeSVG(svg, diagramId);
+    context.response().end();
   }
 
   private void completeTask(RoutingContext context) {
@@ -80,10 +89,7 @@ public final class CollaborationsSubRoute extends VoidSubRoute {
               ProcessEngineUtils.getHistoricProcess(task.getString("processId"), true);
           if (process != null) {
             final String diagramId = process.getBusinessKey();
-            if (svg != null) {
-              String filePath = "web/" + cpd.ASSETS_PATH + "svg/" + diagramId + ".svg";
-              vertx.fileSystem().writeFileBlocking(filePath, Buffer.buffer(svg));
-            }
+            AssetsSubRoute.writeSVG(svg, diagramId);
             double progress = (Double) process.getProcessVariables().get("progress");
             mongodb.findOneAndUpdate(Domain.ofDefinition(Domain.Definition.DIAGRAM).getCollection(),
                                      new JsonObject().put("id", diagramId),

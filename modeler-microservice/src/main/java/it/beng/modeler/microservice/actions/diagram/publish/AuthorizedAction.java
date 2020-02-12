@@ -55,23 +55,16 @@ public abstract class AuthorizedAction extends DiagramPublishAction implements D
 
   private void afterAuthorizationIsGranted(AsyncHandler<JsonObject> handler) {
     final Countdown countdown =
-        new Countdown(this.items())
-            .onComplete(
-                zero -> {
-                  handler.handle(Future.succeededFuture(json));
-                });
-    this.items()
-        .forEach(
-            item ->
-                this.forEach(
-                    item,
-                    done -> {
-                      if (done.failed()) {
-                        handler.handle(Future.failedFuture(done.cause()));
-                        throw new RuntimeException(done.cause());
-                      }
-                      countdown.next();
-                    }));
+        new Countdown(this.items()).onComplete(zero -> {
+          handler.handle(Future.succeededFuture(json));
+        });
+    this.items().forEach(item -> this.forEach(item, done -> {
+      if (done.failed()) {
+        handler.handle(Future.failedFuture(done.cause()));
+        throw new RuntimeException(done.cause());
+      }
+      countdown.next();
+    }));
   }
 
   protected abstract List<JsonObject> items();

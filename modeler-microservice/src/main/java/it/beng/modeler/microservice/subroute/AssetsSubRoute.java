@@ -1,6 +1,7 @@
 package it.beng.modeler.microservice.subroute;
 
 import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -23,5 +24,12 @@ public final class AssetsSubRoute extends VoidSubRoute {
         .route(HttpMethod.GET, path + "*")
         .handler(
             StaticHandler.create("web/assets").setDirectoryListing(cpd.server.assets.allowListing));
+  }
+
+  public static void writeSVG(String svg, String diagramId) {
+    if (svg != null && diagramId != null) {
+      String filePath = "web/" + cpd.ASSETS_PATH + "svg/" + diagramId + ".svg";
+      _vertx.get().fileSystem().writeFileBlocking(filePath, Buffer.buffer(svg));
+    }
   }
 }

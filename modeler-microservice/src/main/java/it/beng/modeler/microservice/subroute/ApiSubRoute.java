@@ -11,7 +11,6 @@ import io.vertx.core.impl.NoStackTraceThrowable;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.User;
-import io.vertx.ext.mongo.FindOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -30,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -452,60 +450,108 @@ public final class ApiSubRoute extends VoidSubRoute {
   private void getModelDiagramList(
       List<String> diagramIds,
       List<String> userIds,
+      Double progress,
       String searchText,
       String searchLanguageCode,
-      JsonObject customQuery,
       Integer limit,
-      Handler<Future<List<JsonObject>>> handler) {
-    if (diagramIds != null && diagramIds.isEmpty()) {
-      handler.handle(Future.succeededFuture(Collections.emptyList()));
+      Handler<Future<JsonArray>> handler) {
+    if ((diagramIds != null && diagramIds.isEmpty()) || (userIds != null && userIds.isEmpty())) {
+      handler.handle(Future.succeededFuture(new JsonArray()));
       return;
     }
-    final JsonArray andArray = new JsonArray();
-    if (diagramIds != null) {
-      andArray.add(DBUtils.or("id", diagramIds));
-    }
-    if (userIds != null) {
-      andArray.add(
-          DBUtils.or(
-              userIds.stream()
-                     .map(userId ->
-                              DBUtils.or(
-                                  Arrays.asList(
-                                      "team.owner", "team.reviewer", "team.editor",
-                                      "team.observer"),
-                                  userId))
-                     .collect(Collectors.toList())));
-    }
-    if (searchText != null) {
-      andArray.add(DBUtils.text(searchText, searchLanguageCode));
-    }
-    final Domain diagramDomain = Domain.ofDefinition(Domain.Definition.DIAGRAM);
-    final String collection = diagramDomain.getCollection();
-    final JsonObject query =
-        DBUtils.and(
-            Arrays.asList(
-                diagramDomain.getQuery(),
-                andArray.isEmpty() ? null : new JsonObject().put("$and", andArray),
-                customQuery));
-    logger.info("query: " + query.encodePrettily());
-    final FindOptions findOptions =
-        new FindOptions().setSort(new JsonObject().put("lastModified", -1));
-    if (limit != null) {
-      findOptions.setLimit(limit);
-    }
-    mongodb.findWithOptions(
-        collection,
-        query,
-        findOptions,
+    final JsonObject match = new JsonObject().put("$match", DBUtils.and(
+        diagramIds == null
+            ? null
+            : new JsonObject().put("_id", DBUtils.in(diagramIds)),
+        userIds == null
+            ? null
+            : DBUtils.or(
+                Arrays.asList("team.owner", "team.reviewer", "team.editor", "team.observer"),
+                DBUtils.in(userIds)),
+        progress == null
+            ? null
+            : new JsonObject().put("progress", progress),
+        searchText == null || searchLanguageCode == null
+            ? null
+            : DBUtils.text(searchText, searchLanguageCode),
+        new JsonObject()
+            .put("＄domain", DBUtils.in(Domain.ofDefinition(Domain.Definition.DIAGRAM).getDomains()))
+    ));
+    MongoDB.Command command = mongodb.command(
+        "getDiagramList",
+        new HashMap<String, String>() {{
+          put("match", match.encode());
+          put("limit", limit == null ? "" : new JsonObject().put("$limit", limit).encode() + ",");
+        }});
+    mongodb.runCommand(
+        "aggregate",
+        command,
         find -> {
           if (find.succeeded()) {
-            handler.handle(Future.succeededFuture(find.result()));
+            handler.handle(Future.succeededFuture(find.result().getJsonArray("result")));
           } else {
             handler.handle(Future.failedFuture(find.cause()));
           }
         });
   }
+
+//  private void getModelDiagramList(
+//      List<String> diagramIds,
+//      List<String> userIds,
+//      String searchText,
+//      String searchLanguageCode,
+//      JsonObject customQuery,
+//      Integer limit,
+//      Handler<Future<List<JsonObject>>> handler) {
+//    if (diagramIds != null && diagramIds.isEmpty()) {
+//      handler.handle(Future.succeededFuture(Collections.emptyList()));
+//      return;
+//    }
+//    final JsonArray andArray = new JsonArray();
+//    if (diagramIds != null) {
+//      andArray.add(DBUtils.or("id", diagramIds));
+//    }
+//    if (userIds != null) {
+//      andArray.add(
+//          DBUtils.or(
+//              userIds.stream()
+//                     .map(userId ->
+//                              DBUtils.or(
+//                                  Arrays.asList(
+//                                      "team.owner", "team.reviewer", "team.editor",
+//                                      "team.observer"),
+//                                  userId))
+//                     .collect(Collectors.toList())));
+//    }
+//    if (searchText != null) {
+//      andArray.add(DBUtils.text(searchText, searchLanguageCode));
+//    }
+//    final Domain diagramDomain = Domain.ofDefinition(Domain.Definition.DIAGRAM);
+//    final String collection = diagramDomain.getCollection();
+//    final JsonObject query =
+//        DBUtils.and(
+//            Arrays.asList(
+//                diagramDomain.getQuery(),
+//                andArray.isEmpty() ? null : new JsonObject().put("$and", andArray),
+//                customQuery));
+//    logger.debug("query: " + query.encodePrettily());
+//    final FindOptions findOptions =
+//        new FindOptions().setSort(new JsonObject().put("lastModified", -1));
+//    if (limit != null) {
+//      findOptions.setLimit(limit);
+//    }
+//    mongodb.findWithOptions(
+//        collection,
+//        query,
+//        findOptions,
+//        find -> {
+//          if (find.succeeded()) {
+//            handler.handle(Future.succeededFuture(find.result()));
+//          } else {
+//            handler.handle(Future.failedFuture(find.cause()));
+//          }
+//        });
+//  }
 
   private void getDiagramMyList(RoutingContext context) {
     String userId;
@@ -536,9 +582,9 @@ public final class ApiSubRoute extends VoidSubRoute {
     getModelDiagramList(
         null,
         null,
+        isCivilServant(context.user()) ? null : 1d,
         searchText,
         cpd.language(context),
-        isCivilServant(context.user()) ? null : new JsonObject().put("progress", 1d),
         null,
         list -> {
           if (list.succeeded()) {
@@ -565,9 +611,9 @@ public final class ApiSubRoute extends VoidSubRoute {
     getModelDiagramList(
         null,
         null,
+        isCivilServant(context.user()) ? null : 1d,
         null,
         null,
-        isCivilServant(context.user()) ? null : new JsonObject().put("progress", 1d),
         limit,
         list -> {
           if (list.succeeded()) {

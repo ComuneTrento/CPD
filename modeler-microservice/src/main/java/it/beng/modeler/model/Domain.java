@@ -50,6 +50,7 @@ public class Domain {
     public static final String ELEMENT = "element";
     public static final String ROOT = "root";
     public static final String CHILD = "child";
+    public static final String FEEDBACK = "feedback";
 
     private Definition() {}
   }

@@ -51,10 +51,10 @@
         "gl": "Como «editor» do procedemento ten que modelar o procedemento como un diagrama. Unha vez que o diagrama estea completo, será posto a disposición do «revisor» (reviewer) para a súa validación."
       },
       "model": {
-        "isEditingTask": true,
         "roles": [
           "editor"
-        ]
+        ],
+        "isEditingTask": true
       }
     },
     {
@@ -113,7 +113,6 @@
         "gl": "Como «propietario» (owner) do procedemento pode tanto aprobar definitivamente o procedemento, marcado como públicamente dispoñible, ou retornalo ao «revisor»/«editor» (reviewer/eitor) para modificacións futuras."
       },
       "model": {
-        "isApprovalTask": true,
         "roles": [
           "owner"
         ],
@@ -131,7 +130,8 @@
             "es": "Devolverselo al «revisor»/«editor»",
             "gl": "Retornalo ao «revisor»/«editor»"
           }
-        }
+        },
+        "isApprovalTask": true
       }
     },
     {
@@ -155,7 +155,6 @@
         "roles": [
           "editor"
         ],
-        "readonly": true,
         "outputs": {
           "confirm": {
             "en": "OK",
@@ -163,7 +162,8 @@
             "it": "OK",
             "gl": "OK"
           }
-        }
+        },
+        "isNotificationTask": true
       }
     },
     {
@@ -188,7 +188,6 @@
           "reviewer",
           "editor"
         ],
-        "readonly": true,
         "outputs": {
           "confirm": {
             "en": "OK",
@@ -196,7 +195,8 @@
             "es": "OK",
             "gl": "OK"
           }
-        }
+        },
+        "isNotificationTask": true
       }
     }
   ]

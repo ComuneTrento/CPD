@@ -1,7 +1,6 @@
 package it.beng.modeler.microservice.utils;
 
 import io.vertx.core.json.JsonObject;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
@@ -14,6 +13,7 @@ import java.util.stream.Stream;
  * @author vince
  */
 public final class CommonUtils {
+  public static final Predicate<Object> NON_NULL = Objects::nonNull;
   public static final Predicate<String> NON_EMPTY_STRING = p -> p != null && !p.trim().isEmpty();
   public static final Predicate<JsonObject> NON_EMPTY_JSON_OBJECT = p -> p != null && !p.isEmpty();
 

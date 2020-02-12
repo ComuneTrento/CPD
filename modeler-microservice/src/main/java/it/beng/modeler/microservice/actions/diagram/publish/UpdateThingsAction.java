@@ -47,15 +47,15 @@ public class UpdateThingsAction extends AuthorizedAction {
   protected void forEach(JsonObject update, AsyncHandler<Void> handler) {
     final JsonObject changes = update.getJsonObject("changes");
     final JsonObject original = update.getJsonObject("original");
-    final JsonObject replace = JsonUtils.deepMerge(original, changes);
     final String $domain = original.getString("$domain");
+    Domain domain = Domain.get($domain);
     final boolean isDiagram = Domain.ofDefinition(Domain.Definition.DIAGRAM)
                                     .getDomains()
                                     .contains($domain);
+    final JsonObject replace = JsonUtils.deepMerge(original, changes);
     if (isDiagram) { // TODO: always update diagram lastModified, whatever element is being updated
       replace.put("lastModified", DBUtils.mongoDateTime(OffsetDateTime.now()));
     }
-    Domain domain = Domain.get($domain);
     final Countdown counter = new Countdown(2).onComplete(complete -> {
       if (complete.succeeded()) {
         handler.handle(Future.succeededFuture());

@@ -9,7 +9,6 @@ import it.beng.modeler.config.cpd;
 import it.beng.modeler.microservice.actions.IncomingAction;
 import it.beng.modeler.microservice.actions.PublishAction;
 import it.beng.modeler.microservice.utils.EventBusUtils;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,8 +17,7 @@ import java.util.regex.Pattern;
 
 public abstract class ActionService extends BridgeEventService {
 
-  private static final Map<String, Class<? extends IncomingAction>> INCOMING_ACTIONS =
-      new HashMap<>();
+  private static final Map<String, Class<? extends IncomingAction>> INCOMING_ACTIONS = new HashMap<>();
 
   static void registerIncomingAction(String type, Class<? extends IncomingAction> actionClass) {
     INCOMING_ACTIONS.put(type, actionClass);
@@ -96,9 +94,9 @@ public abstract class ActionService extends BridgeEventService {
   @Override
   public boolean handle(BridgeEvent event) {
     JsonObject message = event.getRawMessage();
-    if (message == null) return false;
+    if (message == null) { return false; }
     String address = message.getString("address");
-    if (address == null) return false;
+    if (address == null) { return false; }
     if (publishAddressPattern.matcher(address).matches()) {
       handlePublish(event);
       return true;
@@ -148,7 +146,7 @@ public abstract class ActionService extends BridgeEventService {
 
   private void process(BridgeEvent event) {
     IncomingAction incomingAction = createIncomingAction(event);
-    if (incomingAction != null)
+    if (incomingAction != null && incomingAction.isValid()) {
       incomingAction.handle(
           EventBusUtils.context(event),
           action -> {
@@ -159,5 +157,6 @@ public abstract class ActionService extends BridgeEventService {
               EventBusUtils.fail(event, action.cause());
             }
           });
+    }
   }
 }

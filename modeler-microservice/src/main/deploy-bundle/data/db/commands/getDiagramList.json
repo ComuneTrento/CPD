@@ -1,0 +1,40 @@
+{
+  "aggregate": "models",
+  "pipeline": [
+    {match},
+    {limit}
+    {
+      "$lookup": {
+        "from": "models",
+        "localField": "_id",
+        "foreignField": "designId",
+        "as": "elements"
+      }
+    },
+    {
+      "$lookup": {
+        "from": "user.feedbacks",
+        "localField": "elements._id",
+        "foreignField": "modelId",
+        "as": "feedbackCount"
+      }
+    },
+    {
+      "$project": {
+        "elements": 0
+      }
+    },
+    {
+      "$addFields": {
+        "feedbackCount": {
+          "$size": "$feedbackCount"
+        }
+      }
+    },
+    {
+      "$sort": {
+        "lastModified": -1
+      }
+    }
+  ]
+}

@@ -7,10 +7,13 @@ import it.beng.microservice.common.AsyncHandler;
 import it.beng.microservice.db.MongoDB;
 import it.beng.modeler.config.cpd;
 import it.beng.modeler.model.Domain;
-
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -34,6 +37,7 @@ public final class DBUtils {
   }
 
   public static class Properties {
+
     private static Map<String, Object> P = new HashMap<>();
 
     protected static JsonObject value(Object value) {
@@ -53,13 +57,13 @@ public final class DBUtils {
             if (properties.succeeded()) {
               Object value =
                   properties.result().stream()
-                      .filter(item -> property.equals(item.getString("id")))
-                      .map(item -> item.getValue("value"))
-                      .findFirst()
-                      .orElse(null);
+                            .filter(item -> property.equals(item.getString("id")))
+                            .map(item -> item.getValue("value"))
+                            .findFirst()
+                            .orElse(null);
               P.put(property, value);
               handler.handle(Future.succeededFuture(value));
-            } else handler.handle(Future.failedFuture(properties.cause()));
+            } else { handler.handle(Future.failedFuture(properties.cause())); }
           });
     }
 
@@ -78,15 +82,15 @@ public final class DBUtils {
             if (update.succeeded()) {
               P.put(property, value);
               handler.handle(Future.succeededFuture(true));
-            } else handler.handle(Future.failedFuture(update.cause()));
+            } else { handler.handle(Future.failedFuture(update.cause())); }
           });
     }
   }
 
   /* EXTENSIONS */
 
-  public static String langOrEN(JsonObject translations, String lang) {
-    return translations.getString(lang, translations.getString("en"));
+  public static String languageCodeOrEN(JsonObject translations, String languageCode) {
+    return translations.getString(languageCode, translations.getString("en"));
   }
 
   /* ID */
@@ -98,7 +102,7 @@ public final class DBUtils {
   /* DATETIME */
 
   public static OffsetDateTime parseDateTime(String value) {
-    if (value == null) return null;
+    if (value == null) { return null; }
     OffsetDateTime dateTime = null;
     try {
       dateTime = OffsetDateTime.parse(value);
@@ -126,12 +130,24 @@ public final class DBUtils {
   /* FIELDS */
 
   public static JsonObject fields(Collection<String> fields, Object value) {
-    if (value == null) value = 1;
+    if (value == null) { value = 1; }
     JsonObject result = new JsonObject();
     for (String field : fields) {
       result.put(field, value);
     }
     return result;
+  }
+
+  /* IN */
+
+  public static <T> JsonObject in(Collection<T> members) {
+    return new JsonObject().put("$in", new JsonArray(
+        members.stream().filter(CommonUtils.NON_NULL).collect(Collectors.toList())
+    ));
+  }
+
+  public static <T> JsonObject in(T... members) {
+    return in(Arrays.asList(members));
   }
 
   /* AND */
@@ -142,6 +158,10 @@ public final class DBUtils {
     return a.isEmpty()
         ? new JsonObject()
         : a.size() == 1 ? a.get(0) : new JsonObject().put("$and", new JsonArray(a));
+  }
+
+  public static JsonObject and(JsonObject... members) {
+    return and(Arrays.asList(members));
   }
 
   /* OR */
@@ -157,15 +177,15 @@ public final class DBUtils {
   public static <T> JsonObject or(String field, Collection<T> values) {
     return or(
         values.stream()
-            .map(value -> new JsonObject().put(field, value))
-            .collect(Collectors.toList()));
+              .map(value -> new JsonObject().put(field, value))
+              .collect(Collectors.toList()));
   }
 
   public static <T> JsonObject or(Collection<String> fields, Object value) {
     return or(
         fields.stream()
-            .map(field -> new JsonObject().put(field, value))
-            .collect(Collectors.toList()));
+              .map(field -> new JsonObject().put(field, value))
+              .collect(Collectors.toList()));
   }
 
   /* TEXT */
@@ -185,7 +205,7 @@ public final class DBUtils {
         find -> {
           if (find.succeeded()) {
             handler.handle(Future.succeededFuture(find.result()));
-          } else handler.handle(Future.failedFuture(find.cause()));
+          } else { handler.handle(Future.failedFuture(find.cause())); }
         });
   }
 }

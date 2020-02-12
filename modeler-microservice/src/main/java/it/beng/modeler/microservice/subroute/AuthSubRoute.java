@@ -29,9 +29,13 @@ import it.beng.modeler.microservice.subroute.auth.OAuth2ClientSubRoute;
 import it.beng.modeler.microservice.subroute.auth.OAuth2ImplicitSubRoute;
 import it.beng.modeler.microservice.subroute.auth.OAuth2SubRoute;
 import it.beng.modeler.microservice.utils.AuthUtils;
+import it.beng.modeler.microservice.utils.DBUtils;
+import it.beng.modeler.model.Domain;
 import it.beng.modeler.model.Domain.Collection;
+import it.beng.modeler.model.Domain.Definition;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -249,7 +253,7 @@ public final class AuthSubRoute extends VoidSubRoute {
       return;
     }
     final String userId = AuthUtils.getAccount(user).getString("id");
-    final Countdown counter = new Countdown(2).onComplete(complete -> {
+    final Countdown counter = new Countdown(3).onComplete(complete -> {
       context.response().end();
     });
     mongodb.updateCollectionWithOptions(Collection.USER_FEEDBACKS,
@@ -261,14 +265,32 @@ public final class AuthSubRoute extends VoidSubRoute {
             counter.fail(update.cause());
           } else {
             counter.next();
-            mongodb.findOneAndDelete(Collection.USERS,
-                                     new JsonObject().put("id", userId), delete -> {
-                  if (delete.failed()) {
-                    counter.fail(delete.cause());
-                  } else {
-                    counter.next();
-                  }
-                });
+          }
+        });
+    final String identifier = ".$[" + userId + "]";
+    mongodb.updateCollectionWithOptions(Domain.ofDefinition(Definition.DIAGRAM).getCollection(),
+                                        DBUtils.or(Arrays.asList("team.owner", "team.reviewer",
+                                                                 "team.editor", "team.observer"),
+                                                   userId),
+                                        new JsonObject().put("$pull", new JsonObject()
+                                            .put("team.owner", userId)
+                                            .put("team.reviewer", userId)
+                                            .put("team.editor", userId)
+                                            .put("team.observer", userId)
+                                        ),
+                                        new UpdateOptions().setMulti(true), update -> {
+          if (update.failed()) {
+            counter.fail(update.cause());
+          } else {
+            counter.next();
+          }
+        });
+    mongodb.findOneAndDelete(Collection.USERS,
+                             new JsonObject().put("id", userId), delete -> {
+          if (delete.failed()) {
+            counter.fail(delete.cause());
+          } else {
+            counter.next();
           }
         });
   }

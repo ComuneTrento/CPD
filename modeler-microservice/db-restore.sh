@@ -5,9 +5,4 @@ DUMP_DIR="$1" || {
   exit 1
 }
 
-PARAMS='--gzip'
-
-if [ "$2" == "drop" ]; then
-  PARAMS="'--drop' $PARAMS"
-fi
-mongorestore --dir "$DUMP_DIR" --nsInclude 'cpd.*' "$PARAMS"
+mongorestore --dir "$DUMP_DIR" --nsInclude 'cpd.*' --drop --gzip

@@ -42,7 +42,7 @@ final class Ajv {
     } catch (ScriptException e) {
       throw new IllegalStateException(e);
     }
-    logger.info("...Ajv initialized.");
+    logger.info("Ajv initialized.");
   }
 
   public ValidationResult validate(String $id, Object value) throws ScriptException {

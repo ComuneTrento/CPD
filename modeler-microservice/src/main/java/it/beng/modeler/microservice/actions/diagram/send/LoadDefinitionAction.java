@@ -10,12 +10,11 @@ import it.beng.modeler.config.cpd;
 import it.beng.modeler.microservice.actions.SendAction;
 import it.beng.modeler.microservice.actions.diagram.DiagramAction;
 import it.beng.modeler.microservice.actions.diagram.reply.DefinitionLoadedAction;
-import it.beng.modeler.microservice.utils.CommonUtils;
 import it.beng.modeler.microservice.utils.DBUtils;
 import it.beng.modeler.microservice.utils.JsonUtils;
 import it.beng.modeler.microservice.utils.ProcessEngineUtils;
 import it.beng.modeler.model.Domain;
-import java.util.Arrays;
+import it.beng.modeler.model.Domain.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -75,34 +74,31 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
           final TaskService taskService = cpd.processEngine().getTaskService();
           final List<JsonObject> tasks =
               (context == null || context.user() == null
-               // user is not logged in => keep tasks empty
-               ? Collections.<Task>emptyList()
-               // take all active tasks of processes that have diagramId as business key
-               : taskService.createTaskQuery()
-                            .processInstanceBusinessKey(diagramId())
-                            .active()
-                            .list()
+                  // user is not logged in => keep tasks empty
+                  ? Collections.<Task>emptyList()
+                  // take all active tasks of processes that have diagramId as business key
+                  : taskService.createTaskQuery()
+                               .processInstanceBusinessKey(diagramId())
+                               .active()
+                               .list()
               ).stream()
                .map(task -> {
                  final HistoricProcessInstance process = ProcessEngineUtils
                      .getHistoricProcess(task.getProcessInstanceId(), true);
                  final String processKey = process.getProcessDefinitionKey();
-                 final String taskKey = Arrays.asList(
-                     "notification-process"
-                 ).contains(processKey)
-                                        ? process.getProcessVariables().get("taskKey").toString()
-                                        : task.getTaskDefinitionKey();
-                 Double progress = (Double) process.getProcessVariables().get("progress");
+                 final String taskKey = "notification-process".equals(processKey)
+                     // notification-process is a callable activity => it uses "taskKey" variable
+                     ? process.getProcessVariables().get("taskKey").toString()
+                     : task.getTaskDefinitionKey();
                  // transform flowable task to partial JsonObject Task
                  // NOTE: language dependent fields ("name", "documentation" and "model")
                  //       will be added in a 2nd stage using the "extensions" mongodb collection
                  return new JsonObject()
+                     .put("id", task.getId())
                      .put("processKey", processKey)
                      .put("taskKey", taskKey)
                      .put("businessKey", diagramId())
-                     .put("id", task.getId())
                      .put("processId", task.getProcessInstanceId())
-                     .put("progress", CommonUtils.coalesce(progress, 0d))
                      .put("assignee", task.getAssignee())
                      .put("createTime", DBUtils.mongoDateTime(
                          DBUtils.parseDateTime(
@@ -112,12 +108,11 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
                })
                .collect(Collectors.toList());
           if (tasks.isEmpty()) {
-            reply(
-                // return an empty task list
-                new DefinitionLoadedAction(definition.put("tasks", new JsonArray())), handler);
+            // return an empty task list
+            reply(new DefinitionLoadedAction(definition.put("tasks", new JsonArray())), handler);
           } else {
             // 2nd stage (for translations retrieval)
-            final String lang = cpd.languageCode(context);
+            final String languageCode = cpd.languageCode(context);
             DBUtils.loadCollection(
                 Domain.Collection.EXTENSIONS,
                 new JsonObject()
@@ -137,19 +132,20 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
                           JsonObject model = extension.getJsonObject("model");
                           JsonObject outputs = model.getJsonObject("outputs");
                           if (outputs != null) {
-                            // if the model has outputs, override theyr values with "lang" translations
+                            // if the model has outputs, override theyr values with "languageCode" translations
                             model.put("outputs", new JsonObject(
                                 outputs.stream()
                                        .collect(Collectors.toMap(
                                            Map.Entry::getKey,
-                                           entry -> DBUtils
-                                               .langOrEN((JsonObject) entry.getValue(), lang)))));
+                                           entry -> DBUtils.languageCodeOrEN(
+                                               (JsonObject) entry.getValue(), languageCode)))));
                           }
                           return extension
                               // translate name and documentation
-                              .put("name", DBUtils.langOrEN(extension.getJsonObject("name"), lang))
-                              .put("documentation",
-                                   DBUtils.langOrEN(extension.getJsonObject("documentation"), lang))
+                              .put("name", DBUtils.languageCodeOrEN(
+                                  extension.getJsonObject("name"), languageCode))
+                              .put("documentation", DBUtils.languageCodeOrEN(
+                                  extension.getJsonObject("documentation"), languageCode))
                               .put("model", model);
                         })
                         .collect(Collectors.toList());
@@ -158,27 +154,29 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
                         definition.put("tasks", new JsonArray(
                             tasks.stream()
                                  .map(task -> {
-                                   JsonObject foundExtension = extensions
+                                   JsonObject extension = extensions
                                        .stream()
-                                       .filter(extension -> extension
-                                           .getJsonObject("id")
-                                           .equals(new JsonObject()
-                                                       .put("processKey",
-                                                            task.getString("processKey"))
-                                                       .put("taskKey", task.getString("taskKey"))))
+                                       .filter(e -> e.getJsonObject("id")
+                                                     .equals(
+                                                         new JsonObject()
+                                                             .put("processKey",
+                                                                  task.getString("processKey"))
+                                                             .put("taskKey",
+                                                                  task.getString("taskKey"))))
                                        .findFirst()
                                        .orElse(null);
-                                   if (foundExtension == null) {
-                                     logger.error(
+                                   if (extension == null) {
+                                     logger.warn(
                                          "no extension found for task " + task.encodePrettily());
                                      return null;
                                    }
                                    return task
-                                       .put("name", foundExtension
+                                       .put("language", cpd.language(languageCode))
+                                       .put("name", extension
                                            .getString("name"))
-                                       .put("documentation", foundExtension
+                                       .put("documentation", extension
                                            .getString("documentation"))
-                                       .put("model", foundExtension
+                                       .put("model", extension
                                            .getJsonObject("model"));
                                  })
                                  .filter(Objects::nonNull)
@@ -191,4 +189,14 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
       } else { handler.handle(Future.failedFuture(getDiagramDefinition.cause())); }
     });
   }
+
+  protected void reply(DefinitionLoadedAction action, AsyncHandler<JsonObject> handler) {
+    mongodb.find(Collection.USER_FEEDBACKS, new JsonObject(), findFeedbacks -> {
+      if (findFeedbacks.succeeded()) {
+        action.definition().put("feedback", new JsonArray(findFeedbacks.result()));
+        super.reply(action, handler);
+      } else { handler.handle(Future.failedFuture(findFeedbacks.cause())); }
+    });
+  }
+
 }

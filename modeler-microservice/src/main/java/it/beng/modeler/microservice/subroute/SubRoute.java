@@ -29,6 +29,8 @@ public abstract class SubRoute<T> {
 
   private static final Logger logger = LogManager.getLogger(SubRoute.class);
 
+  protected static ThreadLocal<Vertx> _vertx = new ThreadLocal<>();
+
   static {
     Json.mapper.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
     // Json.mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true);
@@ -50,6 +52,7 @@ public abstract class SubRoute<T> {
   protected final boolean isPrivate;
 
   public SubRoute(String path, Vertx vertx, Router router, boolean isPrivate, T userData) {
+    _vertx.set(vertx);
     this.baseHref = cpd.server.baseHref;
     this.path = baseHref + path;
     logger.info("sub-route registered: " + this.path);
