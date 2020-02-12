@@ -223,7 +223,7 @@ The Gamification integration properties.
 NOTE: the gamification engine is not part of the SPRINT project, so
 keep it disabled (`cpd.gamification.enabled=false`). 
 
-##### `cpd.qae.*`
+##### `cpd.tae.*`
 
 The Text Adaptation Engine integration parameters.
 
