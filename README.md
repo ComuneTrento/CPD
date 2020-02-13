@@ -1,7 +1,7 @@
 # Collaborative Procedure Designer (CPD)
 
-Il Collaborative Procedure Designer (CPD) nasce per fornire una visulizzazione grafica e semplice (sotto forma di diagrammi) dell'iter di un procedimento amministrativo.
-Nato nell'ambito del progetto europeo [SIMPATICO](https://www.simpatico-project.eu/), è diventato uno dei componenti a riuso del [Progetto PON-GOV "SPRINT"] (https://github.com/ComuneTrento/SPRINT-informatizzazione-e-semplificazione-dei-procedimenti-amministrativi)
+Il Collaborative Procedure Designer (CPD) è uno strumento per creare e poi esporre una visulizzazione grafica e semplice dell'iter di un procedimento amministrativo sotto forma di diagrammi.
+Nato nell'ambito del progetto europeo [SIMPATICO](https://www.simpatico-project.eu/), è diventato uno dei componenti a riuso del [Progetto PON-GOV "SPRINT"](https://github.com/ComuneTrento/SPRINT-informatizzazione-e-semplificazione-dei-procedimenti-amministrativi)
 
 # Descrizione
 
