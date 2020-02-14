@@ -1,66 +1,9 @@
-# SPRINT - Collaborative Procedure Designer (CPD)
+# Collaborative Procedure Designer (CPD)
 
-Il Collaborative Procedure Designer (CPD) è un'applicazione e server web che fornisce servizi per il
-diesgno collaborativo e la consultazione di procedure amministrative sotto forma di diagrammi in una
-notazione grafica sviluppata nell'ambito del progetto
-[SIMPATICO](https://www.simpatico-project.eu/).  
+Il Collaborative Procedure Designer (CPD) è uno strumento per creare e poi esporre una visulizzazione grafica e semplice dell'iter di un procedimento amministrativo sotto forma di diagrammi.
+Nato nell'ambito del progetto europeo [SIMPATICO](https://www.simpatico-project.eu/), è diventato uno dei componenti a riuso del [Progetto PON-GOV "SPRINT"](https://github.com/ComuneTrento/SPRINT-informatizzazione-e-semplificazione-dei-procedimenti-amministrativi)
 
 # Descrizione
-
-Il progetto SPRINT intende valorizzare alcuni risultati del progetto
-[SIMPATICO](https://www.simpatico-project.eu/) volti a migliorare e semplificare l’interazione tra
-cittadino e servizi online. L’obiettivo del progetto è di creare un kit che permetta una facile
-integrazione di alcune funzioni avanzate di SIMPATICO in un generico portale della Pubblica
-Amministrazione e/o in un servizio online. 
-
-L'Interactive Front-End (IFE), che fa parte della famiglia di tools messa in riuso, è il componente
-che consente di integrare le fuzioni di adattamento del testo, di adattamento del workflow e di
-supporto alla misura della complessita' di un testo in un portale e/o in un servizio digitale terzi.
-Per fare questo utilizza i sotto componeni Wrokflow Adaptatione Engine (WAE), Text Adaptation Engine
-(TAE), Collaborative Procedure Designer (CPD) e Citizenpedia-Q&A (QAE). 
-
-La descrizione completa e tecnica di utilizzo dei diversi componenti si trova nel documento
-[di progetto](doc/BP-OR-AP-06_v1.0_Trento.pdf)
-
-## Workflow Adaptation Engine (WAE)
-
-Il Workflow Adaptation Engine è responsabile di adattare e semplificare l’interazione con gli
-e-service. Una volta individuati i diversi blocchi interattivi dell’e-service, consente di
-modificarne e semplificarne il flusso di compilazione. Il WAE permette di:
-
- 1. suddividere l'e-service (template HTML) in blocchi di interazione e presentare gli stessi
-    all'utente in base alle dipendenze tra essi ed allo stato della compilazione (vedi (1) in 
-    figura).
- 2. presentare all'utente una sezione di suggerimenti vicino a ciascun blocco di interazione per
-    fare capire meglio cosa inserire nei diversi campi (vedi (12) in figura).
- 3. presentare all'utente una sezione dove vengono presentate le domande e risposte presenti nel
-    modulo QAE relative al blocco selezionato (vedi (3) in figura).
- 4. presentare all'utente una sezione che visualizza l’insieme dei blocchi interattivi da cui è
-    composto il servizio online (vedi (4) in figura).
-
- ![WAE](.README/wae.1.png)
-
-Per applicare la workflow adaptation ad un e-service occorre quindi marcare i blocchi interattivi
-all’interno del documento digitale e codificare le dipendenze tra gli stessi in un Workflow 
-Adaptation Model. Quando attivato, il WAE recupera le informazioni dal Workflow Adaptation Model,
-estrae i vari blocchi interattivi e applica le regole di esecuzione/dipendenza.
-
-## Text Adaptation Engine (TAE)
-
-Il Text Adaptation Engine permette di adattare/modificare il testo per migliorarne leggibilità e
-comprensione. 
-
-In particolare TAE permette di: 
-
- * dato una parola consente di arricchirla con informazioni atte a migliorarne la comprensione;
-
- ![Miglioramento testo](.README/tae.1.png)
-
- * data una frase consente di rivederla nella forma per renderla più leggibile e comprensibile.
-
- ![Semplificazione lessicale](.README/tae.2.png)
-
-## Collaborative Process Designer (CPD)
 
 Il CPD è uno strumento che consente di creare rappresentazioni grafiche di procedure pubbliche sotto
 forma di diagrammi. Questi diagrammi possono rappresentare sia servizi elettronici che servizi non
@@ -73,22 +16,47 @@ In particolare il CPD permette di:
  * creare e modificare un diagramma del flusso di lavoro, utilizzando simboli simili a UML.
  * Social/collaborative: consente di pubblicare commenti sul diagramma.
 
-## Citizenpeda-QAE
+## Qualche dettaglio in più
 
-Si tratta di una particolare funzione di Citizenpedia che consente di pubblicare, classificare e
-risolvere domande da parte degli utilizzatori finali sugli e-services. Nello specifico le domande e
-risposte relative ad un servizio vengono presentate all’utente direttamente nella pagina del
-servizio tramite l’IFE. Il QAE è costituito da un'interfaccia web che abilita l'interazione con gli
-utenti (cittadini e dipendenti pubblici) da qualsiasi tipo di dispositivo, ad es. smartphone o PC. 
+Il **Collaborative Procedure Design** (CPD) consente al **cittadino** di consultare una rappresentazione grafica (diagramma) di una procedura amministrativa e al **funzionario** pubblico di collaborare alla definizione del diagramma di una procedura amministrativa.
 
-È definito il ruolo di moderatore. Il moderatore è responsabile della gestione e del mantenimento
-della qualità delle informazioni raccolte.
+Il cittadino può accedere al CPD per visualizzare la rappresentazione grafica di una procedura amministrativa e per ottenere informazioni su:
 
- ![QAE interfaccia](.README/qae.1.png)
+  1. quali comunicazioni sono coinvolte;
+  2. la sequenza temporale delle comunicazioni;
+  3. i canali di comunicazione utilizzati per scambiare documenti/informazioni con la pubblica amministrazione.
+
+Inoltre, il cittadino ha la facoltà di inoltrare all'amministratore, su qualsiasi elemento grafico del diagramma, domande, commenti e suggerimenti.
+
+Il funzionario accede a un ricco insieme di strumenti grafici che gli consente di disegnare i blocchi costituenti di una procedura amministrativa intesa come flusso di comunicazioni Ente-cittadino, ciascuna delle quali coinvolge il cittadino e la pubblica amministrazione.
+
+I casi d'uso tipici del CPD sono, per tipologia d'utente, i seguenti:
+
+  - **Cittadino**:
+
+    * Visualizzare i diagrammi della procedura amministrativa;
+    * Visualizzare tutte le informazioni associate a ciascun elemento del diagramma;
+    * Inoltrare domande/commenti/suggerimenti su qualsiasi elemento del diagramma;
+
+      > vai al [Manuale del cittadino](https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki/Manuale-del-cittadino#index)
+
+  - **Funzionario**:
+
+    * Creare un nuovo diagramma della procedura amministrativa;
+    * Modificare un diagramma di procedura amministrativa esistente;
+    * Visualizzare le domande/commenti/suggerimenti dei cittadini allegati a qualsiasi elemento del diagramma.
+
+      > vai al [Manuale del funzionario](https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki/Manuale-del-funzionario#index)
+
+![SIMPATICO](modeler-microservice/src/main/deploy-bundle/web/assets/img/left_simpatico_small.png)
+
+![screen-capture](https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki/images/CPD-screen-capture.gif)
 
 ## Altri riferimenti
 
-Per maggiori informazioni è possibile consultare:
+Per conoscere come il CPD viene utilizzato come componente di un sistema completo di digitalizzazione e semplificazione dei servizi puoi accedere alla soluzione SPRINT
+
+Puoi inoltre consultare il documento di progetto in cui vine spiegata al meglio la modalità di integrazione del CPD a servizi esterni:
 
  * documento [di progetto](doc/BP-OR-AP-06_v1.0_Trento.pdf)
 
