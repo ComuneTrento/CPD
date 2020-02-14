@@ -8,6 +8,7 @@ Nato nell'ambito del progetto europeo [SIMPATICO](https://www.simpatico-project.
 Il CPD è uno strumento che consente di creare rappresentazioni grafiche di procedure pubbliche sotto
 forma di diagrammi. Questi diagrammi possono rappresentare sia servizi elettronici che servizi non
 digitali che i cittadini devono utilizzare per raggiungere un obiettivo specifico.
+<<<<<<< HEAD
 
  ![CPD interfaccia](.README/cpd.1.png)
 
@@ -51,7 +52,51 @@ I casi d'uso tipici del CPD sono, per tipologia d'utente, i seguenti:
 ![SIMPATICO](modeler-microservice/src/main/deploy-bundle/web/assets/img/left_simpatico_small.png)
 
 ![screen-capture](https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki/images/CPD-screen-capture.gif)
+=======
 
+ ![CPD interfaccia](.README/cpd.1.png)
+
+In particolare il CPD permette di:
+
+ * creare e modificare un diagramma del flusso di lavoro, utilizzando simboli simili a UML.
+ * Social/collaborative: consente di pubblicare commenti sul diagramma.
+
+## Qualche dettaglio in più
+
+Il **Collaborative Procedure Design** (CPD) consente al **cittadino** di consultare una rappresentazione grafica (diagramma) di una procedura amministrativa e al **funzionario** pubblico di collaborare alla definizione del diagramma di una procedura amministrativa.
+
+Il cittadino può accedere al CPD per visualizzare la rappresentazione grafica di una procedura amministrativa e per ottenere informazioni su:
+
+  1. quali comunicazioni sono coinvolte;
+  2. la sequenza temporale delle comunicazioni;
+  3. i canali di comunicazione utilizzati per scambiare documenti/informazioni con la pubblica amministrazione.
+
+Inoltre, il cittadino ha la facoltà di inoltrare all'amministratore, su qualsiasi elemento grafico del diagramma, domande, commenti e suggerimenti.
+
+Il funzionario accede a un ricco insieme di strumenti grafici che gli consente di disegnare i blocchi costituenti di una procedura amministrativa intesa come flusso di comunicazioni Ente-cittadino, ciascuna delle quali coinvolge il cittadino e la pubblica amministrazione.
+
+I casi d'uso tipici del CPD sono, per tipologia d'utente, i seguenti:
+
+  - **Cittadino**:
+
+    * Visualizzare i diagrammi della procedura amministrativa;
+    * Visualizzare tutte le informazioni associate a ciascun elemento del diagramma;
+    * Inoltrare domande/commenti/suggerimenti su qualsiasi elemento del diagramma;
+
+      > vai al [Manuale del cittadino](Manuale-del-cittadino#index)
+
+  - **Funzionario**:
+
+    * Creare un nuovo diagramma della procedura amministrativa;
+    * Modificare un diagramma di procedura amministrativa esistente;
+    * Visualizzare le domande/commenti/suggerimenti dei cittadini allegati a qualsiasi elemento del diagramma.
+
+      > vai al [Manuale del funzionario](Manuale-del-funzionario#index)
+
+![SIMPATICO](/ComuneTrento/CPD-Collaborative-Procedure-Design/blob/master/modeler-microservice/src/main/deploy-bundle/web/assets/img/left_simpatico_small.png)
+>>>>>>> 61d46397763bf551bfa471842d0573b09e0ac6e4
+
+![screen-capture](images/CPD-screen-capture.gif)
 ## Altri riferimenti
 
 Per conoscere come il CPD viene utilizzato come componente di un sistema completo di digitalizzazione e semplificazione dei servizi puoi accedere alla soluzione SPRINT
