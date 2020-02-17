@@ -114,11 +114,8 @@ Per la compilazionie del CPD sono necessari i seguenti pacchetti:
 * Maven 3+
 * npm 3.5+
 
-Inoltre, è necessario creare e predisporre preventivamente il file `develop.properties` seguendo le
-istruzioni riportate nella rispettiva [guida tecnica](modeler-microservice/README.md#example-properties).
-
 Eseguendo `mvn clean install` sarà compilata e installata localmente una copia delle librerie
-necessarie.
+necessarie al CPD.
 
 Da questo momento si portà lavorare esclusivamente sul modulo
 [`modeler-microservice`](modeler-microservice) al cui README rimandiamo per tutti gli ulteriori
