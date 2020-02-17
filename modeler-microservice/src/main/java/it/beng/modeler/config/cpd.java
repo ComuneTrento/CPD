@@ -583,7 +583,7 @@ public final class cpd {
                                         rawDB().findOneAndReplace(
                                             collection,
                                             new JsonObject()
-                                                .put("_id", document.getString("_id")),
+                                                .put("_id", document.getValue("_id")),
                                             document,
                                             done -> {
                                               if (done.succeeded()) {

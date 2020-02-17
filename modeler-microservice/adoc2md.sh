@@ -13,7 +13,7 @@ EXT=${BASH_REMATCH[3]}
 
 if [ -n "$EXT" ]; then
   EXT=.$EXT
-fi;
+fi
 
 echo "DIR: $DIR"
 echo "NAME: $NAME"
