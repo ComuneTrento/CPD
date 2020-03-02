@@ -2,12 +2,12 @@ package it.beng.modeler.model;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import it.beng.modeler.microservice.utils.DBUtils;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -91,8 +91,8 @@ public class Domain {
                 "Model.FPMN.Interaction.Sequence")));
   }
 
-  public static Domain ofDefinition(String concept) {
-    return DEFINITIONS.get(concept);
+  public static Domain ofDefinition(String definition) {
+    return DEFINITIONS.get(definition);
   }
 
   public static Domain get(String $domain) {
@@ -108,14 +108,14 @@ public class Domain {
     this.definition = definition;
     this.collection = collection;
     this.domains = Collections.unmodifiableList(domains);
-    this.query =
-        new JsonObject()
-            .put(
-                "$or",
-                new JsonArray(
-                    domains.stream()
-                           .map(domain -> new JsonObject().put("$domain", domain))
-                           .collect(Collectors.toList())));
+//    this.query = new JsonObject()
+//        .put(
+//            "$or",
+//            new JsonArray(
+//                domains.stream()
+//                       .map(domain -> new JsonObject().put("$domain", domain))
+//                       .collect(Collectors.toList())));
+    this.query = new JsonObject().put("$domain", DBUtils.in(domains));
     domains.forEach(
         domain -> {
           if (DOMAINS.containsKey(domain)) {

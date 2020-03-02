@@ -31,17 +31,18 @@
       }
     },
     {
-      "$graphLookup" : {
-        "from" : "models",
-        "startWith" : "$_id",
-        "connectFromField" : "_id",
-        "connectToField" : "designId",
-        "as" : "root",
-        "maxDepth" : 0.0,
-        "restrictSearchWithMatch" : {
-          "parentId" : {
-            "$exists" : false
-          }
+      "$graphLookup": {
+        "from": "models",
+        "startWith": "$_id",
+        "connectFromField": "_id",
+        "connectToField": "designId",
+        "as": "root",
+        "maxDepth": 0.0,
+        "restrictSearchWithMatch": {
+          "parentId": {
+            "$exists": false
+          },
+          "＄domain": "Model.FPMN.Procedure"
         }
       }
     },
@@ -54,7 +55,30 @@
         "startWith": "$root._id",
         "connectFromField": "_id",
         "connectToField": "parentId",
-        "as": "childs"
+        "as": "childs",
+        "restrictSearchWithMatch": {
+          "parentId": {
+            "$exists": true
+          }
+        }
+      }
+    },
+    {
+      "$graphLookup": {
+        "from": "models",
+        "startWith": "$_id",
+        "connectFromField": "_id",
+        "connectToField": "designId",
+        "as": "orphans",
+        "maxDepth": 0.0,
+        "restrictSearchWithMatch": {
+          "parentId": {
+            "$exists": false
+          },
+          "＄domain": {
+            "$ne": "Model.FPMN.Procedure"
+          }
+        }
       }
     }
   ]

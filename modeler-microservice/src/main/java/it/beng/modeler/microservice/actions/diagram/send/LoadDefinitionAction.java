@@ -23,8 +23,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.flowable.engine.RepositoryService;
-import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.task.api.Task;
@@ -55,22 +53,17 @@ public class LoadDefinitionAction extends SendAction implements DiagramAction {
 
   @Override
   public void handle(RoutingContext context, AsyncHandler<JsonObject> handler) {
-    MongoDB.Command command =
-        mongodb.command(
-            COMMAND_PATH + "getDiagramDefinition",
-            new HashMap<String, String>() {
-              {
-                put("diagramId", diagramId());
-              }
-            });
+    MongoDB.Command command = mongodb.command(
+        COMMAND_PATH + "getDiagramDefinition",
+        new HashMap<String, String>() {{
+          put("diagramId", diagramId());
+        }});
 
     mongodb.runCommand("aggregate", command, getDiagramDefinition -> {
       if (getDiagramDefinition.succeeded()) {
         final JsonObject definition =
             JsonUtils.firstOrNull(getDiagramDefinition.result().getJsonArray("result"));
         if (definition != null) {
-          final RepositoryService repositoryService = cpd.processEngine().getRepositoryService();
-          final RuntimeService runtimeService = cpd.processEngine().getRuntimeService();
           final TaskService taskService = cpd.processEngine().getTaskService();
           final List<JsonObject> tasks =
               (context == null || context.user() == null

@@ -5808,12 +5808,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function ngOnInit() {
           var _this9 = this;
 
-          // (0) connect to event bus
-          this.eventBus.onStateChange$.subscribe(function (state) {// if (state !== EventBusState.CONNECTED) {
-            //   this.store.dispatch(new AuthAction.GoGuest());
-            // }
-          });
-          this.eventBus.connect(this.config.eventBusEndpoint()); // (1) update main menu after i18n is initialized and on every user change
+          // reload page in case of reconnection
+          this.eventBus.onReconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function () {
+            return window.location.reload();
+          }); // connect to event bus
+
+          this.eventBus.connect(this.config.eventBusEndpoint()); // update main menu after i18n is initialized and on every user change
 
           this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_reducers__WEBPACK_IMPORTED_MODULE_8__["CoreReducer"].isI18nInitialized), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (i18nInitialized) {
             return i18nInitialized;
@@ -5932,7 +5932,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./src/app/core/containers/index.ts ***!
     \******************************************/
 
-  /*! exports provided: BengAppComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent, BengNoConnectionPageComponent */
+  /*! exports provided: BengAppComponent, BengNoConnectionPageComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent */
 
   /***/
   function srcAppCoreContainersIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -22827,7 +22827,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./src/modules/diagram/index.ts ***!
     \**************************************/
 
-  /*! exports provided: DiagramReducer, BengDiagramModule, DiagramAction, DiagramComponent, DefinitionLoadedGuard */
+  /*! exports provided: DiagramReducer, BengDiagramModule, DiagramComponent, DefinitionLoadedGuard, DiagramAction */
 
   /***/
   function srcModulesDiagramIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -25589,8 +25589,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       ActionBusAction.ERROR = '[Action Bus] Error';
 
       var Connected = function Connected() {
+        var isReconnection = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
         _classCallCheck(this, Connected);
 
+        this.isReconnection = isReconnection;
         this.type = ActionBusAction.CONNECTED;
       };
 
@@ -26481,27 +26484,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ../../common */
-    "./src/modules/common/index.ts");
-    /* harmony import */
-
-
-    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
     /* harmony import */
 
 
-    var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! rxjs/operators */
     "./node_modules/rxjs/_esm2015/operators/index.js");
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../../../environments/environment */
     "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../../common */
+    "./src/modules/common/index.ts");
     /* harmony import */
 
 
@@ -26528,11 +26531,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _this86 = _possibleConstructorReturn(this, _getPrototypeOf(ActionBusService).call(this));
         _this86.eventBus = eventBus;
         _this86.store = store;
-        _this86.clientId = _common__WEBPACK_IMPORTED_MODULE_1__["$"].uuid();
+        _this86.clientId = _common__WEBPACK_IMPORTED_MODULE_4__["$"].uuid();
         _this86.headers = {
           clientId: _this86.clientId
         };
-        _this86._destroyed$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        _this86._destroyed$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
 
         _this86.publishHandler = function (event) {
           var action = _this86.receive(event);
@@ -26543,7 +26546,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
           if (action.publishedBy === _this86.clientId) {
-            if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+            if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
               console.warn('action is not being dispatched because you published it');
               console.groupEnd();
             }
@@ -26564,12 +26567,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _this86.dispatch(action);
         };
 
-        _this86.onStateChange$ = _this86.eventBus.onStateChange$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(_this86._destroyed$));
-        _this86.onConnect$ = _this86.eventBus.onConnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(_this86._destroyed$));
-        _this86.onDisconnect$ = _this86.eventBus.onDisconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(_this86._destroyed$));
+        _this86.onStateChange$ = _this86.eventBus.onStateChange$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this86._destroyed$));
+        _this86.onConnect$ = _this86.eventBus.onConnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this86._destroyed$));
+        _this86.onReconnect$ = _this86.eventBus.onReconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this86._destroyed$));
+        _this86.onDisconnect$ = _this86.eventBus.onDisconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this86._destroyed$));
 
         _this86.onConnect$.subscribe(function () {
           _this86.store.dispatch(new _actions__WEBPACK_IMPORTED_MODULE_5__["ActionBusAction"].Connected());
+        });
+
+        _this86.onReconnect$.subscribe(function () {
+          _this86.store.dispatch(new _actions__WEBPACK_IMPORTED_MODULE_5__["ActionBusAction"].Connected(true));
         });
 
         _this86.onDisconnect$.subscribe(function () {
@@ -26603,7 +26611,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             return null;
           }
 
-          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.groupCollapsed('action received from service bus: ' + action.type);
             console.log(action);
           }
@@ -26613,7 +26621,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "dispatch",
         value: function dispatch(action) {
-          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.log('dispatching action to the store');
             console.groupEnd();
           }
@@ -26641,7 +26649,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             return;
           }
 
-          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.log('publishing action to the event-bus: publishedBy=' + this.clientId);
             console.groupEnd();
           }
@@ -26652,7 +26660,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "send",
         value: function send(action) {
-          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+          if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.log('sending action to the event-bus');
             console.groupEnd();
           }
@@ -26682,7 +26690,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }]);
 
       return ActionBusService;
-    }(_common__WEBPACK_IMPORTED_MODULE_1__["Service"]);
+    }(_common__WEBPACK_IMPORTED_MODULE_4__["Service"]);
     /***/
 
   },
@@ -26767,6 +26775,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _this87 = _possibleConstructorReturn(this, _getPrototypeOf(EventBusService).call(this));
         _this87.onConnect$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        _this87.onReconnect$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         _this87.onDisconnect$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         _this87.onStateChange$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         _this87.options = _models__WEBPACK_IMPORTED_MODULE_5__["EventBusOptions"].DEFAULT();
@@ -26906,6 +26915,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this90.setState(_models__WEBPACK_IMPORTED_MODULE_5__["EventBusState"].CONNECTED);
 
             _this90.onConnect$.emit(event);
+
+            if (reconnectAttempts > 0) {
+              _this90.onReconnect$.emit(event);
+            }
 
             reconnectAttempts = 0; // Send the first ping then send a ping every pingInterval milliseconds
 

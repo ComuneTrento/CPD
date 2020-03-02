@@ -2403,14 +2403,11 @@ class BengAppComponent {
         return this.eventBus.isConnected;
     }
     ngOnInit() {
-        // (0) connect to event bus
-        this.eventBus.onStateChange$.subscribe(state => {
-            // if (state !== EventBusState.CONNECTED) {
-            //   this.store.dispatch(new AuthAction.GoGuest());
-            // }
-        });
+        // reload page in case of reconnection
+        this.eventBus.onReconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(() => window.location.reload());
+        // connect to event bus
         this.eventBus.connect(this.config.eventBusEndpoint());
-        // (1) update main menu after i18n is initialized and on every user change
+        // update main menu after i18n is initialized and on every user change
         this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_reducers__WEBPACK_IMPORTED_MODULE_8__["CoreReducer"].isI18nInitialized), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(i18nInitialized => i18nInitialized), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["flatMap"])(() => this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_auth_reducers__WEBPACK_IMPORTED_MODULE_5__["AuthReducer"].getUser)))).subscribe(user => this.store.dispatch(new _actions__WEBPACK_IMPORTED_MODULE_6__["LayoutAction"].BuildMainMenu(user)));
         // this.store.pipe(
         //   select(AuthReducer.getUser)
@@ -2469,7 +2466,7 @@ class BengHomePageComponent {
 /*!******************************************!*\
   !*** ./src/app/core/containers/index.ts ***!
   \******************************************/
-/*! exports provided: BengAppComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent, BengNoConnectionPageComponent */
+/*! exports provided: BengAppComponent, BengNoConnectionPageComponent, BengNotFoundPageComponent, BengSettingsPageComponent, BengUserProfilePageComponent, BengHomePageComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9780,7 +9777,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************!*\
   !*** ./src/modules/diagram/index.ts ***!
   \**************************************/
-/*! exports provided: DiagramReducer, BengDiagramModule, DiagramAction, DiagramComponent, DefinitionLoadedGuard */
+/*! exports provided: DiagramReducer, BengDiagramModule, DiagramComponent, DefinitionLoadedGuard, DiagramAction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10920,7 +10917,8 @@ var ActionBusAction;
     ActionBusAction.DISCONNECTED = '[Action Bus] Disconnected';
     ActionBusAction.ERROR = '[Action Bus] Error';
     class Connected {
-        constructor() {
+        constructor(isReconnection = false) {
+            this.isReconnection = isReconnection;
             this.type = ActionBusAction.CONNECTED;
         }
     }
@@ -11392,10 +11390,10 @@ var ActionBusReducer;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionBusService", function() { return ActionBusService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common */ "./src/modules/common/index.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common */ "./src/modules/common/index.ts");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions */ "./src/modules/event-bus/actions/index.ts");
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../models */ "./src/modules/event-bus/models/index.ts");
 
@@ -11405,16 +11403,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class ActionBusService extends _common__WEBPACK_IMPORTED_MODULE_1__["Service"] {
+class ActionBusService extends _common__WEBPACK_IMPORTED_MODULE_4__["Service"] {
     constructor(eventBus, store) {
         super();
         this.eventBus = eventBus;
         this.store = store;
-        this.clientId = _common__WEBPACK_IMPORTED_MODULE_1__["$"].uuid();
+        this.clientId = _common__WEBPACK_IMPORTED_MODULE_4__["$"].uuid();
         this.headers = {
             clientId: this.clientId
         };
-        this._destroyed$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._destroyed$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
         this.publishHandler = event => {
             const action = this.receive(event);
             if (action == null) {
@@ -11422,7 +11420,7 @@ class ActionBusService extends _common__WEBPACK_IMPORTED_MODULE_1__["Service"] {
             }
             // Ignore action published by current client
             if (action.publishedBy === this.clientId) {
-                if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+                if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
                     console.warn('action is not being dispatched because you published it');
                     console.groupEnd();
                 }
@@ -11437,11 +11435,15 @@ class ActionBusService extends _common__WEBPACK_IMPORTED_MODULE_1__["Service"] {
             }
             this.dispatch(action);
         };
-        this.onStateChange$ = this.eventBus.onStateChange$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._destroyed$));
-        this.onConnect$ = this.eventBus.onConnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._destroyed$));
-        this.onDisconnect$ = this.eventBus.onDisconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._destroyed$));
+        this.onStateChange$ = this.eventBus.onStateChange$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this._destroyed$));
+        this.onConnect$ = this.eventBus.onConnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this._destroyed$));
+        this.onReconnect$ = this.eventBus.onReconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this._destroyed$));
+        this.onDisconnect$ = this.eventBus.onDisconnect$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this._destroyed$));
         this.onConnect$.subscribe(() => {
             this.store.dispatch(new _actions__WEBPACK_IMPORTED_MODULE_5__["ActionBusAction"].Connected());
+        });
+        this.onReconnect$.subscribe(() => {
+            this.store.dispatch(new _actions__WEBPACK_IMPORTED_MODULE_5__["ActionBusAction"].Connected(true));
         });
         this.onDisconnect$.subscribe(() => {
             this.store.dispatch(new _actions__WEBPACK_IMPORTED_MODULE_5__["ActionBusAction"].Disconnected());
@@ -11469,14 +11471,14 @@ class ActionBusService extends _common__WEBPACK_IMPORTED_MODULE_1__["Service"] {
             console.error('ActionBusService: message body is required');
             return null;
         }
-        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.groupCollapsed('action received from service bus: ' + action.type);
             console.log(action);
         }
         return action;
     }
     dispatch(action) {
-        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.log('dispatching action to the store');
             console.groupEnd();
         }
@@ -11496,7 +11498,7 @@ class ActionBusService extends _common__WEBPACK_IMPORTED_MODULE_1__["Service"] {
             console.groupEnd();
             return;
         }
-        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.log('publishing action to the event-bus: publishedBy=' + this.clientId);
             console.groupEnd();
         }
@@ -11504,7 +11506,7 @@ class ActionBusService extends _common__WEBPACK_IMPORTED_MODULE_1__["Service"] {
         this.eventBus.publish(action.address, action, this.headers);
     }
     send(action) {
-        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
             console.log('sending action to the event-bus');
             console.groupEnd();
         }
@@ -11553,6 +11555,7 @@ class EventBusService extends _beng_common__WEBPACK_IMPORTED_MODULE_1__["Service
     constructor() {
         super();
         this.onConnect$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.onReconnect$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.onDisconnect$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.onStateChange$ = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.options = _models__WEBPACK_IMPORTED_MODULE_5__["EventBusOptions"].DEFAULT();
@@ -11648,6 +11651,9 @@ class EventBusService extends _beng_common__WEBPACK_IMPORTED_MODULE_1__["Service
             (window || self).clearTimeout(connectTimeoutID);
             this.setState(_models__WEBPACK_IMPORTED_MODULE_5__["EventBusState"].CONNECTED);
             this.onConnect$.emit(event);
+            if (reconnectAttempts > 0) {
+                this.onReconnect$.emit(event);
+            }
             reconnectAttempts = 0;
             // Send the first ping then send a ping every pingInterval milliseconds
             sendPing();
