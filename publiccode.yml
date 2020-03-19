@@ -12,7 +12,6 @@ isBasedOn: 'https://github.com/SIMPATICOProject/CPD'
 softwareVersion: '1.9'
 releaseDate: '2019-09-09'
 logo: '.public/logo.png'
-monochromeLogo: '.public/logo.png'
 
 platforms:
   - web
