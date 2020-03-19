@@ -3,97 +3,149 @@
 # More info at https://github.com/italia/publiccode.yml
 
 publiccodeYmlVersion: '0.2'
+
+name: CPD
 applicationSuite: SPRINT
+url: 'https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design.git'
+landingURL: 'https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design'
+isBasedOn: 'https://github.com/SIMPATICOProject/CPD'
+softwareVersion: '1.9'
+releaseDate: '2019-09-09'
+logo: '.public/logo.png'
+monochromeLogo: '.public/logo.png'
+
+platforms:
+  - web
+
 categories:
   - business-process-management
   - graphic-design
   - knowledge-management
   - web-collaboration
-description:
-  it:
-    documentation: 'https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki'
-    features:
-      - Collaborative design of administrative procedure
-      - Graphical designer
-    genericName: Collaborative Procedure Designer
-    longDescription: >
-      The Collaborative Procedure Designer (CPD) is a web server that provides
-      services to draw administrative procedures in a collaborative way using a
-      particular diagrammatic graphical notation.
 
+usedBy:
+  - Comune di Trento (TN)
 
-      Common users can search and browse the diagram and the informations
-      included in it.
-
-
-      When authenticated, common users can post feedbacks on each diagram
-      element in order to report issues or improvement suggestions.
-
-
-      Three roles other than common users can collaborate in the diagram
-      production:
-
-      1. the **procedure owner** leads the drawing process and is accountable
-      for the publication of the diagram;
-
-      2. the **procedure reviewer** is accountable for the technical correctness
-      of the diagram;
-
-      3. the **procedure editor** is the one that draws the diagram according to
-      the reviewer's directions.
-    shortDescription: >-
-      The Collaborative Procedure Designer (CPD) is a web server that provides
-      services to draw administrative procedures in a collaborative way.
 developmentStatus: stable
+
+softwareType: standalone/web
+
 intendedAudience:
+  scope:
+    - local-authorities
   countries:
     - it
     - gb
     - es
-  scope:
-    - government
-isBasedOn:
-  - 'https://github.com/SIMPATICOProject/CPD'
-it:
-  conforme:
-    gdpr: true
-    lineeGuidaDesign: false
-    misureMinimeSicurezza: true
-    modelloInteroperabilita: true
-  piattaforme:
-    anpr: false
-    cie: false
-    pagopa: false
-    spid: true
-  riuso:
-    codiceIPA: c_l378
+
+description:
+  it:
+    genericName: Collaborative Procedure Designer
+
+    shortDescription: >-
+      Il CPD è uno strumento che consente di creare rappresentazioni grafiche di procedure pubbliche
+      sotto forma di diagrammi.
+
+    longDescription: >
+      Il **Collaborative Procedure Design** (CPD) consente al **cittadino** di consultare una
+      rappresentazione grafica (diagramma) di una procedura amministrativa e al **funzionario**
+      pubblico di collaborare alla definizione del diagramma di una procedura amministrativa.
+
+      Il cittadino può accedere al CPD per visualizzare la rappresentazione grafica di una procedura
+      amministrativa e per ottenere informazioni su:
+
+        1. quali comunicazioni sono coinvolte;
+        2. la sequenza temporale delle comunicazioni;
+        3. i canali di comunicazione utilizzati per scambiare documenti/informazioni con la pubblica
+           amministrazione.
+
+      Inoltre, il cittadino ha la facoltà di inoltrare all'amministratore, su qualsiasi elemento
+      grafico del diagramma, domande, commenti e suggerimenti.
+
+      Il funzionario accede a un ricco insieme di strumenti grafici che gli consente di disegnare i
+      blocchi costituenti di una procedura amministrativa intesa come flusso di comunicazioni
+      Ente-cittadino, ciascuna delle quali coinvolge il cittadino e la pubblica amministrazione.
+
+      I casi d'uso tipici del CPD sono, per tipologia d'utente, i seguenti:
+
+        - **Cittadino**:
+
+          * Visualizzare i diagrammi della procedura amministrativa;
+          * Visualizzare tutte le informazioni associate a ciascun elemento del diagramma;
+          * Inoltrare domande/commenti/suggerimenti su qualsiasi elemento del diagramma;
+
+          > vai al [Manuale del cittadino](https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki/Manuale-del-cittadino#index)
+
+        - **Funzionario**:
+
+          * Creare un nuovo diagramma della procedura amministrativa;
+          * Modificare un diagramma di procedura amministrativa esistente;
+          * Visualizzare le domande/commenti/suggerimenti dei cittadini allegati a qualsiasi
+            elemento del diagramma.
+
+          > vai al [Manuale del funzionario](https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki/Manuale-del-funzionario#index)
+
+      ![screen-capture](https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki/images/CPD-screen-capture.gif)
+
+    documentation: 'https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design/wiki'
+
+    features:
+      - Disegno collaborativo di procedure amministrative
+      - Modellazione grafica web-based
+      - Workflow collaborativo
+
+    screenshots:
+      - .public/screenshots/screenshot-1.png
+      - .public/screenshots/screenshot-2.png
+      - .public/screenshots/screenshot-3.png
+      - .public/screenshots/screenshot-4.png
+      - .public/screenshots/screenshot-5.png
+      - .public/screenshots/screenshot-6.png
+      - .public/screenshots/screenshot-7.png
+
 legal:
   license: MIT
   mainCopyrightOwner: Comune di Trento
   repoOwner: 'Comune di Trento, Business Engineering Srl'
+
+maintenance:
+  type: internal
+  contacts:
+    - name: Vincenzo Cartelli
+      email: v.cartelli@business-engineering.it
+      affiliation: Business Engineering Srl
+
 localisation:
   availableLanguages:
     - it
     - en
     - es
   localisationReady: true
-maintenance:
-  contacts:
-    - affiliation: Business Engineering Srl
-      email: v.cartelli@business-engineering.it
-      name: Vincenzo Cartelli
-  type: internal
-name: CPD
-platforms:
-  - web
-  - mac
-  - linux
-  - windows
-  - ios
-  - android
-releaseDate: '2019-09-09'
-softwareType: standalone/web
-softwareVersion: '1.9'
-url: 'https://github.com/ComuneTrento/CPD-Collaborative-Procedure-Design'
-usedBy:
-  - Comune di Trento
+
+dependsOn:
+  open:
+    - name: 'Java JRE'
+      versionMin: '8'
+      optional: false
+    - name: 'MongoDB'
+      versionMin: '3.4'
+      versionMax: '3.4'
+      optional: false
+
+it:
+  countryExtensionVersion: '0.2'
+
+  conforme:
+    gdpr: true
+    lineeGuidaDesign: false
+    misureMinimeSicurezza: true
+    modelloInteroperabilita: true
+
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: true
+
+  riuso:
+    codiceIPA: c_l378
