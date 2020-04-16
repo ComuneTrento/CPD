@@ -1,6 +1,7 @@
 package it.beng.modeler.microservice.subroute;
 
 import io.vertx.core.Vertx;
+import io.vertx.ext.bridge.BridgeEventType;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.Logger;
  * @author vince
  */
 public final class EventBusSubRoute extends VoidSubRoute {
+
   private static final Logger logger = LogManager.getLogger(EventBusSubRoute.class);
 
   static {
@@ -37,31 +39,38 @@ public final class EventBusSubRoute extends VoidSubRoute {
     // start the bridge event registered services
     BridgeEventService.start(vertx);
 
-    BridgeOptions bridgeOptions = new BridgeOptions();
+    BridgeOptions bridgeOptions = new BridgeOptions().setPingTimeout(60000);
     for (BridgeEventService service : BridgeEventService.services()) {
-      for (PermittedOptions permitted : service.inboundPermitted())
+      for (PermittedOptions permitted : service.inboundPermitted()) {
         bridgeOptions.addInboundPermitted(permitted);
-      for (PermittedOptions permitted : service.outboundPermitted())
+      }
+      for (PermittedOptions permitted : service.outboundPermitted()) {
         bridgeOptions.addOutboundPermitted(permitted);
+      }
     }
 
     SockJSHandler sockJSHandler =
         SockJSHandler.create(vertx, new SockJSHandlerOptions().setInsertJSESSIONID(true))
-            .bridge(
-                bridgeOptions,
-                event -> {
-                  EventBusUtils.log(event);
-                  boolean handled = false;
-                  for (BridgeEventService service : BridgeEventService.services()) {
-                    if (service.handle(event)) {
-                      handled = true;
-                      break;
-                    }
-                  }
-                  if (!handled) {
-                    event.complete(true);
-                  }
-                });
+                     .bridge(
+                         bridgeOptions,
+                         event -> {
+                           if (event.type().equals(BridgeEventType.SOCKET_IDLE) && cpd.develop()) {
+                             logger.info("received " + BridgeEventType.SOCKET_IDLE.name()
+                                             + ": ignoring the timeout.");
+                             return;
+                           }
+                           EventBusUtils.log(event);
+                           boolean handled = false;
+                           for (BridgeEventService service : BridgeEventService.services()) {
+                             if (service.handle(event)) {
+                               handled = true;
+                               break;
+                             }
+                           }
+                           if (!handled) {
+                             event.complete(true);
+                           }
+                         });
 
     router.route(path + "*").handler(sockJSHandler);
 

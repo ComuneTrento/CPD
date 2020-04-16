@@ -271,13 +271,14 @@ public final class ModelerServerVerticle extends AbstractVerticle {
             }
           });
 
-    HttpServerOptions serverOptions = new HttpServerOptions().setSsl(cpd.ssl.enabled);
+    HttpServerOptions serverOptions = new HttpServerOptions().setIdleTimeout(60)
+                                                             .setSsl(cpd.ssl.enabled);
     if (serverOptions.isSsl()) {
       serverOptions.setKeyStoreOptions(new JksOptions().setPath(cpd.ssl.keyStoreFilename)
                                                        .setPassword(cpd.ssl.keyStorePassword));
     }
     vertx.createHttpServer(serverOptions)
-         .requestHandler(router::accept)
+         .requestHandler(router)
          .listen(cpd.server.port, ar -> {
            if (ar.succeeded()) {
              logger.info("HTTP Server started: " + cpd.server.origin());

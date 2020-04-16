@@ -76,7 +76,8 @@ public abstract class ActionService extends BridgeEventService {
 
   @Override
   protected void init() {
-    vertx.eventBus().consumer(address(), message -> message.reply(message.body()));
+    vertx.eventBus()
+         .consumer(address(), message -> message.reply(message.body()));
   }
 
   @Override
